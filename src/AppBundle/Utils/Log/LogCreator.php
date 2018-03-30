@@ -20,12 +20,6 @@ class LogCreator
 
     public static function getLog(User $user, $public, $text, $type)
     {
-        $log = new Log();
-        $log->setUser($user);
-        $log->setDate(new \DateTime('NOW'));
-        $log->setPublic($public);
-        $log->setText($text);
-        $log->setType($type);
-        return $log;
+        return new Log($user,$public,$text,$type);
     }
 }

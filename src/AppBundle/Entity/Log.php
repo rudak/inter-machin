@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
 /**
  * Log
@@ -55,6 +57,19 @@ class Log
      * @ORM\Column(name="type", type="string", length=50)
      */
     private $type;
+
+    /**
+     * Log constructor.
+     * @param \DateTime $date
+     */
+    public function __construct(User $user, $public, $text, $type)
+    {
+        $this->user   = $user;
+        $this->date   = new DateTime('NOW');
+        $this->public = $public;
+        $this->text   = $text;
+        $this->type   = $type;
+    }
 
 
     /**
