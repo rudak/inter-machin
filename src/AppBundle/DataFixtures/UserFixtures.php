@@ -20,6 +20,9 @@ class UserFixtures extends Fixture
     {
         foreach ($this->getUserssData() as $userData) {
             $user = new User();
+            if ('admin' == $userData['username']) {
+                $user->setMoney(999);
+            }
             $user->setUsername($userData['username']);
             $user->setEmail($userData['email']);
             $user->setRoles($userData['roles']);
