@@ -17,6 +17,10 @@ class DefaultController extends Controller
 
     public function usersAction()
     {
+        if (!$user = $this->getUser()) {
+            $this->addFlash('danger', 'Vous devez etre authentifié pour accéder a cette page');
+            return $this->redirectToRoute('homepage');
+        }
         $em    = $this->getDoctrine()->getManager();
         $users = $em->getRepository('UserBundle:User')->findAll();
         return $this->render('default/users.html.twig', [

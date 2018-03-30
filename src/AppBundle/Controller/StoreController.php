@@ -16,6 +16,10 @@ class StoreController extends Controller
      */
     public function listAction()
     {
+        if (!$user = $this->getUser()) {
+            $this->addFlash('danger', 'Vous devez etre authentifié pour accéder a cette page');
+            return $this->redirectToRoute('homepage');
+        }
         $em      = $this->getDoctrine()->getManager();
         $weapons = $em->getRepository('AppBundle:Weapon')->findAll();
 
