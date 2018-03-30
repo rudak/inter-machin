@@ -22,6 +22,7 @@ class UserFixtures extends Fixture
             $user = new User();
             if ('admin' == $userData['username']) {
                 $user->setMoney(999);
+                $user->getCompetences()->setLevel(10);
             }
             $user->setUsername($userData['username']);
             $user->setEmail($userData['email']);
