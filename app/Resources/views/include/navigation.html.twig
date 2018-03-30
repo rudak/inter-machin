@@ -1,0 +1,41 @@
+{% block body %}
+
+    <div class="row">
+        <div class="col">
+            <ul>
+                <li><a href="{{ path('homepage') }}">Accueil</a></li>
+                <li><a href="{{ path('user_list') }}">Liste users</a></li>
+                <li><a href="{{ path('store_list') }}">Magasin</a></li>
+            </ul>
+        </div>
+        <div class="col">
+            {% if is_granted('ROLE_ADMIN') %}
+                <h4>Administration</h4>
+                <ul>
+                    <li><a href="{{ path('admin_user_index') }}">admin users</a></li>
+                    <li><a href="{{ path('admin_weapon_index') }}">admin weapon</a></li>
+                </ul>
+            {% endif %}
+
+        </div>
+        <div class="col">
+            {% if app.user %}
+                <p>
+                    Connecté en tant que <a href="{{ path('myProfile') }}" class="btn btn-primary">
+                        {{ app.user.username }}
+                        <span class="badge badge-light">{{ app.user.money }}$</span>
+                    </a>
+                </p>
+            {% endif %}
+            <ul>
+                {% if not app.user %}
+                    <li><a href="{{ path('fos_user_security_login') }}">Authentification</a></li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_security_logout') }}">Deconnexion</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+
+{% endblock %}

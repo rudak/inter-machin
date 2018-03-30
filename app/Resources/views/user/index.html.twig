@@ -1,0 +1,66 @@
+{% extends admin_layout %}
+
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="page-header">
+                        <h1>Liste des User</h1>
+                    </div>
+                    <p>
+                        <br/>
+                        <a href="{{ path('admin_user_new') }}" class="btn btn-success">
+                            Ajouter
+                        </a>
+                    </p>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Lvl</th>
+                            <th>Power</th>
+                            <th>En vie</th>
+                            <th>Argent</th>
+                            <th>Items</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>
+                                    {{ user.username }}
+                                </td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.competences.level }}</td>
+                                <td>{{ user.competences.power }}</td>
+
+                                <td>
+                                    {% if user.alive %}
+                                        <span class="label label-success">Oui</span>
+                                    {% else %}
+                                        <span class="label label-danger">Non</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ user.money }}</td>
+                                <td>
+                                    {{ user.items.count }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('admin_user_show', { 'id': user.id }) }}"
+                                       class="btn btn-xs btn-default">
+                                        voir
+                                    </a>
+                                    <a href="{{ path('admin_user_edit', { 'id': user.id }) }}"
+                                       class="btn btn-xs btn-default">
+                                        modifier </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

@@ -1,0 +1,24 @@
+admin_weapon_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Weapon:index" }
+    methods:  GET
+
+admin_weapon_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Weapon:show" }
+    methods:  GET
+
+admin_weapon_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Weapon:new" }
+    methods:  [GET, POST]
+
+admin_weapon_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Weapon:edit" }
+    methods:  [GET, POST]
+
+admin_weapon_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Weapon:delete" }
+    methods:  DELETE

@@ -1,0 +1,15 @@
+# s'équiper
+weapon_get:
+    path: /get/{id}
+    defaults: { _controller: AppBundle:Item:get}
+
+# reposer
+weapon_put:
+    path: /put/{id}
+    defaults: { _controller: AppBundle:Item:put}
+
+# jeter
+weapon_throw:
+    path: /throw/{id}
+    defaults: { _controller: AppBundle:Item:throw}
+    methods: [POST]

@@ -1,0 +1,61 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Weapon
+ *
+ * @ORM\Table(name="weapon")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\WeaponRepository")
+ */
+class Weapon
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50)
+     */
+    private $name;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="attack", type="smallint")
+     */
+    private $attack;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="defense", type="smallint")
+     */
+    private $defense;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="smallint")
+     */
+    private $price;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="uses", type="smallint")
+     */
+    private $uses;
+
+}
+

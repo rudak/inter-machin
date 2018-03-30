@@ -1,0 +1,18 @@
+# list
+store_list:
+    path: /list
+    defaults: { _controller: AppBundle:Store:list}
+
+store_weapon:
+    path: /weapon/{id}
+    defaults: { _controller: AppBundle:Store:weapon}
+
+store_weapon_buy:
+    path: /item/buy/{id}
+    defaults: { _controller: AppBundle:Store:buy}
+    methods: [POST]
+
+store_weapon_sell:
+    path: /item/sell/{id}
+    defaults: { _controller: AppBundle:Store:sell}
+    methods: [POST]

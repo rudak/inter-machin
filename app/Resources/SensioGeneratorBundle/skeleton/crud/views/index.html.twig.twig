@@ -1,0 +1,70 @@
+{% block extends %}
+    {{ "{% extends admin_layout %}" }}
+{% endblock extends %}
+
+{% block body %}
+    {{ "{% block body %}" }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-header">
+                    <h1>Liste des {{ entity }}</h1>
+                </div>
+                <p>
+                    {% if 'new' in actions %}
+                        <br/>
+                        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}" class="btn btn-success">
+                            Ajouter
+                        </a>
+                    {% endif %}
+                </p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        {%- for field, metadata in fields %}
+                            <th>{{ field|capitalize }}</th>
+                        {%- endfor %}
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{ '{% for ' ~ entity_singularized ~ ' in ' ~ entity_pluralized ~ ' %}' }}
+                    <tr>
+                        {%- for field, metadata in fields %}
+                            {%- if loop.first and ('show' in actions) %}
+                                <td>
+                                    <a href="{{ "{{ path('" ~ route_name_prefix ~ "_show', { 'id': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}">{{ '{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' }}' }}</a>
+                                </td>
+                            {%- elseif metadata.type in ['datetime'] %}
+                                <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}{% endif %}' }}</td>
+                            {%- elseif metadata.type in ['date'] %}
+                                <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d\') }}{% endif %}' }}</td>
+                            {%- elseif metadata.type in ['time'] %}
+                                <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'H:i:s\') }}{% endif %}' }}</td>
+                            {%- elseif metadata.type in ['array'] %}
+                                <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|join(\', \') }}{% endif %}' }}</td>
+                            {%- elseif metadata.type in ['boolean'] %}
+                                <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}<span class="label label-success">Oui</span>{% else %}<span class="label label-danger">Non</span>{% endif %}' }}</td>
+                            {%- else %}
+                                <td>{{ '{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+                            {%- endif %}
+                            {%- if loop.last %}
+                                <td>
+                                    {%- for action in record_actions %}
+                                        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}"
+                                           class="btn btn-xs btn-default">
+                                            {% if action == 'show' %}voir{% elseif action == 'edit' %}modifier{% endif %}
+                                        </a>
+                                    {%- endfor %}
+                                </td>
+                            {%- endif %}
+                        {%- endfor %}
+                    </tr>
+                    {{ '{% endfor %}' }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{ "{% endblock %}" }}
+{% endblock body %}

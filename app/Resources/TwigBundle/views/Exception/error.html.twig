@@ -1,0 +1,19 @@
+{% extends main_layout %}
+
+{% block body %}
+    <section class="main-section" id="error">
+    <div class="container">
+        <div class="page-header">
+            <h1>Oops! Une erreur est survenue</h1>
+        </div>
+        <h3>Le serveur a renvoyé un code d'erreur {{ status_code }} avec le message "{{ status_text }}".</h3>
+
+        <p>Il y a un problème avec la page que vous essayez d’atteindre et elle ne peut pas être affichée.</p>
+        <br/>
+        <hr/>
+        <a href="{{ path('homepage') }}" class="btn btn-default">Retourner à l'accueil</a>
+
+    </div>
+</section>
+
+{% endblock %}

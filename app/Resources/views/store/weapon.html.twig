@@ -1,0 +1,31 @@
+{% extends main_layout %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Magasin</h1>
+                <hr>
+                <p>
+                    <a href="{{ path('store_list') }}">Retour magasin</a>
+                </p>
+                <h3>{{ weapon.name }}</h3>
+
+                <ul>
+                    <li>Prix : {{ weapon.price }}$</li>
+                    <li>Attaque : {{ weapon.price }}</li>
+                    <li>Défense : {{ weapon.defense }}</li>
+                    <li>Utilisations max: {{ weapon.uses }}</li>
+                </ul>
+                <form action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('weapon_buy') }}">
+                    <input type="submit" value="Acheter" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

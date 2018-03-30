@@ -1,0 +1,30 @@
+{% block extends %}
+{{ "{% extends admin_layout %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% form_theme form 'bootstrap_3_layout.html.twig' %}" }}
+
+{{ "{% block body %}" }}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1>Ajouter un {{ entity }}</h1>
+            </div>
+
+            {{ '{{ form_start(form) }}' }}
+            {{ '{{ form_widget(form) }}' }}
+            <p>
+                <input type="submit" value="Ajouter" class="btn btn-success btn-lg"/>
+            </p>
+            {{ '{{ form_end(form) }}' }}
+
+            {% set hide_edit, hide_delete = true, true %}
+            {{ include('crud/views/others/record_actions.html.twig.twig') -}}
+
+        </div>
+    </div>
+</div>
+{{ "{% endblock %}" }}
+{% endblock body %}

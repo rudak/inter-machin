@@ -1,0 +1,26 @@
+{% extends admin_layout %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1>Ajouter un Weapon</h1>
+            </div>
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <p>
+                <input type="submit" value="Ajouter" class="btn btn-success btn-lg"/>
+            </p>
+            {{ form_end(form) }}
+
+                        <p>
+    <a href="{{ path('admin_weapon_index') }}" class="btn btn-default">
+        Retour à la liste
+    </a></p></div>
+    </div>
+</div>
+{% endblock %}

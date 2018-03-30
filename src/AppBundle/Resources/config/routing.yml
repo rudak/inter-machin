@@ -1,0 +1,24 @@
+# homepage
+homepage:
+    path: /
+    defaults: { _controller: AppBundle:Default:index}
+
+app_default_user:
+    resource: "@AppBundle/Resources/config/routing/default-user.yml"
+    prefix:   /user
+
+app_default_store:
+    resource: "@AppBundle/Resources/config/routing/store.yml"
+    prefix:   /store
+
+app_default_weapon:
+    resource: "@AppBundle/Resources/config/routing/weapon.yml"
+    prefix:   /weapon
+
+app_admin_user:
+    resource: "@AppBundle/Resources/config/routing/admin/user.yml"
+    prefix:   /admin/user
+
+app_admin_weapon:
+    resource: "@AppBundle/Resources/config/routing/admin/weapon.yml"
+    prefix:   /admin/weapon

@@ -1,0 +1,29 @@
+{% block extends %}
+{{ "{% extends admin_layout %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% form_theme edit_form 'bootstrap_3_layout.html.twig' %}" }}
+
+{{ "{% block body %}" }}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1>Modification de {{ entity }}</h1>
+            </div>
+
+            {{ '{{ form_start(edit_form) }}' }}
+            {{ '{{ form_widget(edit_form) }}' }}
+            <p>
+                <input type="submit" value="Modifier" class="btn btn-success"/>
+            </p>
+            {{ '{{ form_end(edit_form) }}' }}
+
+            {% set hide_edit, hide_delete = true, false %}
+            {{ include('crud/views/others/record_actions.html.twig.twig') -}}
+        </div>
+    </div>
+</div>
+{{ "{% endblock %}" }}
+{% endblock body %}

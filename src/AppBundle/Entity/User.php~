@@ -1,0 +1,49 @@
+<?php
+
+// src/AppBundle/Entity/User.php
+
+namespace AppBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Competences",cascade={"persist"})
+     */
+    private $competences;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Weapon",cascade={"persist"})
+     */
+    private $weapon;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $alive;
+
+    /**
+     * @ORM\Column(name="money", type="smallint")
+     */
+    private $money;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+
+}
