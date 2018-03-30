@@ -10,15 +10,14 @@ class RenderController extends Controller
 
     public function getLogsAction()
     {
-        if ($this->getUser()) {
-            $em   = $this->getDoctrine()->getManager();
-            $logs = $em->getRepository('AppBundle:Log')->getLogs($this->getUser());
-
-            return $this->render('render/logs.html.twig', [
-                'logs' => $logs,
-            ]);
+        if (!$this->getUser()) {
+            return new Response();
         }
-        $response = new Response();
-        return $response;
+        $em   = $this->getDoctrine()->getManager();
+        $logs = $em->getRepository('AppBundle:Log')->getLogs($this->getUser());
+
+        return $this->render('render/logs.html.twig', [
+            'logs' => $logs,
+        ]);
     }
 }

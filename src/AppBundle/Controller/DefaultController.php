@@ -17,10 +17,7 @@ class DefaultController extends Controller
 
     public function usersAction()
     {
-        if (!$user = $this->getUser()) {
-            $this->addFlash('danger', 'Vous devez etre authentifié pour accéder a cette page');
-            return $this->redirectToRoute('homepage');
-        }
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
         $users = $em->getRepository('UserBundle:User')->findAll();
         return $this->render('default/users.html.twig', [
@@ -43,10 +40,7 @@ class DefaultController extends Controller
 
     public function myProfileAction()
     {
-        if (!$this->getUser()) {
-            $this->addFlash('danger', 'Vous devez etre authentifié pour accéder a cette page');
-            return $this->redirectToRoute('homepage');
-        }
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
 
         return $this->render('default/my-profile.html.twig', [
             'user' => $this->getUser(),

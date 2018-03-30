@@ -18,10 +18,8 @@ class ItemController extends Controller
      */
     public function getAction($id)
     {
-        if (!$this->getUser()) {
-            $this->addFlash('danger', 'Vous devez etre authentifié pour effectuer cette action');
-            return $this->redirectToRoute('homepage');
-        }
+
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em   = $this->getDoctrine()->getManager();
         $item = $em->getRepository('AppBundle:Item')->find($id);
         if (!$item) {
@@ -44,10 +42,8 @@ class ItemController extends Controller
      */
     public function putAction($id)
     {
-        if (!$this->getUser()) {
-            $this->addFlash('danger', 'Vous devez etre authentifié pour effectuer cette action');
-            return $this->redirectToRoute('homepage');
-        }
+
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em   = $this->getDoctrine()->getManager();
         $item = $em->getRepository('AppBundle:Item')->find($id);
         if (!$item) {
