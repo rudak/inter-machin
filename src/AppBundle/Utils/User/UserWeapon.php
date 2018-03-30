@@ -3,12 +3,20 @@
 namespace AppBundle\Utils\User;
 
 use AppBundle\Entity\Item;
+use AppBundle\Entity\Weapon;
 use UserBundle\Entity\User;
 
 class UserWeapon
 {
     const ERROR_KEY = 'error';
 
+    /**
+     * selectionne l'item pour l'user (si il peut)
+     *
+     * @param User $user
+     * @param Item $item
+     * @return array|bool
+     */
     public static function activateItem(User $user, Item $item)
     {
         if (self::getActivatedItemsNumber($user) < self::getAllowedItemsNumber($user)) {
@@ -25,6 +33,11 @@ class UserWeapon
         ];
     }
 
+    /**
+     * Repose un item
+     *
+     * @param Item $item
+     */
     public static function deActivateItem(Item $item)
     {
         $item->setActive(false);
@@ -47,6 +60,23 @@ class UserWeapon
         } else {
             return 3;
         }
+    }
+
+    /**
+     * Verifie si l'user a déja cette arme
+     *
+     * @param User   $user
+     * @param Weapon $weapon
+     */
+    public static function isWeaponAlreadyPossessed(User $user, Weapon $weapon)
+    {
+        foreach ($user->getItems() as $item) {
+            /** @var $item Item */
+            if ($item->getWeapon()->getId() == $weapon->getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

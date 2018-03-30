@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Item;
 use AppBundle\Utils\Log\LogCreator;
+use AppBundle\Utils\User\UserWeapon;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
@@ -16,10 +17,7 @@ class StoreController extends Controller
      */
     public function listAction()
     {
-        if (!$user = $this->getUser()) {
-            $this->addFlash('danger', 'Vous devez etre authentifié pour accéder a cette page');
-            return $this->redirectToRoute('homepage');
-        }
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em      = $this->getDoctrine()->getManager();
         $weapons = $em->getRepository('AppBundle:Weapon')->findAll();
 
@@ -46,11 +44,9 @@ class StoreController extends Controller
 
     public function buyAction(Request $request, $id)
     {
-        if (!$user = $this->getUser()) {
-            $this->addFlash('danger', 'Vous devez etre authentifié pour accéder a cette page');
-            return $this->redirectToRoute('homepage');
-        }
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
 
+        $user = $this->getUser();
         /** @var $user User */
 
         $submittedToken = $request->request->get('_csrf_token');
@@ -65,6 +61,13 @@ class StoreController extends Controller
         if (!$weapon) {
             $this->addFlash('danger', 'Cet objet n\'est pas disponible.');
             return $this->redirectToRoute('store_list');
+        }
+
+        if (UserWeapon::isWeaponAlreadyPossessed($user, $weapon)) {
+            $this->addFlash('danger', sprintf("Vous possedez déja %s...", $weapon->getName()));
+            return $this->redirectToRoute('store_weapon', [
+                'id' => $weapon->getId(),
+            ]);
         }
 
         if ($weapon->getPrice() > $user->getMoney()) {
@@ -94,10 +97,9 @@ class StoreController extends Controller
 
     public function sellAction(Request $request, $id)
     {
-        if (!$user = $this->getUser()) {
-            $this->addFlash('danger', 'Vous devez etre authentifié pour accéder a cette page');
-            return $this->redirectToRoute('homepage');
-        }
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+
+        $user = $this->getUser();
         /** @var $user User */
 
         $submittedToken = $request->request->get('_csrf_token');
@@ -117,7 +119,7 @@ class StoreController extends Controller
         }
 
         $this->addFlash('success', sprintf("Vous venez de vendre %s pour %d$. Merci.", $item->getWeapon()->getName(), $item->getPrice()));
-        
+
         $em->persist(LogCreator::getLog($user, true, sprintf("%s a vendu %s", $user->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_SELL));
         $user->setMoney($user->getMoney() + $item->getPrice());
         $user->removeItem($item);

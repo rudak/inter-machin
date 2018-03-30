@@ -14,7 +14,7 @@ use AppBundle\Form\WeaponType;
  */
 class WeaponController extends Controller
 {
-    const CURRENT_PAGE = '****';
+    const CURRENT_PAGE = 'weapon';
 
     /**
      * Lists all Weapon entities.
