@@ -3,6 +3,7 @@
 namespace AppBundle\Utils\User;
 
 use AppBundle\Entity\Item;
+use AppBundle\Entity\Weapon;
 use UserBundle\Entity\User;
 
 class UserWeapon
@@ -34,7 +35,7 @@ class UserWeapon
 
     /**
      * Repose un item
-     * 
+     *
      * @param Item $item
      */
     public static function deActivateItem(Item $item)
@@ -59,6 +60,23 @@ class UserWeapon
         } else {
             return 3;
         }
+    }
+
+    /**
+     * Verifie si l'user a déja cette arme
+     *
+     * @param User   $user
+     * @param Weapon $weapon
+     */
+    public static function isWeaponAlreadyPossessed(User $user, Weapon $weapon)
+    {
+        foreach ($user->getItems() as $item) {
+            /** @var $item Item */
+            if ($item->getWeapon()->getId() == $weapon->getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

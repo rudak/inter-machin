@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Item;
 use AppBundle\Utils\Log\LogCreator;
+use AppBundle\Utils\User\UserWeapon;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
@@ -60,6 +61,13 @@ class StoreController extends Controller
         if (!$weapon) {
             $this->addFlash('danger', 'Cet objet n\'est pas disponible.');
             return $this->redirectToRoute('store_list');
+        }
+
+        if (UserWeapon::isWeaponAlreadyPossessed($user, $weapon)) {
+            $this->addFlash('danger', sprintf("Vous possedez déja %s...", $weapon->getName()));
+            return $this->redirectToRoute('store_weapon', [
+                'id' => $weapon->getId(),
+            ]);
         }
 
         if ($weapon->getPrice() > $user->getMoney()) {
