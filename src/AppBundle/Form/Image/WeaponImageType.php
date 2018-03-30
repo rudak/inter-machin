@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Image;
 
+use AppBundle\Entity\Image\WeaponImage;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,7 +25,7 @@ class WeaponImageType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Image\WeaponImage',
+            'data_class' => WeaponImage::class,
         ]);
     }
 

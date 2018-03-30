@@ -2,13 +2,11 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Image\WeaponImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Image\WeaponImageType;
-use Symfony\Component\Form\FormTypeInterface;
-
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -49,9 +47,8 @@ class WeaponType extends AbstractType
                     'max' => 99999,
                 ],
             ])
-            ->add('image',WeaponImageType::class, [
-                'label' => false,
-            ])
+//            ->add('image',WeaponImageType::class)
+
         ;
     }
 
