@@ -9,6 +9,13 @@ class UserWeapon
 {
     const ERROR_KEY = 'error';
 
+    /**
+     * selectionne l'item pour l'user (si il peut)
+     *
+     * @param User $user
+     * @param Item $item
+     * @return array|bool
+     */
     public static function activateItem(User $user, Item $item)
     {
         if (self::getActivatedItemsNumber($user) < self::getAllowedItemsNumber($user)) {
@@ -25,6 +32,11 @@ class UserWeapon
         ];
     }
 
+    /**
+     * Repose un item
+     * 
+     * @param Item $item
+     */
     public static function deActivateItem(Item $item)
     {
         $item->setActive(false);
