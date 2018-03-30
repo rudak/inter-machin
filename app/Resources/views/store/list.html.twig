@@ -21,26 +21,28 @@
                     </div>
                     <div class="col">
                         <h3>Vente</h3>
-                        <p>Vous pouvez vendre vos objets :</p>
-                        <ul>
-                            {% for item in user_items %}
-                                <li>
-                                    {{ item.weapon.name }}
-                                    <form action="{{ path('store_weapon_sell',{id:item.id}) }}" method="post">
-                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('item_sell') }}">
-                                        <button class="btn btn-primary">
-                                            Vendre
-                                            <span class="badge badge-light">
+                        {% if app.user %}
+                            <p>Vous pouvez vendre vos objets :</p>
+                            <ul>
+                                {% for item in user_items %}
+                                    <li>
+                                        {{ item.weapon.name }}
+                                        <form action="{{ path('store_weapon_sell',{id:item.id}) }}" method="post">
+                                            <input type="hidden" name="_csrf_token"
+                                                   value="{{ csrf_token('item_sell') }}">
+                                            <button class="btn btn-primary">
+                                                Vendre
+                                                <span class="badge badge-light">
                                                 {{ item.price }}$
                                             </span>
-                                        </button>
-                                    </form>
-
-                                </li>
-                            {% endfor %}
-                        </ul>
-
-
+                                            </button>
+                                        </form>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            non connecté
+                        {% endif %}
                     </div>
                 </div>
             </div>
