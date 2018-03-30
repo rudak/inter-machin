@@ -4,7 +4,7 @@
             <section id="mainLogs">
                 <ul>
                     {% for log in logs %}
-                        <li>{{ log.date|date('d/m/Y - H:i:s') }} - {{ log.text }}</li>
+                        <li class="{{ log.type }}">{{ log.date|date('d/m/Y - H:i:s') }} - {{ log.text }}</li>
                     {% endfor %}
                 </ul>
             </section>
