@@ -58,6 +58,11 @@ class Weapon
     private $uses;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image\WeaponImage",cascade={"persist","remove"})
+     */
+    private $image;
+
+    /**
      * Weapon constructor.
      */
     public function __construct()
@@ -197,5 +202,21 @@ class Weapon
     public function getUses()
     {
         return $this->uses;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 }
