@@ -17,9 +17,10 @@ class LogCreator
     const TYPE_ITEM_BUY   = 'item_buy';
     const TYPE_ITEM_THROW = 'item_throw';
     const TYPE_LUCK       = "luck";
+    const TYPE_NO_LUCK    = "no-luck";
 
     public static function getLog(User $user, $public, $text, $type)
     {
-        return new Log($user,$public,$text,$type);
+        return new Log($user, $public, $text, $type);
     }
 }

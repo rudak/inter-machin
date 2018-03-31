@@ -40,7 +40,6 @@ class User extends BaseUser
     private $items;
 
 
-
     public function __construct()
     {
         parent::__construct();
@@ -82,7 +81,7 @@ class User extends BaseUser
      */
     public function setMoney($money)
     {
-        $this->money = $money;
+        $this->money = $money < 0 ? 0 : $money;
 
         return $this;
     }
