@@ -58,7 +58,7 @@ class Competences
         $this->level   = 1;
         $this->attack  = 0;
         $this->defense = 0;
-        $this->power   = 100;
+        $this->power   = 1;
     }
 
 

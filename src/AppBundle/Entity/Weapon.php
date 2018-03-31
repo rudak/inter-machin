@@ -57,6 +57,14 @@ class Weapon
      */
     private $uses;
 
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="lvl", type="smallint")
+     */
+    private $lvl;
+
     /**
      * Weapon constructor.
      */
@@ -66,6 +74,7 @@ class Weapon
         $this->defense = 0;
         $this->price   = 0;
         $this->uses    = 0;
+        $this->lvl     = 1;
     }
 
 
@@ -198,4 +207,22 @@ class Weapon
     {
         return $this->uses;
     }
+
+    /**
+     * @return int
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * @param int $lvl
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+    }
+
+
 }
