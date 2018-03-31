@@ -8,7 +8,7 @@ use UserBundle\Entity\User;
 
 class NoLuckMoney extends CronEmCommand implements CronCommandInterface
 {
-    const RECURRENCE_PERCENTAGE = 3;
+    const RECURRENCE_PERCENTAGE = 2;
 
     public function execute()
     {
