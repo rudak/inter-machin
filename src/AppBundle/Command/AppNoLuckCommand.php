@@ -21,7 +21,7 @@ class AppNoLuckCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->getContainer()->get(NoLuckMoney::class)->updateMoney();
+        $this->getContainer()->get(NoLuckMoney::class)->execute();
     }
 
 }

@@ -21,7 +21,7 @@ class AppLuckyManCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->getContainer()->get(LuckMoney::class)->updateMoney();
+        $this->getContainer()->get(LuckMoney::class)->execute();
     }
 
 }
