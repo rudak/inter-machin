@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @ORM\Table(name="weapon_image")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class WeaponImage
 {
@@ -22,8 +23,7 @@ class WeaponImage
     public $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=255 ,nullable=true)
      */
     public $name;
 
