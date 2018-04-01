@@ -1,0 +1,6 @@
+/* line 1, ../scss/modules/_logs.scss */
+#mainLogs {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}

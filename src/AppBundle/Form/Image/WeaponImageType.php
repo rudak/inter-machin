@@ -3,10 +3,11 @@
 namespace AppBundle\Form\Image;
 
 use AppBundle\Entity\Image\WeaponImage;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WeaponImageType
+class WeaponImageType extends AbstractType
 {
     /**
      * {@inheritdoc}

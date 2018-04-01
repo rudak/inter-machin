@@ -47,7 +47,7 @@ class WeaponType extends AbstractType
                     'max' => 99999,
                 ],
             ])
-//            ->add('image',WeaponImageType::class)
+            ->add('image',WeaponImageType::class)
 
         ;
     }
