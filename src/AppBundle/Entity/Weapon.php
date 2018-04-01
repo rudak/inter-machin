@@ -66,6 +66,11 @@ class Weapon
     private $lvl;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image\WeaponImage",cascade={"persist","remove"})
+     */
+    private $image;
+
+    /**
      * Weapon constructor.
      */
     public function __construct()
@@ -209,6 +214,22 @@ class Weapon
     }
 
     /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
      * @return int
      */
     public function getLvl()
@@ -223,6 +244,5 @@ class Weapon
     {
         $this->lvl = $lvl;
     }
-
 
 }

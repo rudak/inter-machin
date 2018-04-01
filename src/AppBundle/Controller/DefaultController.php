@@ -14,6 +14,21 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', []);
     }
 
+    public function listLogsAction()
+    {
+        if (!$this->getUser()) {
+            return new Response();
+        }
+        $em   = $this->getDoctrine()->getManager();
+        $logs = $em->getRepository('AppBundle:Log')->getAllLogs($this->getUser());
+
+        return $this->render(':default:listLogs.html.twig', [
+            'logs' => $logs,
+        ]);
+
+
+    }
+
 
     public function usersAction()
     {

@@ -1,13 +1,31 @@
-<div class="container">
-    <div class="row">
-        <div class="row">
-            <section id="mainLogs">
-                <ul>
-                    {% for log in logs %}
-                        <li class="{{ log.type }}">{{ log.date|date('d/m/Y - H:i:s') }} - {{ log.text }}</li>
-                    {% endfor %}
-                </ul>
-            </section>
+<div id="mainLogs">
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0 float-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne">
+                        Les dernières actions
+                </h5>
+                <p class="float-right ml-5">
+                    <a href="{{ path('listLogs') }}">
+                        Toutes les actions
+                    </a>
+                </p>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for log in logs %}
+                            <li class="list-group-item {{ log.type }}">
+                                <span class="badge badge-info">
+                                    {{ log.date|date('d/m/Y - H:i:s') }}
+                                </span>
+                                <br>
+                                {{ log.text }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

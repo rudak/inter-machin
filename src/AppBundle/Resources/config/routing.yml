@@ -3,6 +3,13 @@ homepage:
     path: /
     defaults: { _controller: AppBundle:Default:index}
 
+
+# list logs
+listLogs:
+    path: /list/logs
+    defaults: { _controller: AppBundle:Default:listLogs}
+
+
 app_default_user:
     resource: "@AppBundle/Resources/config/routing/default-user.yml"
     prefix:   /user

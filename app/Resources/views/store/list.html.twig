@@ -1,7 +1,7 @@
 {% extends main_layout %}
 
 {% block body %}
-    <div class="container">
+    <div class="container mb-5">
         <div class="row">
             <div class="col">
                 <h1>Magasin</h1>
@@ -10,12 +10,20 @@
                     <div class="col">
                         <h3>Achat</h3>
                         <p>Ces objets sont a acheter :</p>
-                        <ul>
+                        <ul class="list-group">
                             {% for weapon in weapons %}
-                                <li>
-                                    <a href="{{ path('store_weapon',{id:weapon.id}) }}">{{ weapon.name }}</a>
-                                    <span class="badge badge-secondary">{{ weapon.price }}$</span>
-                                </li>
+                                <a class="list-group-item list-group-item-action"
+                                   href="{{ path('store_weapon',{id:weapon.id}) }}">
+                                    {% if weapon.image is not null %}
+                                        <img src="{{ weapon.image.webpath|imagine_filter('shop_thumb') }}"
+                                             alt="{{ weapon.image.name }}" class="img-fluid">
+                                    {% endif %}
+                                    {{ weapon.name }}
+                                    <form class="float-right" action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('weapon_buy') }}">
+                                        <input type="submit" value="Acheter {{ weapon.price }} $" class="btn btn-primary">
+                                    </form>
+                                </a>
                             {% endfor %}
                         </ul>
                     </div>
@@ -23,11 +31,17 @@
                         <h3>Vente</h3>
                         {% if app.user %}
                             <p>Vous pouvez vendre vos objets :</p>
-                            <ul>
+
+                            <ul class="list-group">
                                 {% for item in user_items %}
-                                    <li>
+                                    <li class="list-group-item list-group-item-action">
+                                        {% if item.weapon.image is not null %}
+                                            <img src="{{ item.weapon.image.webpath|imagine_filter('shop_thumb') }}"
+                                                 alt="{{ item.weapon.image.name }}" class="img-fluid">
+                                        {% endif %}
                                         {{ item.weapon.name }}
-                                        <form action="{{ path('store_weapon_sell',{id:item.id}) }}" method="post">
+                                        <form class="float-right" action="{{ path('store_weapon_sell',{id:item.id}) }}"
+                                              method="post">
                                             <input type="hidden" name="_csrf_token"
                                                    value="{{ csrf_token('item_sell') }}">
                                             <button class="btn btn-primary">

@@ -1,0 +1,10 @@
+/* line 1, ../scss/modules/_logs.scss */
+#mainLogs {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+/* line 5, ../scss/modules/_logs.scss */
+#mainLogs ul {
+  width: 300px;
+}

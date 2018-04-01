@@ -39,7 +39,7 @@ class WeaponController extends Controller
     public function newAction(Request $request)
     {
         $weapon = new Weapon();
-        $form   = $this->createForm('AppBundle\Form\WeaponType', $weapon);
+        $form   = $this->createForm(WeaponType::class, $weapon);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

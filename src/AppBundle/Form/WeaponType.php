@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Image\WeaponImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,6 +47,7 @@ class WeaponType extends AbstractType
                     'max' => 99999,
                 ],
             ])
+            ->add('image',WeaponImageType::class)
             ->add('lvl', IntegerType::class, [
                 'label' => 'Lvl Min',
                 'attr'  => [

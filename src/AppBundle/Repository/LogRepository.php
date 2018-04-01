@@ -19,7 +19,19 @@ class LogRepository extends \Doctrine\ORM\EntityRepository
                    ->setParameter('public', true)
                    ->setParameter('user', $user)
                    ->orderBy('l.id', 'DESC')
-                   ->setMaxResults(20)
+                   ->setMaxResults(5)
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
+
+    public function getAllLogs(User $user)
+    {
+        $qb = $this->createQueryBuilder('l')
+                   ->where('(l.public = :public) OR (l.user = :user)')
+                   ->setParameter('public', true)
+                   ->setParameter('user', $user)
+                   ->orderBy('l.id', 'DESC')
                    ->getQuery()
         ;
         return $qb->execute();

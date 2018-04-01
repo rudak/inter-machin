@@ -7,10 +7,29 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="page-header">
-                <h1>Ajouter un Weapon</h1>
+                <h1>Ajouter une arme</h1>
             </div>
 
             {{ form_start(form) }}
+            <div class="row">
+                <div class="col">{{ form_row(form.name) }}</div>
+            </div>
+            <div class="row">
+                <div class="col">{{ form_row(form.attack) }}</div>
+                <div class="col">{{ form_row(form.defense) }}</div>
+                <div class="col">{{ form_row(form.uses) }}</div>
+                <div class="col">{{ form_row(form.price) }}</div>
+            </div>
+            <div class="row">
+                <div class="col">{{ form_row(form.image.name) }}</div>
+                <div class="col">
+                    {{ form_row(form.image.file) }}
+                    {% if weapon.image is not null %}
+                        <img src="{{ asset(weapon.image.webpath) }}" alt="{{ weapon.image.name }}"
+                             class="img-fluid mx-auto d-block img-thumbnail">
+                    {% endif %}
+                </div>
+            </div>
             {{ form_widget(form) }}
             <p>
                 <input type="submit" value="Ajouter" class="btn btn-success btn-lg"/>

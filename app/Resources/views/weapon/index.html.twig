@@ -1,36 +1,56 @@
-    {% extends admin_layout %}
+{% extends admin_layout %}
 
     {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-header">
-                    <h1>Liste des Weapon</h1>
-                </div>
-                <p>
-                                            <br/>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <h1>Liste des Weapon</h1>
+                    </div>
+                    <p>
+                        <br/>
                         <a href="{{ path('admin_weapon_new') }}" class="btn btn-success">
                             Ajouter
                         </a>
-                                    </p>
-                <table class="table">
-                    <thead>
-                    <tr>                            <th>Id</th>                            <th>Name</th>                            <th>Attack</th>                            <th>Defense</th>                            <th>Price</th>                            <th>Uses</th>                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for weapon in weapons %}
-                    <tr>                                <td>
-                                    <a href="{{ path('admin_weapon_show', { 'id': weapon.id }) }}">{{ weapon.id }}</a>
-                                </td>                                <td>{{ weapon.name }}</td>                                <td>{{ weapon.attack }}</td>                                <td>{{ weapon.defense }}</td>                                <td>{{ weapon.price }}</td>                                <td>{{ weapon.uses }}</td>                                <td>                                        <a href="{{ path('admin_weapon_show', { 'id': weapon.id }) }}"
-                                           class="btn btn-xs btn-default">
-                                            voir                                        </a>                                        <a href="{{ path('admin_weapon_edit', { 'id': weapon.id }) }}"
-                                           class="btn btn-xs btn-default">
-                                            modifier                                        </a>                                </td>                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                    </p>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Attack</th>
+                            <th>Defense</th>
+                            <th>Price</th>
+                            <th>Uses</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for weapon in weapons %}
+                            <tr>
+                                <td>
+                                    {% if weapon.image is not null %}
+                                        <img class="img-fluid" src="{{ weapon.image.webpath|imagine_filter('admin_thumb') }}"
+                                             alt="{{ weapon.image.name }}">
+                                    {% else %}
+                                        <a href="{{ path('admin_weapon_show', { 'id': weapon.id }) }}">{{ weapon.id }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ weapon.name }}</td>
+                                <td>{{ weapon.attack }}</td>
+                                <td>{{ weapon.defense }}</td>
+                                <td>{{ weapon.price }}</td>
+                                <td>{{ weapon.uses }}</td>
+                                <td><a href="{{ path('admin_weapon_show', { 'id': weapon.id }) }}"
+                                       class="btn btn-xs btn-default">
+                                        voir </a> <a href="{{ path('admin_weapon_edit', { 'id': weapon.id }) }}"
+                                                     class="btn btn-xs btn-default">
+                                        modifier </a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
     {% endblock %}

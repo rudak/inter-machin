@@ -7,10 +7,22 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="page-header">
-                <h1>Ajouter un User</h1>
+                <h1>Ajouter un joueur</h1>
             </div>
 
             {{ form_start(form) }}
+            <div class="row">
+                <div class="col">{{ form_row(form.username) }}</div>
+                <div class="col">{{ form_row(form.email) }}</div>
+            </div>
+            <div class="row">
+                <div class="col">{{ form_row(form.password) }}</div>
+            </div>
+            <div class="row">
+                <div class="col">{{ form_row(form.money) }}</div>
+                <div class="col">{{ form_row(form.alive) }}</div>
+                <div class="col">{{ form_row(form.enabled) }}</div>
+            </div>
             {{ form_widget(form) }}
             <p>
                 <input type="submit" value="Ajouter" class="btn btn-success btn-lg"/>

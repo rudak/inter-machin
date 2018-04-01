@@ -3,28 +3,47 @@
 {% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
 
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="page-header">
-                <h1>Modification de Weapon</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-header">
+                    <h1>Modification de : {{ weapon.name }}</h1>
+                </div>
+                {{ form_start(edit_form) }}
+                <div class="row">
+                    <div class="col">{{ form_row(edit_form.name) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">{{ form_row(edit_form.attack) }}</div>
+                    <div class="col">{{ form_row(edit_form.defense) }}</div>
+                    <div class="col">{{ form_row(edit_form.uses) }}</div>
+                    <div class="col">{{ form_row(edit_form.price) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">{{ form_row(edit_form.image.name) }}</div>
+                    <div class="col">
+                        {{ form_row(edit_form.image.file) }}
+                        {% if weapon.image is not null %}
+                            <img src="{{ asset(weapon.image.webpath) }}" alt="{{ weapon.image.name }}"
+                                 class="img-fluid mx-auto d-block img-thumbnail">
+                        {% endif %}
+                    </div>
+                </div>
+                {{ form_widget(edit_form) }}
+                <p>
+                    <input type="submit" value="Modifier" class="btn btn-success"/>
+                </p>
+                {{ form_end(edit_form) }}
+                <p>
+                    <a href="{{ path('admin_weapon_index') }}" class="btn btn-default">
+                        Retour à la liste
+                    </a></p>
+                <div class="delete_form_wrapper">
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Supprimer" class="btn btn-danger">
+                    {{ form_end(delete_form) }}
+                </div>
             </div>
-
-            {{ form_start(edit_form) }}
-            {{ form_widget(edit_form) }}
-            <p>
-                <input type="submit" value="Modifier" class="btn btn-success"/>
-            </p>
-            {{ form_end(edit_form) }}
-
-                        <p>
-    <a href="{{ path('admin_weapon_index') }}" class="btn btn-default">
-        Retour à la liste
-    </a></p>    <div class="delete_form_wrapper">
-        {{ form_start(delete_form) }}
-        <input type="submit" value="Supprimer" class="btn btn-danger">
-        {{ form_end(delete_form) }}
-    </div></div>
+        </div>
     </div>
-</div>
 {% endblock %}

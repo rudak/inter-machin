@@ -1,32 +1,60 @@
-    {% extends admin_layout %}
+{% extends admin_layout %}
 
     {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-header">
-                    <h1>Voir Weapon</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 offset-3">
+                    <div class="card">
+                        {% if weapon.image is not null %}
+                            <img class="card-img-top" src="{{ weapon.image.webpath|imagine_filter('thumbnail_large') }}" alt="Card image cap">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">Voir : {{ weapon.name }}</h5>
+                            <table class="card-text table">
+                                <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ weapon.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom</th>
+                                    <td>{{ weapon.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Point d'attaque</th>
+                                    <td>{{ weapon.attack }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Point de défense</th>
+                                    <td>{{ weapon.defense }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Prix</th>
+                                    <td>{{ weapon.price }} $</td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre d'utilisation</th>
+                                    <td>{{ weapon.uses }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="card-body">
+                                <a href="{{ path('admin_weapon_index') }}" class="btn btn-default">
+                                    Retour à la liste
+                                </a>
+                                <a href="{{ path('admin_weapon_edit', { 'id': weapon.id }) }}"
+                                   class="btn btn-success">
+                                    Modifier
+                                </a>
+                                <div class="delete_form_wrapper">
+                                    {{ form_start(delete_form) }}
+                                    <input type="submit" value="Supprimer" class="btn btn-danger">
+                                    {{ form_end(delete_form) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <table class="table">
-                    <tbody>                        <tr>
-                            <th>Id</th>                                <td>{{ weapon.id }}</td>                        </tr>                        <tr>
-                            <th>Name</th>                                <td>{{ weapon.name }}</td>                        </tr>                        <tr>
-                            <th>Attack</th>                                <td>{{ weapon.attack }}</td>                        </tr>                        <tr>
-                            <th>Defense</th>                                <td>{{ weapon.defense }}</td>                        </tr>                        <tr>
-                            <th>Price</th>                                <td>{{ weapon.price }}</td>                        </tr>                        <tr>
-                            <th>Uses</th>                                <td>{{ weapon.uses }}</td>                        </tr>                    </tbody>
-                </table>
-                                <p>
-    <a href="{{ path('admin_weapon_index') }}" class="btn btn-default">
-        Retour à la liste
-    </a>        <a href="{{ path('admin_weapon_edit', { 'id': weapon.id }) }}"
-           class="btn btn-success">
-            Modifier
-        </a></p>    <div class="delete_form_wrapper">
-        {{ form_start(delete_form) }}
-        <input type="submit" value="Supprimer" class="btn btn-danger">
-        {{ form_end(delete_form) }}
-    </div></div>
+            </div>
         </div>
-    </div>
     {% endblock %}
