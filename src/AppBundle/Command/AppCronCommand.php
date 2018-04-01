@@ -23,9 +23,11 @@ class AppCronCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // commande de chance
-        $luckyCommand = $this->getApplication()->find('app:lucky-man');
+        $luckyCommand = $this->getApplication()->find('app:luck');
         $luckyCommand->run(new ArrayInput([]), new NullOutput());
-        $output->writeln('luck ok');
+        // commande de poisse
+        $NoluckCommand = $this->getApplication()->find('app:no-luck');
+        $NoluckCommand->run(new ArrayInput([]), new NullOutput());
     }
 
 }

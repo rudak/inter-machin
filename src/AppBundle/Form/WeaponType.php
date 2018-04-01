@@ -46,6 +46,13 @@ class WeaponType extends AbstractType
                     'max' => 99999,
                 ],
             ])
+            ->add('lvl', IntegerType::class, [
+                'label' => 'Lvl Min',
+                'attr'  => [
+                    'min' => 0,
+                    'max' => 999,
+                ],
+            ])
         ;
     }
 

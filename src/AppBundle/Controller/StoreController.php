@@ -13,6 +13,7 @@ class StoreController extends Controller
 {
     /**
      * lister les armes
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction()
@@ -46,8 +47,8 @@ class StoreController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
 
-        $user = $this->getUser();
         /** @var $user User */
+        $user = $this->getUser();
 
         $submittedToken = $request->request->get('_csrf_token');
 
@@ -60,6 +61,11 @@ class StoreController extends Controller
 
         if (!$weapon) {
             $this->addFlash('danger', 'Cet objet n\'est pas disponible.');
+            return $this->redirectToRoute('store_list');
+        }
+
+        if ($weapon->getLvl() > $user->getCompetences()->getLevel()) {
+            $this->addFlash('danger', sprintf("Pour acheter '%s' vous devez etre au niveau %d ou plus.", $weapon->getName(), $weapon->getLvl()));
             return $this->redirectToRoute('store_list');
         }
 
@@ -79,7 +85,7 @@ class StoreController extends Controller
 
         $item = new Item();
         $item->setActive(false);
-        $item->setPrice($weapon->getPrice() / 2);
+        $item->setPrice(rand($weapon->getPrice() / 2, $weapon->getPrice()));
         $item->setUsages(0);
         $item->setUser($user);
         $item->setWeapon($weapon);
@@ -91,7 +97,7 @@ class StoreController extends Controller
         $em->persist($user);
         $em->flush();
 
-        $this->addFlash('success', sprintf("Vous venez d'acheter %s pour %d$. Il vous reste %d$.", $weapon->getName(), $weapon->getPrice(), $user->getMoney()));
+        $this->addFlash('success', sprintf("Vous venez d'acheter '%s' pour %d$. Il vous reste %d$.", $weapon->getName(), $weapon->getPrice(), $user->getMoney()));
         return $this->redirectToRoute('store_list');
     }
 

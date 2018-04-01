@@ -17,8 +17,6 @@
                         <li>Argent : {{ user.money }}$</li>
                         <li>Niveau : {{ user.competences.level }}</li>
                         <li>Power : {{ user.competences.power }}</li>
-                        <li>Attaque : {{ user.competences.attack }}</li>
-                        <li>Défense : {{ user.competences.defense }}</li>
                     </ul>
                 </div>
             </div>
@@ -26,17 +24,22 @@
                 <div class="card card-body bg-light">
                     <h3>Compétences</h3>
                     <hr>
+                    <ul>
+                        <li>Attaque : {{ user.competences.attack }}</li>
+                        <li>Défense : {{ user.competences.defense }}</li>
+                        <li>Habileté : {{ user.competences.skill }}</li>
+                    </ul>
                 </div>
             </div>
             <div class="col">
                 <div class="card card-body bg-light">
-                    <h3>Armes utilisées</h3>
+                    <h3>Objets utilisés</h3>
                     <hr>
                     <ul>
                         {% for item in user.items if item.active %}
                             <li>
-                                {{ item.weapon.name }} -
-                                déja utilisé {{ item.usages }} fois
+                                {{ item.weapon.name }}<br>
+                                Utilisations {{ item.usages~'/'~item.weapon.uses }}.
                                 <a href="{{ path('weapon_put',{id:item.id}) }}">Ranger</a>
                                 <form action="{{ path('weapon_throw',{id:item.id}) }}" method="post">
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('item_throw') }}">
@@ -45,14 +48,14 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <h3>Armes dispo</h3>
+                    <h3>Objets disponibles</h3>
                     <hr>
                     <ul>
                         {% for item in user.items if not item.active %}
                             <li>
                                 {{ item.weapon.name }}
-                                ({{ item.price }}$)
-                                déja utilisé {{ item.usages }} fois.
+                                ({{ item.price }}$) <br>
+                                Utilisations {{ item.usages~'/'~item.weapon.uses }}.
                                 <a href="{{ path('weapon_get',{id:item.id}) }}">Utiliser</a>
                             </li>
                         {% endfor %}

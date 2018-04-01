@@ -50,6 +50,13 @@ class Competences
     private $defense;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="skill", type="smallint")
+     */
+    private $skill;
+
+    /**
      * Competences constructor.
      * @param int $level
      */
@@ -58,7 +65,8 @@ class Competences
         $this->level   = 1;
         $this->attack  = 0;
         $this->defense = 0;
-        $this->power   = 100;
+        $this->power   = 1;
+        $this->skill   = 0;
     }
 
 
@@ -167,4 +175,100 @@ class Competences
     {
         return $this->defense;
     }
+
+    /**
+     * @return int
+     */
+    public function getSkill()
+    {
+        return $this->skill;
+    }
+
+    /**
+     * @param int $skill
+     */
+    public function setSkill($skill)
+    {
+        $this->skill = $skill;
+    }
+
+    public function addAttackPoints($amount)
+    {
+        $this->attack += $amount;
+        if ($this->attack > 100) {
+            $this->attack = 100;
+        }
+
+        return $this;
+    }
+
+    public function addPowerPoints($amount)
+    {
+        $this->power += $amount;
+        if ($this->power > 100) {
+            $this->power = 100;
+        }
+
+        return $this;
+    }
+
+    public function removePowerPoints($amount)
+    {
+        $this->power -= $amount;
+        if ($this->power < 0) {
+            $this->power = 0;
+        }
+
+        return $this;
+    }
+    public function addDefensePoints($amount)
+    {
+        $this->defense += $amount;
+        if ($this->defense > 100) {
+            $this->defense = 100;
+        }
+
+        return $this;
+    }
+
+
+
+    public function removeAttackPoints($amount)
+    {
+        $this->attack -= $amount;
+        if ($this->attack < 0) {
+            $this->attack = 0;
+        }
+
+        return $this;
+    }
+
+    public function removeDefensePoints($amount)
+    {
+        $this->defense -= $amount;
+        if ($this->defense < 0) {
+            $this->defense = 0;
+        }
+
+        return $this;
+    }
+    public function addSkillPoints($amount)
+    {
+        $this->skill += $amount;
+        if ($this->skill > 100) {
+            $this->skill = 100;
+        }
+
+        return $this;
+    }
+    public function removeSkillPoints($amount)
+    {
+        $this->skill -= $amount;
+        if ($this->skill < 0) {
+            $this->skill = 0;
+        }
+
+        return $this;
+    }
+
 }
