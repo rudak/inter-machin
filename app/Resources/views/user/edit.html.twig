@@ -11,6 +11,15 @@
             </div>
 
             {{ form_start(edit_form) }}
+            <div class="row">
+                <div class="col">{{ form_row(edit_form.username) }}</div>
+                <div class="col">{{ form_row(edit_form.email) }}</div>
+            </div>
+            <div class="row">
+                <div class="col">{{ form_row(edit_form.money) }}</div>
+                <div class="col">{{ form_row(edit_form.alive) }}</div>
+                <div class="col">{{ form_row(edit_form.enabled) }}</div>
+            </div>
             {{ form_widget(edit_form) }}
             <p>
                 <input type="submit" value="Modifier" class="btn btn-success"/>

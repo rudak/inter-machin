@@ -81,7 +81,7 @@ class Luck
             'Un clandestin donne %2$d$ à %1$s',
             'Le boulanger donne %2$d$ à %1$s',
             'Le patron de  %1$s lui donne %2$d$ pour son excelent travail',
-            'Le meilleur ami de %1$s lui file %2$d$ pour le remercier de l\écouter quand il va mal.',
+            'Le meilleur ami de %1$s lui file %2$d$ pour le remercier de l\'écouter quand il va mal.',
             'Le voisin de %1$s lui file %2$d$ pour le remercier de l\'avoir ramené samedi soir.',
             '%1$s a trouvé %2$d$ dans la tanière du lapin qui était en retard',
         ];

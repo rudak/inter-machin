@@ -1,0 +1,18 @@
+liip_imagine:
+    resolvers:
+        default:
+            web_path: ~
+    filter_sets:
+        cache: ~
+        admin_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [60, 40], mode: outbound }
+        shop_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [60, 40], mode: outbound }
+        thumbnail_large:
+            quality: 75
+            filters:
+                thumbnail: { size: [540, 300], mode: outbound }
