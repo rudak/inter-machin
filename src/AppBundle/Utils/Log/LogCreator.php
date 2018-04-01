@@ -18,6 +18,7 @@ class LogCreator
     const TYPE_ITEM_THROW = 'item_throw';
     const TYPE_LUCK       = "luck";
     const TYPE_NO_LUCK    = "no-luck";
+    const TYPE_STEAL      = 'steal';
 
     public static function getLog(User $user, $public, $text, $type)
     {

@@ -85,7 +85,7 @@ class StoreController extends Controller
 
         $item = new Item();
         $item->setActive(false);
-        $item->setPrice($weapon->getPrice() / 2);
+        $item->setPrice(rand($weapon->getPrice() / 2, $weapon->getPrice()));
         $item->setUsages(0);
         $item->setUser($user);
         $item->setWeapon($weapon);

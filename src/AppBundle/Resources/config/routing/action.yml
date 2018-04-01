@@ -1,0 +1,4 @@
+action_steal:
+    path: /steal/{id}
+    defaults: { _controller: AppBundle:Action:steal}
+    methods: [POST]
