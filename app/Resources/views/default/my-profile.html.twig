@@ -13,12 +13,9 @@
                 <div class="card card-body bg-light">
                     <h3>Utilisateur {{ user.username }}</h3>
                     <hr>
-                    <ul>
-                        <li>Argent : {{ user.money }}$</li>
-                        <li>Niveau : {{ user.competences.level }}</li>
-                        <li>Power : {{ user.competences.power }}</li>
-                        <li>Attaque : {{ user.competences.attack }}</li>
-                        <li>Défense : {{ user.competences.defense }}</li>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-action">Argent : {{ user.money }}$</li>
+                        <li class="list-group-item list-group-item-action">Niveau : {{ user.competences.level }}</li>
                     </ul>
                 </div>
             </div>
@@ -26,15 +23,30 @@
                 <div class="card card-body bg-light">
                     <h3>Compétences</h3>
                     <hr>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: {{ user.competences.power }}%;"
+                             aria-valuenow="{{ user.competences.power }}" aria-valuemin="0" aria-valuemax="100">
+                            Puissance {{ user.competences.power }}</div>
+                    </div>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: {{ user.competences.attack }}%;"
+                             aria-valuenow="{{ user.competences.attack }}" aria-valuemin="0" aria-valuemax="100">
+                            Attaque {{ user.competences.attack }}</div>
+                    </div>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: {{ user.competences.defense }}%;"
+                             aria-valuenow="{{ user.competences.defense }}" aria-valuemin="0" aria-valuemax="100">
+                            Defense {{ user.competences.defense }}</div>
+                    </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card card-body bg-light">
                     <h3>Armes utilisées</h3>
                     <hr>
-                    <ul>
+                    <ul class="list-group">
                         {% for item in user.items if item.active %}
-                            <li>
+                            <li class="list-group-item list-group-item-action">
                                 {{ item.weapon.name }} -
                                 déja utilisé {{ item.usages }} fois
                                 <a href="{{ path('weapon_put',{id:item.id}) }}">Ranger</a>
