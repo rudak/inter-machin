@@ -16,6 +16,7 @@
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-action">Argent : {{ user.money }}$</li>
                         <li class="list-group-item list-group-item-action">Niveau : {{ user.competences.level }}</li>
+                        <li class="list-group-item list-group-item-action">Niveau : {{ user.competences.power }}</li>
                     </ul>
                 </div>
             </div>
@@ -23,11 +24,6 @@
                 <div class="card card-body bg-light">
                     <h3>Compétences</h3>
                     <hr>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: {{ user.competences.power }}%;"
-                             aria-valuenow="{{ user.competences.power }}" aria-valuemin="0" aria-valuemax="100">
-                            Puissance {{ user.competences.power }}</div>
-                    </div>
                     <div class="progress mb-3">
                         <div class="progress-bar" role="progressbar" style="width: {{ user.competences.attack }}%;"
                              aria-valuenow="{{ user.competences.attack }}" aria-valuemin="0" aria-valuemax="100">
@@ -38,17 +34,30 @@
                              aria-valuenow="{{ user.competences.defense }}" aria-valuemin="0" aria-valuemax="100">
                             Defense {{ user.competences.defense }}</div>
                     </div>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: {{ user.competences.skill }}%;"
+                             aria-valuenow="{{ user.competences.skill }}" aria-valuemin="0" aria-valuemax="100">
+                            Habileté {{ user.competences.skill }}</div>
+                    </div>
+
+                    <ul>
+                        <li>Attaque : {{ user.competences.attack }}</li>
+                        <li>Défense : {{ user.competences.defense }}</li>
+                        <li>Habileté : {{ user.competences.skill }}</li>
+                    </ul>
+
                 </div>
             </div>
             <div class="col">
                 <div class="card card-body bg-light">
-                    <h3>Armes utilisées</h3>
+                    <h3>Objets utilisés</h3>
                     <hr>
                     <ul class="list-group">
                         {% for item in user.items if item.active %}
+
                             <li class="list-group-item list-group-item-action">
-                                {{ item.weapon.name }} -
-                                déja utilisé {{ item.usages }} fois
+                                {{ item.weapon.name }}<br>
+                                Utilisations {{ item.usages~'/'~item.weapon.uses }}.
                                 <a href="{{ path('weapon_put',{id:item.id}) }}">Ranger</a>
                                 <form action="{{ path('weapon_throw',{id:item.id}) }}" method="post">
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('item_throw') }}">
@@ -57,14 +66,14 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <h3>Armes dispo</h3>
+                    <h3>Objets disponibles</h3>
                     <hr>
                     <ul>
                         {% for item in user.items if not item.active %}
                             <li>
                                 {{ item.weapon.name }}
-                                ({{ item.price }}$)
-                                déja utilisé {{ item.usages }} fois.
+                                ({{ item.price }}$) <br>
+                                Utilisations {{ item.usages~'/'~item.weapon.uses }}.
                                 <a href="{{ path('weapon_get',{id:item.id}) }}">Utiliser</a>
                             </li>
                         {% endfor %}

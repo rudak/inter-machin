@@ -57,6 +57,14 @@ class Weapon
      */
     private $uses;
 
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="lvl", type="smallint")
+     */
+    private $lvl;
+
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image\WeaponImage",cascade={"persist","remove"})
      */
@@ -71,6 +79,7 @@ class Weapon
         $this->defense = 0;
         $this->price   = 0;
         $this->uses    = 0;
+        $this->lvl     = 1;
     }
 
 
@@ -219,4 +228,21 @@ class Weapon
     {
         $this->image = $image;
     }
+
+    /**
+     * @return int
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * @param int $lvl
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+    }
+
 }

@@ -17,6 +17,7 @@ class WeaponFixtures extends Fixture
             $weapon->setDefense($weaponData['defense']);
             $weapon->setPrice($weaponData['price']);
             $weapon->setUses($weaponData['uses']);
+            $weapon->setLvl($weaponData['lvl']);
             $manager->persist($weapon);
         }
         $manager->flush();
@@ -31,6 +32,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 1,
                 'price'   => 6,
                 'uses'    => 5,
+                'lvl'     => 1,
             ],
             [
                 'name'    => 'batte',
@@ -38,6 +40,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 2,
                 'price'   => 12,
                 'uses'    => 3,
+                'lvl'     => 1,
             ],
             [
                 'name'    => 'balais',
@@ -45,6 +48,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 5,
                 'price'   => 4,
                 'uses'    => 5,
+                'lvl'     => 1,
             ],
             [
                 'name'    => 'matraque',
@@ -52,6 +56,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 1,
                 'price'   => 6,
                 'uses'    => 5,
+                'lvl'     => 1,
             ],
             [
                 'name'    => 'planche',
@@ -59,6 +64,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 10,
                 'price'   => 3,
                 'uses'    => 3,
+                'lvl'     => 1,
             ],
 
             [
@@ -67,6 +73,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 4,
                 'price'   => 12,
                 'uses'    => 7,
+                'lvl'     => 3,
             ],
 
             [
@@ -75,6 +82,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 1,
                 'price'   => 19,
                 'uses'    => 8,
+                'lvl'     => 5,
             ],
             [
                 'name'    => '357 Magnum',
@@ -82,6 +90,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 1,
                 'price'   => 60,
                 'uses'    => 7,
+                'lvl'     => 12,
             ],
             [
                 'name'    => 'Bazooka',
@@ -89,6 +98,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 2,
                 'price'   => 120,
                 'uses'    => 1,
+                'lvl'     => 15,
             ],
             [
                 'name'    => 'grenade',
@@ -96,6 +106,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 15,
                 'price'   => 60,
                 'uses'    => 1,
+                'lvl'     => 7,
             ],
             [
                 'name'    => 'bouclier',
@@ -103,6 +114,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 18,
                 'price'   => 15,
                 'uses'    => 5,
+                'lvl'     => 2,
             ],
             [
                 'name'    => 'sac de sable',
@@ -110,6 +122,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 22,
                 'price'   => 6,
                 'uses'    => 2,
+                'lvl'     => 2,
             ],
             [
                 'name'    => 'poing américain',
@@ -117,6 +130,7 @@ class WeaponFixtures extends Fixture
                 'defense' => 4,
                 'price'   => 24,
                 'uses'    => 5,
+                'lvl'     => 2,
             ],
         ];
     }

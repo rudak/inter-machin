@@ -48,7 +48,13 @@ class WeaponType extends AbstractType
                 ],
             ])
             ->add('image',WeaponImageType::class)
-
+            ->add('lvl', IntegerType::class, [
+                'label' => 'Lvl Min',
+                'attr'  => [
+                    'min' => 0,
+                    'max' => 999,
+                ],
+            ])
         ;
     }
 

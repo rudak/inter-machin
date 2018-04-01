@@ -14,6 +14,10 @@ app_default_user:
     resource: "@AppBundle/Resources/config/routing/default-user.yml"
     prefix:   /user
 
+app_action:
+    resource: "@AppBundle/Resources/config/routing/action.yml"
+    prefix:   /action
+
 app_default_store:
     resource: "@AppBundle/Resources/config/routing/store.yml"
     prefix:   /store

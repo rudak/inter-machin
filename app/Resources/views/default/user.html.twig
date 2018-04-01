@@ -7,10 +7,28 @@
             <div class="col">
                 <h1>Utilisateur</h1>
                 <hr>
-                <div>
-                    <h3>Utilisateur {{ user.username }}</h3>
+                <h3>Utilisateur {{ user.username }}</h3>
+                <div class="row">
+                    <div class="col">
+                        <h4>Infos</h4>
+                        <ul>
+                            <li>Niveau : {{ user.competences.level }}</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h4>Actions</h4>
+                        <ul>
+                            <li>
+                                <form action="{{ path('action_steal',{id:user.id}) }}" method="post">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('action_steal') }}">
+                                    <button class="btn btn-danger">Essayer de voler {{ user.username }}</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
