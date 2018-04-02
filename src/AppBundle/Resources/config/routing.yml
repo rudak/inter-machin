@@ -3,16 +3,21 @@ homepage:
     path: /
     defaults: { _controller: AppBundle:Default:index}
 
-
 # list logs
 
 listLogs:
     path: /list/logs
     defaults: { _controller: AppBundle:Default:listLogs}
 
+# test
+test:
+    path: /test
+    defaults: { _controller: AppBundle:Default:test}
+
 ranking:
     path: /ranking
     defaults: { _controller: AppBundle:Default:ranking}
+
 
 
 app_default_user:
