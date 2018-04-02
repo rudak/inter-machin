@@ -56,4 +56,25 @@ class DefaultController extends Controller
             'user' => $this->getUser(),
         ]);
     }
+
+    public function testAction()
+    {
+        $agi1 = 0;
+        $agi2 = 0;
+
+        $chanceVoleur = 10 * 2.9901 / log10($agi1 + 12);
+        $chanceVoler  = 5 * 2.9901 / log10($agi2 + 12);
+
+        $chanceBase = ($chanceVoler / $chanceVoleur) * 100;
+
+        $p = rand(0, 99);
+
+        if ($p < $chanceBase) {
+            echo 'Je vole';
+        }
+        dump($chanceBase);
+        die;
+
+        return $this->render(':default:test.html.twig');
+    }
 }

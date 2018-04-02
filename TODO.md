@@ -10,4 +10,4 @@
     - attaquer un type
     - ...?
     
-
+- point de compétences par level pour les caractéristiques
