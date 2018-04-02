@@ -25,8 +25,6 @@ class DefaultController extends Controller
         return $this->render(':default:listLogs.html.twig', [
             'logs' => $logs,
         ]);
-
-
     }
 
 
@@ -60,5 +58,17 @@ class DefaultController extends Controller
         return $this->render('default/my-profile.html.twig', [
             'user' => $this->getUser(),
         ]);
+    }
+
+    public function rankingAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        $em   = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('UserBundle:User')->getBestUsers();
+
+        return $this->render(':default:ranking.html.twig',[
+            'users' => $users
+        ]);
+
     }
 }
