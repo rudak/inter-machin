@@ -4,6 +4,8 @@ namespace AppBundle\Twig;
 
 class AppExtension extends \Twig_Extension
 {
+    private $now;
+
     public function getFunctions()
     {
         return [
@@ -11,10 +13,23 @@ class AppExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * Renvoie la période entre aujourd'hui et la date passée en parametre (sortie en nb de jours).
+     *
+     * @param \DateTime $datetime
+     * @return string
+     */
     public function duration(\DateTime $datetime)
     {
-        $now = new \DateTime('NOW');
-        $interval = $now->diff($datetime);
-        return $interval->format('%a');
+        return $this->getNow()->diff($datetime)->format('%a');
     }
+
+    private function getNow()
+    {
+        if (null == $this->now) {
+            $this->now = new \DateTime('NOW');
+        }
+        return $this->now;
+    }
+
 }
