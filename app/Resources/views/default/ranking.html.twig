@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Utilisateurs</h1>
+                <h1>Classement</h1>
                 <hr>
                 <div>
                     <ul>
@@ -12,20 +12,12 @@
                             <li>
                                 {% if user == app.user %}
                                     {{ user.username }}
+                                    - Niveau {{ user.competences.level }}
                                 {% else %}
                                     <a href="{{ path('user',{id:user.id,username:user.username}) }}">
                                         {{ user.username }}
-                                    </a>,
-                                    {% if user.alive %}
-                                        en vie depuis
-                                        <span class="badge badge-pill badge-primary">{{ duration(user.dateOfBirth) }} jours</span>
-
-                                    {% else %}
-                                        <span class="badge badge-pill badge-danger">mort.</span>
-                                    {% endif %}
-
-
-                                    {#test : {{ 'kiki'|toto() }}#}
+                                        - Niveau {{ user.competences.level }}
+                                    </a>
                                 {% endif %}
                             </li>
                         {% endfor %}

@@ -27,6 +27,7 @@ class UserFixtures extends Fixture
             $user->setUsername($userData['username']);
             $user->setEmail($userData['email']);
             $user->setRoles($userData['roles']);
+            $user->setDateOfBirth($this->getRandomDateTime());
             $user->setEnabled(true);
             $password = $this->encoder->encodePassword($user, $userData['plainPassword']);
             $user->setPassword($password);
@@ -100,5 +101,12 @@ class UserFixtures extends Fixture
                 'roles'         => ['ROLE_USER'],
             ],
         ];
+    }
+
+    private function getRandomDateTime()
+    {
+        $int    = mt_rand(time() - (60 * 60 * 24 * 60), time());
+        $format = "Y-m-d H:i:s";
+        return \DateTime::createFromFormat($format, date($format, $int));
     }
 }

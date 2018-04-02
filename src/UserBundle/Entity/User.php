@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {
@@ -38,6 +39,13 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item",mappedBy="user")
      */
     private $items;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateOfBirth", type="datetime")
+     */
+    private $dateOfBirth;
 
 
     public function __construct()
@@ -165,5 +173,29 @@ class User extends BaseUser
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Set dateOfBirth
+     *
+     * @param \DateTime $dateOfBirth
+     *
+     * @return User
+     */
+    public function setDateOfBirth($dateOfBirth)
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * Get dateOfBirth
+     *
+     * @return \DateTime
+     */
+    public function getDateOfBirth()
+    {
+        return $this->dateOfBirth;
     }
 }
