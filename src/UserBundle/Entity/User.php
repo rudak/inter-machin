@@ -40,6 +40,13 @@ class User extends BaseUser
      */
     private $items;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateOfBirth", type="datetime")
+     */
+    private $dateOfBirth;
+
 
     public function __construct()
     {
@@ -166,5 +173,29 @@ class User extends BaseUser
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Set dateOfBirth
+     *
+     * @param \DateTime $dateOfBirth
+     *
+     * @return User
+     */
+    public function setDateOfBirth($dateOfBirth)
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * Get dateOfBirth
+     *
+     * @return \DateTime
+     */
+    public function getDateOfBirth()
+    {
+        return $this->dateOfBirth;
     }
 }
