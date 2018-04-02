@@ -16,12 +16,9 @@ class DefaultController extends Controller
 
     public function listLogsAction()
     {
-        if (!$this->getUser()) {
-            return new Response();
-        }
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em   = $this->getDoctrine()->getManager();
         $logs = $em->getRepository('AppBundle:Log')->getAllLogs($this->getUser());
-
         return $this->render(':default:listLogs.html.twig', [
             'logs' => $logs,
         ]);
@@ -60,15 +57,35 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function testAction()
+    {
+        $agi1 = 0;
+        $agi2 = 0;
+
+        $chanceVoleur = 10 * 2.9901 / log10($agi1 + 12);
+        $chanceVoler  = 5 * 2.9901 / log10($agi2 + 12);
+
+        $chanceBase = ($chanceVoler / $chanceVoleur) * 100;
+
+        $p = rand(0, 99);
+
+        if ($p < $chanceBase) {
+            echo 'Je vole';
+        }
+        dump($chanceBase);
+        die;
+
+        return $this->render(':default:test.html.twig');
+    }
+
     public function rankingAction()
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-        $em   = $this->getDoctrine()->getManager();
+        $em    = $this->getDoctrine()->getManager();
         $users = $em->getRepository('UserBundle:User')->getBestUsers();
 
-        return $this->render(':default:ranking.html.twig',[
-            'users' => $users
+        return $this->render(':default:ranking.html.twig', [
+            'users' => $users,
         ]);
-
     }
 }

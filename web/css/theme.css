@@ -8,3 +8,10 @@
 #mainLogs ul {
   width: 300px;
 }
+
+/* line 10, ../scss/modules/_logs.scss */
+#listLogs {
+  overflow: scroll;
+  height: 100vh;
+  position: sticky;
+}

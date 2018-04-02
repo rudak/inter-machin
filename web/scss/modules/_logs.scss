@@ -6,3 +6,9 @@
     width: 300px;
   }
 }
+
+#listLogs{
+  overflow: scroll;
+  height: 100vh;
+  position:sticky;
+}

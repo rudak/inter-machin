@@ -71,6 +71,7 @@ class StoreController extends Controller
 
         if (UserWeapon::isWeaponAlreadyPossessed($user, $weapon)) {
             $this->addFlash('danger', sprintf("Vous possedez déja %s...", $weapon->getName()));
+            return $this->redirectToRoute('store_list');
             return $this->redirectToRoute('store_weapon', [
                 'id' => $weapon->getId(),
             ]);
@@ -78,6 +79,7 @@ class StoreController extends Controller
 
         if ($weapon->getPrice() > $user->getMoney()) {
             $this->addFlash('danger', sprintf("%s coute %d$ mais vous n'avez que %d$...", $weapon->getName(), $weapon->getPrice(), $user->getMoney()));
+            return $this->redirectToRoute('store_list');
             return $this->redirectToRoute('store_weapon', [
                 'id' => $weapon->getId(),
             ]);
