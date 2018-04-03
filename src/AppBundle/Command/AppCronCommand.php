@@ -28,6 +28,9 @@ class AppCronCommand extends ContainerAwareCommand
         // commande de poisse
         $NoluckCommand = $this->getApplication()->find('app:no-luck');
         $NoluckCommand->run(new ArrayInput([]), new NullOutput());
+        // commande du banquier
+        $bankCommand = $this->getApplication()->find('app:bank');
+        $bankCommand->run(new ArrayInput([]), new NullOutput());
     }
 
 }

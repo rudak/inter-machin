@@ -1,0 +1,22 @@
+{% extends main_layout %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Demander un pret</h1>
+                <hr>
+                <div class="content">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <p>
+                        <button type="submit" class="btn btn-primary">Demander</button>
+                    </p>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
