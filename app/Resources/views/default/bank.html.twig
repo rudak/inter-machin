@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Banque</h1>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <h3>Situation</h3>
+                        <p>Pas de comptes a rendre , pour l'instant.</p>
+                    </div>
+                    <div class="col">
+                        <h3>Actions</h3>
+                        <ul>
+                            <li>
+                                <a href="{{ path('bank_request') }}" class="btn btn-primary">
+                                    Demander un pret
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block stylesheets %}
+{% endblock %}

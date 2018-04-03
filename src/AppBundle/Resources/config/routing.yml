@@ -20,6 +20,10 @@ ranking:
 
 
 
+app_bank:
+    resource: "@AppBundle/Resources/config/routing/bank.yml"
+    prefix:   /bank
+
 app_default_user:
     resource: "@AppBundle/Resources/config/routing/default-user.yml"
     prefix:   /user
