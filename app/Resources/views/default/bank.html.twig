@@ -9,8 +9,38 @@
                 <hr>
                 <div class="row">
                     <div class="col">
-                        <h3>Situation</h3>
-                        <p>Pas de comptes a rendre , pour l'instant.</p>
+                        <h3>Situation en cours</h3>
+                        {% if loans|length %}
+                            <ul>
+                                {% for loan in loans if loan.status == 'request' or loan.status == 'validated' %}
+                                    <li>
+                                        {% if loan.status == 'request' %}
+                                            {{ loan.amount }}$
+                                            en attente de validation du banquier.
+                                        {% elseif loan.status == 'validated' %}
+                                            {{ loan.amount-loan.refunded }}$
+                                            a rembourser avant le
+                                            {{ loan.expiration|date('d/m/Y \\à H:i') }}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                        {% else %}
+                            <p>Pas de comptes a rendre , pour l'instant.</p>
+                        {% endif %}
+                        <h3>Historique</h3>
+                        <ul>
+                            {% for loan in loans if loan.status == 'refused' or loan.status == 'closed' %}
+                                <li>
+                                    {% if loan.status == 'refused' %}
+                                        {{ loan.date|date('d/m/Y') }} Demande de {{ loan.amount }}$ refusée par le banquier.
+                                    {% elseif loan.status == 'closed' %}
+                                        {{ loan.date|date('d/m/Y') }} Emprunt de {{ loan.amount }}$ : remboursé.
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div class="col">
                         <h3>Actions</h3>

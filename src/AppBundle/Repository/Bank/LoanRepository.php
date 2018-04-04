@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository\Bank;
 
+use AppBundle\Entity\Bank\Loan;
+use UserBundle\Entity\User;
+
 /**
  * LoanRepository
  *
@@ -10,4 +13,34 @@ namespace AppBundle\Repository\Bank;
  */
 class LoanRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getLoansForUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('l')
+                   ->addSelect('u')
+                   ->leftJoin('l.user', 'u')
+                   ->where('l.user = :user')
+                   ->andWhere('l.status != :closed')
+                   ->andWhere('l.status != :refused')
+                   ->setParameters(
+                       [
+                           'closed'  => Loan::STATUS_CLOSED,
+                           'refused' => Loan::STATUS_REFUSED,
+                           'user'    => $user,
+                       ]
+                   )
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
+
+    public function findAllLoansByUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('l')
+                   ->where('l.user = :user')
+                   ->setParameter('user', $user)
+                   ->orderBy('l.date', 'DESC')
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
 }

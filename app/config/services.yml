@@ -34,6 +34,8 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
 
+
+
     app_password_encoder:
         class: UserBundle\Services\PasswordEncoder
         arguments: ['@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface']

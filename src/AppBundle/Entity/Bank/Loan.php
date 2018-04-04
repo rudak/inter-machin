@@ -16,6 +16,7 @@ class Loan
     const STATUS_REQUEST = 'request';
     const STATUS_VALID   = 'validated';
     const STATUS_REFUSED = 'refused';
+    const STATUS_CLOSED  = 'closed';
 
 
     /**
@@ -63,7 +64,7 @@ class Loan
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expiration", type="datetime")
+     * @ORM\Column(name="expiration", type="datetime", nullable=true)
      */
     private $expiration;
 
@@ -82,9 +83,10 @@ class Loan
      */
     public function __construct(User $user)
     {
-        $this->user   = $user;
-        $this->date   = new \DateTime();
-        $this->status = self::STATUS_REQUEST;
+        $this->user     = $user;
+        $this->date     = new \DateTime();
+        $this->status   = self::STATUS_REQUEST;
+        $this->refunded = 0;
     }
 
 
