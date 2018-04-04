@@ -3,6 +3,7 @@
 namespace AppBundle\Command;
 
 use AppBundle\Services\Command\Banker;
+use AppBundle\Utils\Cron\Timer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,12 +16,14 @@ class AppBankCommand extends ContainerAwareCommand
     {
         $this
             ->setName('app:bank')
-            ->setDescription('Action du banquier')
+            ->setDescription('Actions du banquier')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->getContainer()->get(Banker::class)->execute();
+        if (Timer::isTimeToRun(Timer::PATTERN_ALL_MINUTES)) {
+            $this->getContainer()->get(Banker::class)->answeringRequestedLoan();
+        }
     }
 }

@@ -11,13 +11,7 @@ use AppBundle\Utils\Notification\NotificationCreator;
 class Banker extends CronEmCommand
 {
 
-
-    public function execute()
-    {
-        $this->answeringRequestedLoan();
-    }
-
-    private function answeringRequestedLoan()
+    public function answeringRequestedLoan()
     {
         $loans = $this->em->getRepository(Loan::class)->findBy(['status' => Loan::STATUS_REQUEST]);
         foreach ($loans as $loan) {
@@ -26,8 +20,19 @@ class Banker extends CronEmCommand
             }
             $loan->setStatus(Loan::STATUS_VALID);
             $loan->setExpiration(new \DateTime('+5 days'));
-            $loan->getUser()->addMoney($loan->getAmount());
-            $message = sprintf("Votre pret de %d$ a été accepté. Il devra être remboursé avant le %s. Merci a vous.", $loan->getAmount(), $loan->getDate()->format('d/m/Y'));
+            $percentage  = mt_rand(1, $loan->getUser()->getCompetences()->getLevel() * 2);
+            $percentage  = $percentage > AppConfig::LOAN_MAX_PERCENTAGE ? AppConfig::LOAN_MAX_PERCENTAGE : $percentage;
+            $tax         = round($percentage * $loan->getAmount() / 100);
+            $taxedAmount = $loan->getAmount() - $tax;
+            $loan->setPercentage($percentage);
+            $loan->getUser()->addMoney($taxedAmount);
+            $message = sprintf(
+                "Votre pret de %d$ avec un taux à %d% a bien été accepté, %d$ sont arrivés sur votre compte. (A rembourser avant le %s).",
+                $loan->getAmount(),
+                $loan->getPercentage(),
+                $taxedAmount,
+                $loan->getDate()->format('d/m/Y')
+            );
             $this->em->persist(
                 NotificationCreator::getNotification($loan->getUser(), $message, Notification::TYPE_LOAN_VALIDATION));
             $this->em->persist(
@@ -35,6 +40,11 @@ class Banker extends CronEmCommand
             $this->em->persist($loan);
         }
         $this->em->flush();
+    }
+
+    private function reminderLoan()
+    {
+
     }
 
 
