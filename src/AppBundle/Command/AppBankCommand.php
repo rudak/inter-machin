@@ -22,9 +22,10 @@ class AppBankCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (true || Timer::isTimeToRun(Timer::PATTERN_ALL_MINUTES)) {
+        if (Timer::isTimeToRun('0 * * * *') || Timer::isTimeToRun('20 * * * *') || Timer::isTimeToRun('40 * * * *')) {
             $this->getContainer()->get(Banker::class)->friendlyVisit();
-            $this->getContainer()->get(Banker::class)->reminderLoan();
+        }
+        if (true || Timer::isTimeToRun(Timer::PATTERN_ALL_MINUTES)) {
             $this->getContainer()->get(Banker::class)->answeringRequestedLoan();
         }
         if (Timer::isTimeToRun(Timer::PATTERN_ALL_DAYS)) {
