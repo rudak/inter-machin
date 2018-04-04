@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Services\Command\Banker;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,5 +21,6 @@ class AppBankCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->getContainer()->get(Banker::class)->execute();
     }
 }

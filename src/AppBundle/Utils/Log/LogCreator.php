@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: akadur
- * Date: 30/03/2018
- * Time: 18:16
- */
 
 namespace AppBundle\Utils\Log;
 
@@ -19,6 +13,7 @@ class LogCreator
     const TYPE_LUCK       = "luck";
     const TYPE_NO_LUCK    = "no-luck";
     const TYPE_STEAL      = 'steal';
+    const TYPE_BANKER     = 'banker-loan-validation';
 
     public static function getLog(User $user, $public, $text, $type)
     {

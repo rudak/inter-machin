@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
 /**
  * Notification
@@ -13,8 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Notification
 {
 
-    const STATUS_WAIT = 'wait';
-    const STATUS_READ = 'read';
+    const STATUS_WAIT          = 'wait';
+    const STATUS_READ          = 'read';
+    const TYPE_LOAN_VALIDATION = 'loan-validation';
 
     /**
      * @var int
@@ -65,10 +67,13 @@ class Notification
      * @param string    $status
      * @param \DateTime $date
      */
-    public function __construct()
+    public function __construct(User $user, $message, $type)
     {
-        $this->status = self::STATUS_WAIT;
-        $this->date   = new \DateTime('NOW');
+        $this->status  = self::STATUS_WAIT;
+        $this->date    = new \DateTime('NOW');
+        $this->message = $message;
+        $this->type    = $type;
+        $this->user    = $user;
     }
 
 
