@@ -17,6 +17,7 @@ class Loan
     const STATUS_VALID   = 'validated';
     const STATUS_REFUSED = 'refused';
     const STATUS_CLOSED  = 'closed';
+    const STATUS_LATE    = 'late';
 
 
     /**

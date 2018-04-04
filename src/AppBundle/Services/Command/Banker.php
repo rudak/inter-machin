@@ -5,6 +5,7 @@ namespace AppBundle\Services\Command;
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\Notification;
 use AppBundle\Utils\AppConfig;
+use AppBundle\Utils\Bank\ReminderHandler;
 use AppBundle\Utils\Log\LogCreator;
 use AppBundle\Utils\Notification\NotificationCreator;
 
@@ -27,7 +28,7 @@ class Banker extends CronEmCommand
             $loan->setPercentage($percentage);
             $loan->getUser()->addMoney($taxedAmount);
             $message = sprintf(
-                "Votre pret de %d$ avec un taux à %d% a bien été accepté, %d$ sont arrivés sur votre compte. (A rembourser avant le %s).",
+                "Votre pret de %d$ avec un taux à %d%% a bien été accepté, %d$ sont arrivés sur votre compte. (A rembourser avant le %s).",
                 $loan->getAmount(),
                 $loan->getPercentage(),
                 $taxedAmount,
@@ -42,9 +43,13 @@ class Banker extends CronEmCommand
         $this->em->flush();
     }
 
-    private function reminderLoan()
+    public function reminderLoan()
     {
-
+        $loans = $this->em->getRepository(Loan::class)->findBy(['status' => Loan::STATUS_VALID]);
+        foreach ($loans as $loan) {
+            ReminderHandler::loanReminder($loan, $this->em);
+        }
+        $this->em->flush();
     }
 
 

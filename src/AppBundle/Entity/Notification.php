@@ -17,6 +17,10 @@ class Notification
     const STATUS_WAIT          = 'wait';
     const STATUS_READ          = 'read';
     const TYPE_LOAN_VALIDATION = 'loan-validation';
+    const TYPE_LOAN_REMINDER   = 'loan-reminder';
+    const TYPE_INFO            = 'info';
+    const TYPE_WARNING         = 'warning';
+    const TYPE_DANGER          = 'danger';
 
     /**
      * @var int

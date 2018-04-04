@@ -25,5 +25,8 @@ class AppBankCommand extends ContainerAwareCommand
         if (Timer::isTimeToRun(Timer::PATTERN_ALL_MINUTES)) {
             $this->getContainer()->get(Banker::class)->answeringRequestedLoan();
         }
+        if (Timer::isTimeToRun(Timer::PATTERN_ALL_DAYS)) {
+            $this->getContainer()->get(Banker::class)->reminderLoan();
+        }
     }
 }
