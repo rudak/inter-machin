@@ -25,7 +25,7 @@ class StealHandler
             $this->checkSkills($victim, $burglar)
         ) {
             $steal->setStatus(Steal::STATUS_SUCCESSFULL);
-            $steal->setBurglarSkill($this->getBurglarSkill());
+            $steal->setBurglarSkill($this->getBurglarSkill($steal));
             $steal->setBurglarDamage($this->getBurglarDamage());
             $steal->setVictimDamage($this->getVictimDamage($steal));
             $steal->setLoot($this->getLootAmount($steal));
