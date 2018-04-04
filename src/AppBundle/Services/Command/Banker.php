@@ -5,6 +5,7 @@ namespace AppBundle\Services\Command;
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\Notification;
 use AppBundle\Utils\AppConfig;
+use AppBundle\Utils\Bank\FriendlyVisit;
 use AppBundle\Utils\Bank\ReminderHandler;
 use AppBundle\Utils\Log\LogCreator;
 use AppBundle\Utils\Notification\NotificationCreator;
@@ -48,6 +49,15 @@ class Banker extends CronEmCommand
         $loans = $this->em->getRepository(Loan::class)->findBy(['status' => Loan::STATUS_VALID]);
         foreach ($loans as $loan) {
             ReminderHandler::loanReminder($loan, $this->em);
+        }
+        $this->em->flush();
+    }
+
+    public function friendlyVisit()
+    {
+        $loans = $this->em->getRepository(Loan::class)->findBy(['status' => Loan::STATUS_LATE]);
+        foreach ($loans as $loan) {
+            FriendlyVisit::visit($loan, $this->em);
         }
         $this->em->flush();
     }

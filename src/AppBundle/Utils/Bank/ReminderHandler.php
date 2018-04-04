@@ -4,6 +4,7 @@ namespace AppBundle\Utils\Bank;
 
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\Notification;
+use AppBundle\Utils\Notification\NotificationCreator;
 use Doctrine\ORM\EntityManager;
 
 class ReminderHandler
@@ -16,6 +17,7 @@ class ReminderHandler
             return;
         }
         self::retardedRemind($loan, $em);
+        $em->flush();
     }
 
     private static function simpleDailyRemind(Loan $loan, \Datetime $now, EntityManager $em)
