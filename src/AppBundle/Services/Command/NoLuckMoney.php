@@ -28,9 +28,11 @@ class NoLuckMoney extends CronEmCommand implements CronCommandInterface
     public function updateUser(User $user)
     {
         $amount = $this->getAmount($user);
+        if ($amount > $user->getMoney()) {
+            $amount = $user->getMoney();
+        }
         $this->em->persist(LogCreator::getLog($user, true, sprintf($this->getReason(), $user->getUsername(), $amount), LogCreator::TYPE_NO_LUCK));
-        $newMoney = $user->getMoney() - $amount;
-        $user->setMoney($newMoney);
+        $user->removeMoney($amount);
         $this->em->persist($user);
     }
 
