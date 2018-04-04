@@ -47,6 +47,10 @@ class User extends BaseUser
      */
     private $dateOfBirth;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Bank\Loan",mappedBy="user")
+     */
+    private $loans;
 
     public function __construct()
     {
@@ -173,5 +177,29 @@ class User extends BaseUser
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Set dateOfBirth
+     *
+     * @param \DateTime $dateOfBirth
+     *
+     * @return User
+     */
+    public function setDateOfBirth($dateOfBirth)
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * Get dateOfBirth
+     *
+     * @return \DateTime
+     */
+    public function getDateOfBirth()
+    {
+        return $this->dateOfBirth;
     }
 }

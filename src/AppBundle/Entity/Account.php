@@ -57,17 +57,18 @@ class Account
      * @param int       $amount
      * @param \stdClass $user
      */
-    public function __construct(User $user)
+    public function __construct()
+    {
+    }
+
+    public function hydratAccount(User $user)
     {
         $this->user   = $user;
         $this->amount = $user->getMoney();
         $this->date   = new \DateTime('NOW');
-    }
+        $total        = 0;
 
-    public function hydratAccount(array $loans)
-    {
-        $total = 0;
-        foreach ($loans as $loan) {
+        foreach ($user->getLoans() as $loan) {
             /** @var $loan Loan */
             if ($loan->getStatus() != Loan::STATUS_VALID) {
                 continue;
@@ -75,6 +76,7 @@ class Account
             $total += $loan->getAmount() - $loan->getRefunded();
         }
         $this->setLoan($total);
+        return $this;
     }
 
     /**

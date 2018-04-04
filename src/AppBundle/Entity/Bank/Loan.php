@@ -29,7 +29,7 @@ class Loan
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",cascade={"persist"},inversedBy="loans")
      */
     private $user;
 
