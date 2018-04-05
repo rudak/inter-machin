@@ -46,7 +46,7 @@ class Refund
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bank\Loan")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bank\Loan",cascade={"persist"})
      */
     private $loan;
 

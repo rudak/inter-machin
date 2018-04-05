@@ -3,6 +3,7 @@
 namespace AppBundle\Services\Bank;
 
 use AppBundle\Entity\Bank\Loan;
+use AppBundle\Entity\Bank\Refund;
 use Doctrine\ORM\EntityManagerInterface;
 use UserBundle\Entity\User;
 
@@ -59,6 +60,21 @@ class BankHandler
             return false;
         }
         return true;
+    }
+
+    /**
+     * Paye un remboursement de pret
+     *
+     * @param Loan   $loan
+     * @param        $refundAmount
+     * @param string $type
+     * @return Refund
+     */
+    public function refundLoan(Loan $loan, $refundAmount, $type = Refund::TYPE_USER)
+    {
+        $loan->setRefunded($loan->getRefunded() + $refundAmount);
+        $loan->getUser()->removeMoney($refundAmount);
+        $this->em->persist(new Refund($loan, $refundAmount, $type));
     }
 
 }

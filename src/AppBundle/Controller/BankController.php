@@ -85,22 +85,31 @@ class BankController extends Controller
             if ($refundAmount > $loan->getUser()->getMoney()) {
                 $this->addFlash('danger', 'Vous ne pouvez pas rembourser %d$, vous n\'avez que %d$ !', $refundAmount, $loan->getUser()->getMoney());
                 return $this->redirectToRoute('bank_index');
-            }
-            $loan->setRefunded($loan->getRefunded() + $refundAmount);
-            $loan->getUser()->removeMoney($refundAmount);
-            $refund = new Refund($loan, $refundAmount);
-            $em->persist($refund);
+            };
+
+            $this->get(BankHandler::class)->refundLoan($loan, $refundAmount);
 
             if (!$loan->getRestToPay()) {
                 $loan->setStatus(Loan::STATUS_CLOSED);
-                $this->addFlash('success', sprintf("Vous remboursez %d$ , votre emprunt est remboursé intégralement, le banquier vous remercie.", $refundAmount));
-                $em->persist($loan);
-                $em->flush();
-                return $this->redirectToRoute('bank_index');
+                $this->addFlash(
+                    'success',
+                    sprintf(
+                        "Vous remboursez %d$ , votre emprunt est remboursé intégralement, le banquier vous remercie.",
+                        $refundAmount
+                    )
+                );
+            } else {
+                $this->addFlash(
+                    'success',
+                    sprintf(
+                        "Vous remboursez %d$, il vous reste %d$ à payer avant le %s...",
+                        $refundAmount,
+                        $loan->getRestToPay(),
+                        $loan->getExpiration()->format('d/m/Y \\à H:i')
+                    )
+                );
             }
 
-            $this->addFlash('success', sprintf("Vous remboursez %d$, il vous reste %d$ à payer avant le %s...", $refundAmount, $loan->getRestToPay(), $loan->getExpiration()->format('d/m/Y \\à H:i')));
-            $em->persist($loan);
             $em->flush();
             return $this->redirectToRoute('bank_index');
         }
