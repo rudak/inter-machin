@@ -91,9 +91,7 @@ class BankController extends Controller
 
             $message = sprintf(
                 "Vous remboursez %d$, il vous reste %d$ à payer avant le %s...",
-                $refundAmount,
-                $loan->getRestToPay(),
-                $loan->getExpiration()->format('d/m/Y \\à H:i')
+                $refundAmount, $loan->getRestToPay(), $loan->getExpiration()->format('d/m/Y \\à H:i')
             );
             if (!$loan->getRestToPay()) {
                 // si il ne reste rien a payer, on cloture
