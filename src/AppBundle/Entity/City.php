@@ -38,7 +38,7 @@ class City
 
 
     /**
-     * @ORM\oneToMany(targetEntity="UserBundle\Entity\User",mappedBy="city")
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\User",mappedBy="city")
      */
     private $users;
 
