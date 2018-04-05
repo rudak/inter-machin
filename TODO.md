@@ -11,3 +11,10 @@
     - ...?
     
 - point de compétences par level pour les caractéristiques
+- ajouter des villes    
+        - dans les fixtures    
+        - relations user  
+        - interface   
+        A la naissance on est dans une ville aléatoire, le déplacement d'une ville a l'autre coute cher.   
+        on ne peut pas se déplacer d'une ville a l'autre sans attendre un minimum de temps entre chaque deplacements.
+        
