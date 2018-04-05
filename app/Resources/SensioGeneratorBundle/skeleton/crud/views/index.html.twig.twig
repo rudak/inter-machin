@@ -52,7 +52,7 @@
                                 <td>
                                     {%- for action in record_actions %}
                                         <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}"
-                                           class="btn btn-xs btn-primary">
+                                           class="btn btn-sm btn-primary">
                                             {% if action == 'show' %}voir{% elseif action == 'edit' %}modifier{% endif %}
                                         </a>
                                     {%- endfor %}

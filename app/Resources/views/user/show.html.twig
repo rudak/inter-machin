@@ -5,16 +5,25 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-header">
-                        <h1>Voir User</h1>
+                        <h1>Voir {{ user.username }}</h1>
                     </div>
                     <table class="table">
                         <tbody>
+
                         <tr>
-                            <th>Id</th>
-                            <td>{{ user.id }}</td>
+                            <th>Email</th>
+                            <td>{{ user.email }}</td>
                         </tr>
                         <tr>
-                            <th>Alive</th>
+                            <th>Dernière connexion</th>
+                            <td>{{ user.lastLogin|date('d/m/Y \\à H:i:s') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de (re)naissance</th>
+                            <td>{{ user.dateOfBirth|date('d/m/Y \\à H:i:s') }}</td>
+                        </tr>
+                        <tr>
+                            <th>En vie</th>
                             <td>
                                 {% if user.alive %}
                                     <span class="badge badge-success">Oui</span>
@@ -24,8 +33,24 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Money</th>
+                            <th>Argent</th>
                             <td>{{ user.money }}$</td>
+                        </tr>
+                        <tr>
+                            <th>Vie</th>
+                            <td>{{ user.competences.life }}</td>
+                        </tr>
+                        <tr>
+                            <th>Attaque</th>
+                            <td>{{ user.competences.attack }}</td>
+                        </tr>
+                        <tr>
+                            <th>Défense</th>
+                            <td>{{ user.competences.defense }}</td>
+                        </tr>
+                        <tr>
+                            <th>Habileté</th>
+                            <td>{{ user.competences.skill }}</td>
                         </tr>
                         </tbody>
                     </table>
