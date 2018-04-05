@@ -13,11 +13,11 @@ use UserBundle\Entity\User;
  */
 class Loan
 {
-    const STATUS_REQUEST      = 'request';
-    const STATUS_VALID        = 'validated';
-    const STATUS_REFUSED      = 'refused';
-    const STATUS_CLOSED       = 'closed';
-    const STATUS_LATE         = 'late';
+    const STATUS_REQUEST = 'request';
+    const STATUS_VALID   = 'validated';
+    const STATUS_REFUSED = 'refused';
+    const STATUS_CLOSED  = 'closed';
+    const STATUS_LATE    = 'late';
 
 
     /**

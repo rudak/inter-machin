@@ -18,11 +18,11 @@ class BankController extends Controller
     public function indexAction()
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-        $em            = $this->getDoctrine()->getManager();
-        $loans         = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
+        $em    = $this->getDoctrine()->getManager();
+        $loans = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
 
         return $this->render(':bank:bank.html.twig', [
-            'loans'   => $loans,
+            'loans' => $loans,
         ]);
     }
 

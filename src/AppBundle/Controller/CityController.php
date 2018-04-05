@@ -15,6 +15,7 @@ use AppBundle\Form\CityType;
 class CityController extends Controller
 {
     const CURRENT_PAGE = '****';
+
     /**
      * Lists all City entities.
      *
@@ -25,49 +26,51 @@ class CityController extends Controller
 
         $cities = $em->getRepository('AppBundle:City')->findAll();
 
-        return $this->render('city/index.html.twig', array(
-            'cities' => $cities,
+        return $this->render('city/index.html.twig', [
+            'cities'       => $cities,
             'current_page' => self::CURRENT_PAGE,
-        ));
+        ]);
     }
-/**
-    * Creates a new City entity.
-*
-    */
+
+    /**
+     * Creates a new City entity.
+     *
+     */
     public function newAction(Request $request)
-{
-    $city = new City();
-    $form = $this->createForm('AppBundle\Form\CityType', $city);
-    $form->handleRequest($request);
+    {
+        $city = new City();
+        $form = $this->createForm('AppBundle\Form\CityType', $city);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($city);
-    $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($city);
+            $em->flush();
 
-    return $this->redirectToRoute('admin_city_show', array('id' => $city->getId()));
+            return $this->redirectToRoute('admin_city_show', ['id' => $city->getId()]);
+        }
+
+        return $this->render('city/new.html.twig', [
+            'city'         => $city,
+            'form'         => $form->createView(),
+            'current_page' => self::CURRENT_PAGE,
+        ]);
     }
 
-    return $this->render('city/new.html.twig', array(
-    'city' => $city,
-    'form' => $form->createView(),
-    'current_page' => self::CURRENT_PAGE,
-    ));
-}
-/**
-    * Finds and displays a City entity.
-*
-    */
+    /**
+     * Finds and displays a City entity.
+     *
+     */
     public function showAction(City $city)
-{
-            $deleteForm = $this->createDeleteForm($city);
-    
-    return $this->render('city/show.html.twig', array(
-    'city' => $city,
-    'current_page' => self::CURRENT_PAGE,
-            'delete_form' => $deleteForm->createView(),
-        ));
-}
+    {
+        $deleteForm = $this->createDeleteForm($city);
+
+        return $this->render('city/show.html.twig', [
+            'city'         => $city,
+            'current_page' => self::CURRENT_PAGE,
+            'delete_form'  => $deleteForm->createView(),
+        ]);
+    }
 
     /**
      * Displays a form to edit an existing City entity.
@@ -76,7 +79,7 @@ class CityController extends Controller
     public function editAction(Request $request, City $city)
     {
         $deleteForm = $this->createDeleteForm($city);
-        $editForm = $this->createForm('AppBundle\Form\CityType', $city);
+        $editForm   = $this->createForm('AppBundle\Form\CityType', $city);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -84,15 +87,15 @@ class CityController extends Controller
             $em->persist($city);
             $em->flush();
 
-            return $this->redirectToRoute('admin_city_edit', array('id' => $city->getId()));
+            return $this->redirectToRoute('admin_city_edit', ['id' => $city->getId()]);
         }
 
-        return $this->render('city/edit.html.twig', array(
-            'city' => $city,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        return $this->render('city/edit.html.twig', [
+            'city'         => $city,
+            'edit_form'    => $editForm->createView(),
+            'delete_form'  => $deleteForm->createView(),
             'current_page' => self::CURRENT_PAGE,
-        ));
+        ]);
     }
 
     /**
@@ -123,9 +126,9 @@ class CityController extends Controller
     private function createDeleteForm(City $city)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_city_delete', array('id' => $city->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+                    ->setAction($this->generateUrl('admin_city_delete', ['id' => $city->getId()]))
+                    ->setMethod('DELETE')
+                    ->getForm()
+            ;
     }
 }

@@ -65,7 +65,7 @@ class Competences
         $this->level   = 1;
         $this->attack  = 10;
         $this->defense = 10;
-        $this->life   = 30;
+        $this->life    = 30;
         $this->skill   = 10;
     }
 
@@ -221,6 +221,7 @@ class Competences
 
         return $this;
     }
+
     public function addDefensePoints($amount)
     {
         $this->defense += $amount;
@@ -230,7 +231,6 @@ class Competences
 
         return $this;
     }
-
 
 
     public function removeAttackPoints($amount)
@@ -252,6 +252,7 @@ class Competences
 
         return $this;
     }
+
     public function addSkillPoints($amount)
     {
         $this->skill += $amount;
@@ -261,6 +262,7 @@ class Competences
 
         return $this;
     }
+
     public function removeSkillPoints($amount)
     {
         $this->skill -= $amount;

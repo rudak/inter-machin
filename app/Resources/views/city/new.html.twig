@@ -3,24 +3,22 @@
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="page-header">
-                <h1>Ajouter un City</h1>
-            </div>
-
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <p>
-                <input type="submit" value="Ajouter" class="btn btn-success btn-lg"/>
-            </p>
-            {{ form_end(form) }}
-
-                        <p>
-    <a href="{{ path('admin_city_index') }}" class="btn btn-primary">
-        Retour à la liste
-    </a></p></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-header">
+                    <h1>Ajouter un City</h1>
+                </div>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <p>
+                    <input type="submit" value="Ajouter" class="btn btn-success btn-lg"/>
+                </p>
+                {{ form_end(form) }}
+                <p>
+                    <a href="{{ path('admin_city_index') }}" class="btn btn-primary">
+                        Retour à la liste
+                    </a></p></div>
+        </div>
     </div>
-</div>
 {% endblock %}

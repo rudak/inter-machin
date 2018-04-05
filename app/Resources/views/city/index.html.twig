@@ -1,36 +1,45 @@
-    {% extends admin_layout %}
+{% extends admin_layout %}
 
     {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-header">
-                    <h1>Liste des City</h1>
-                </div>
-                <p>
-                                            <br/>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <h1>Liste des City</h1>
+                    </div>
+                    <p>
+                        <br/>
                         <a href="{{ path('admin_city_new') }}" class="btn btn-success">
                             Ajouter
                         </a>
-                                    </p>
-                <table class="table">
-                    <thead>
-                    <tr>                            <th>Id</th>                            <th>Name</th>                            <th>Price</th>                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for city in cities %}
-                    <tr>                                <td>
+                    </p>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for city in cities %}
+                            <tr>
+                                <td>
                                     <a href="{{ path('admin_city_show', { 'id': city.id }) }}">{{ city.id }}</a>
-                                </td>                                <td>{{ city.name }}</td>                                <td>{{ city.price }}</td>                                <td>                                        <a href="{{ path('admin_city_show', { 'id': city.id }) }}"
-                                           class="btn btn-sm btn-primary">
-                                            voir                                        </a>                                        <a href="{{ path('admin_city_edit', { 'id': city.id }) }}"
-                                           class="btn btn-sm btn-primary">
-                                            modifier                                        </a>                                </td>                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                                </td>
+                                <td>{{ city.name }}</td>
+                                <td>{{ city.price }}</td>
+                                <td><a href="{{ path('admin_city_show', { 'id': city.id }) }}"
+                                       class="btn btn-sm btn-primary">
+                                        voir </a> <a href="{{ path('admin_city_edit', { 'id': city.id }) }}"
+                                                     class="btn btn-sm btn-primary">
+                                        modifier </a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
     {% endblock %}
