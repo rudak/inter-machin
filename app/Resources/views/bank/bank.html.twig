@@ -7,6 +7,8 @@
             <div class="col">
                 <h1>Banque</h1>
                 <hr>
+                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                <hr>
                 <div class="row">
                     <div class="col">
                         <h3>Situation en cours</h3>
@@ -63,6 +65,13 @@
 {% endblock %}
 
 
-
 {% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var api_bank_data_index_url = '{{ absolute_url(path('bank_index_data')) }}';
+    </script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="{{ asset('js/bank-index.js') }}"></script>
 {% endblock %}

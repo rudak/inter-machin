@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Bank;
 
 use AppBundle\Entity\Bank\Loan;
 use Doctrine\ORM\Mapping as ORM;

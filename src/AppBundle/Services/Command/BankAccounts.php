@@ -2,7 +2,7 @@
 
 namespace AppBundle\Services\Command;
 
-use AppBundle\Entity\Account;
+use AppBundle\Entity\Bank\Account;
 use UserBundle\Entity\User;
 
 class BankAccounts extends CronEmCommand

@@ -2,12 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Account;
+use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\Bank\Refund;
 use AppBundle\Form\Bank\LoanRefundType;
 use AppBundle\Form\Bank\LoanType;
 use AppBundle\Services\Bank\BankHandler;
+use AppBundle\Services\Bank\DataGrabber;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,10 +18,11 @@ class BankController extends Controller
     public function indexAction()
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-        $em    = $this->getDoctrine()->getManager();
-        $loans = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
+        $em            = $this->getDoctrine()->getManager();
+        $loans         = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
+
         return $this->render(':bank:bank.html.twig', [
-            'loans' => $loans,
+            'loans'   => $loans,
         ]);
     }
 
@@ -97,7 +99,7 @@ class BankController extends Controller
                 // si il ne reste rien a payer, on cloture
                 $loan->setStatus(Loan::STATUS_CLOSED);
                 $message = sprintf(
-                    "Vous remboursez %d$ , votre emprunt est remboursé intégralement, le banquier vous remercie.",
+                    "Vous remboursez %d$, votre emprunt est maintenant cloturé, le banquier vous remercie.",
                     $refundAmount
                 );
             }

@@ -3,6 +3,7 @@
 namespace AppBundle\Command;
 
 use AppBundle\Services\Command\BankAccounts;
+use AppBundle\Utils\Cron\Timer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,10 +22,12 @@ class BankAccountsCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (!in_array((new \DateTime('NOW'))->format('i'), ['00'])) {
-            return;
+        if (
+            Timer::isTimeToRun('0 0 * * *') ||
+            Timer::isTimeToRun('0 12 * * *')
+        ) {
+            $this->getContainer()->get(BankAccounts::class)->execute();
         }
-        $this->getContainer()->get(BankAccounts::class)->execute();
     }
 
 }

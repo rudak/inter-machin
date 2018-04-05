@@ -1,0 +1,3 @@
+bank_index_data:
+    path:     /bank/my-account-data
+    defaults: { _controller: ApiBundle:Default:bankData }
