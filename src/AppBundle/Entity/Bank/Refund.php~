@@ -1,0 +1,63 @@
+<?php
+
+namespace AppBundle\Entity\Bank;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Refund
+ *
+ * @ORM\Table(name="bank_refund")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Bank\RefundRepository")
+ */
+class Refund
+{
+
+    const TYPE_USER   = 'user';
+    const TYPE_BANKER = 'banker';
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     */
+    private $user;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="amount", type="smallint")
+     */
+    private $amount;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bank\Loan")
+     */
+    private $loan;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=25)
+     */
+    private $type;
+
+    
+
+}
+
