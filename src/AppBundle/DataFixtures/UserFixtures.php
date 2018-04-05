@@ -2,6 +2,7 @@
 
 namespace AppBundle\DataFixtures;
 
+use AppBundle\Entity\City;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -18,7 +19,7 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getUserssData() as $userData) {
+        foreach ($this->getUserssData() as $key => $userData) {
             $user = new User();
             if ('admin' == $userData['username']) {
                 $user->setMoney(999);
@@ -34,6 +35,8 @@ class UserFixtures extends Fixture
             }
             $password = $this->encoder->encodePassword($user, $userData['plainPassword']);
             $user->setPassword($password);
+
+            $this->addReference('city_user_'.$key,$user);
 
             $manager->persist($user);
         }
@@ -120,5 +123,13 @@ class UserFixtures extends Fixture
         $int    = mt_rand(time() - (60 * 60 * 24 * 60), time());
         $format = "Y-m-d H:i:s";
         return \DateTime::createFromFormat($format, date($format, $int));
+    }
+
+    private function getRandomCity(){
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(City::class);
+        $cities = $repo->getCities();
+        dump(array_rand($cities));die;
+        return array_rand($cities);
     }
 }

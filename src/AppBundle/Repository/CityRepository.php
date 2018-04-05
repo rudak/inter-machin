@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class CityRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCities()
+    {
+        $qb = $this->createQueryBuilder('c')
+                   ->addSelect('c')
+                   ->orderBy('c.id', 'DESC')
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
 }

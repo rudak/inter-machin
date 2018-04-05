@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,17 @@ class City
      */
     private $price;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="city")
+     */
+    private $users;
+
+
+    function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -93,5 +105,23 @@ class City
     {
         return $this->price;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param mixed $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+    }
+
+
 }
 

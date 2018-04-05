@@ -6,7 +6,7 @@ use AppBundle\Entity\City;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class CityFixtures extends Fixture
+class ZCityFixtures extends Fixture
 {
     public function __construct()
     {
@@ -14,13 +14,21 @@ class CityFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getCitysData() as $cityData) {
+        foreach ($this->getCitysData() as $key => $cityData) {
             $city = new City();
             $city->setName($cityData['name']);
             $city->setPrice(rand(100, 400));
+            $city->setUsers([$this->getReference('city_user_' . $key)]);
             $manager->persist($city);
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
     }
 
     private function getCitysData()
