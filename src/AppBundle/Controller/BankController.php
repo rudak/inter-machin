@@ -87,17 +87,19 @@ class BankController extends Controller
             }
             $loan->setRefunded($loan->getRefunded() + $refundAmount);
             $loan->getUser()->removeMoney($refundAmount);
-            $message = sprintf("Vous remboursez %d$ ", $refundAmount);
+
             if (!$loan->getRestToPay()) {
                 $loan->setStatus(Loan::STATUS_CLOSED);
-                $message .= ", votre emprunt est remboursé intégralement, le banquier vous remercie.";
-            } else {
-                $message .= sprintf(", il vous reste %d$ à payer avant le %s...", $loan->getRestToPay(), $loan->getExpiration()->format('d/m/Y \\à H:i'));
+                $this->addFlash('success', sprintf("Vous remboursez %d$ , votre emprunt est remboursé intégralement, le banquier vous remercie.", $refundAmount));
+                $em->persist($loan);
+                $em->flush();
+                return $this->redirectToRoute('bank_index');
             }
-            $this->addFlash('success', $message);
+
+            $this->addFlash('success', sprintf("Vous remboursez %d$, il vous reste %d$ à payer avant le %s...", $refundAmount, $loan->getRestToPay(), $loan->getExpiration()->format('d/m/Y \\à H:i')));
             $em->persist($loan);
             $em->flush();
-
+            return $this->redirectToRoute('bank_index');
         }
 
         return $this->render(':bank:loan_refund.html.twig', [

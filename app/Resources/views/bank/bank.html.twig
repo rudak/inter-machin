@@ -23,7 +23,10 @@
                                             {{ loan.expiration|date('d/m/Y \\à H:i') }}
                                         {% endif %}
                                         <br>
-                                        <a href="{{ path('bank_loan_refund',{id:loan.id}) }}" class="btn btn-sm btn-primary">Rembourser</a>
+                                        {% if loan.status == 'validated' %}
+                                            <a href="{{ path('bank_loan_refund',{id:loan.id}) }}"
+                                               class="btn btn-sm btn-primary">Rembourser</a>
+                                        {% endif %}
                                     </li>
                                 {% endfor %}
                             </ul>
