@@ -89,27 +89,21 @@ class BankController extends Controller
 
             $this->get(BankHandler::class)->refundLoan($loan, $refundAmount);
 
+            $message = sprintf(
+                "Vous remboursez %d$, il vous reste %d$ à payer avant le %s...",
+                $refundAmount,
+                $loan->getRestToPay(),
+                $loan->getExpiration()->format('d/m/Y \\à H:i')
+            );
             if (!$loan->getRestToPay()) {
+                // si il ne reste rien a payer, on cloture
                 $loan->setStatus(Loan::STATUS_CLOSED);
-                $this->addFlash(
-                    'success',
-                    sprintf(
-                        "Vous remboursez %d$ , votre emprunt est remboursé intégralement, le banquier vous remercie.",
-                        $refundAmount
-                    )
-                );
-            } else {
-                $this->addFlash(
-                    'success',
-                    sprintf(
-                        "Vous remboursez %d$, il vous reste %d$ à payer avant le %s...",
-                        $refundAmount,
-                        $loan->getRestToPay(),
-                        $loan->getExpiration()->format('d/m/Y \\à H:i')
-                    )
+                $message = sprintf(
+                    "Vous remboursez %d$ , votre emprunt est remboursé intégralement, le banquier vous remercie.",
+                    $refundAmount
                 );
             }
-
+            $this->addFlash('success', $message);
             $em->flush();
             return $this->redirectToRoute('bank_index');
         }
