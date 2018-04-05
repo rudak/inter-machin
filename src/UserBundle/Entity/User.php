@@ -55,7 +55,7 @@ class User extends BaseUser
     private $loans;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\City",mappedBy="users")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City",inversedBy="users")
      */
     private $city;
 

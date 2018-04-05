@@ -38,12 +38,19 @@ class City
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="city")
+     * @ORM\oneToMany(targetEntity="UserBundle\Entity\User",mappedBy="city")
      */
     private $users;
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
-    function __construct()
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
         $this->users = new ArrayCollection();
     }
@@ -51,7 +58,7 @@ class City
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -99,7 +106,7 @@ class City
     /**
      * Get price
      *
-     * @return int
+     * @return integer
      */
     public function getPrice()
     {
@@ -107,21 +114,36 @@ class City
     }
 
     /**
-     * @return mixed
+     * Add user
+     *
+     * @param \UserBundle\Entity\User $user
+     *
+     * @return City
+     */
+    public function addUser(\UserBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \UserBundle\Entity\User $user
+     */
+    public function removeUser(\UserBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
         return $this->users;
     }
-
-    /**
-     * @param mixed $users
-     */
-    public function setUsers($users)
-    {
-        $this->users = $users;
-    }
-
-
 }
-

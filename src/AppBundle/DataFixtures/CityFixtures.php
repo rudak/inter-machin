@@ -8,34 +8,28 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class CityFixtures extends Fixture
 {
-    public function __construct()
-    {
-    }
+
+    const FIRST_CITY = 'FIRST_CITY';
 
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getCitysData() as $key => $cityData) {
+        foreach ($this->getCitysData() as $index => $cityData) {
             $city = new City();
             $city->setName($cityData['name']);
-            $city->setPrice(rand(100, 400));
-            $city->setUsers([$this->getReference('city_user_' . $key)]);
+            $city->setPrice(rand(100, 800));
+            if ($index == 0) {
+                $this->addReference(self::FIRST_CITY, $city);
+            }
             $manager->persist($city);
         }
         $manager->flush();
-    }
-
-    public function getDependencies()
-    {
-        return [
-            UserFixtures::class,
-        ];
     }
 
     private function getCitysData()
     {
         return [
             [
-                'name' => 'Montcuq',
+                'name' => 'San Diego',
             ],
             [
                 'name' => 'Bouc-Étourdi',

@@ -2,7 +2,9 @@
 
 namespace UserBundle\Form;
 
+use AppBundle\Entity\City;
 use AppBundle\Form\CompetencesType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -28,6 +30,10 @@ class UserType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email de l\'utilisateur',
+            ])
+            ->add('city', EntityType::class, [
+                'class' => City::class,
+                'label' => 'Ville',
             ])
         ;
         if ($options['mode'] != 'edit') {

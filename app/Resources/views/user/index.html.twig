@@ -23,6 +23,7 @@
                             <th>En vie</th>
                             <th>Argent</th>
                             <th>Items</th>
+                            <th>Ville</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -45,6 +46,9 @@
                                 <td>{{ user.money }}$</td>
                                 <td>
                                     {{ user.items.count }}
+                                </td>
+                                <td>
+                                    {{ user.city.name|default('aucune') }}
                                 </td>
                                 <td>
                                     <a href="{{ path('admin_user_show', { 'id': user.id }) }}"
