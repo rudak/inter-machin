@@ -8,8 +8,8 @@ var chart = new CanvasJS.Chart("chartContainer", {
         prefix: "$"
     },
     data: [{
-        type: "spline",
-        markerSize: 5,
+        type: "splineArea",
+        markerSize: 0,
         xValueFormatString: "DD/MM/YY",
         yValueFormatString: "$#,##0.##",
         xValueType: "dateTime",
