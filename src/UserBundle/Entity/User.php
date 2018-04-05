@@ -2,7 +2,9 @@
 
 namespace UserBundle\Entity;
 
+use AppBundle\Entity\City;
 use AppBundle\Entity\Competences;
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -51,6 +53,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Bank\Loan",mappedBy="user")
      */
     private $loans;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\City",mappedBy="users")
+     */
+    private $city;
 
     public function __construct()
     {
@@ -235,5 +242,21 @@ class User extends BaseUser
     public function getLoans()
     {
         return $this->loans;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
     }
 }
