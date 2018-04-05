@@ -1,0 +1,24 @@
+admin_city_index:
+    path:     /
+    defaults: { _controller: "AppBundle:City:index" }
+    methods:  GET
+
+admin_city_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:City:show" }
+    methods:  GET
+
+admin_city_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:City:new" }
+    methods:  [GET, POST]
+
+admin_city_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:City:edit" }
+    methods:  [GET, POST]
+
+admin_city_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:City:delete" }
+    methods:  DELETE
