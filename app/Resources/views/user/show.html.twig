@@ -15,22 +15,28 @@
                         </tr>
                         <tr>
                             <th>Alive</th>
-                            <td>{% if user.alive %}<span class="label label-success">Oui</span>{% else %}<span
-                                        class="label label-danger">Non</span>{% endif %}</td>
+                            <td>
+                                {% if user.alive %}
+                                    <span class="badge badge-success">Oui</span>
+                                {% else %}
+                                    <span class="badge badge-danger">Non</span>
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Money</th>
-                            <td>{{ user.money }}</td>
+                            <td>{{ user.money }}$</td>
                         </tr>
                         </tbody>
                     </table>
                     <p>
-                        <a href="{{ path('admin_user_index') }}" class="btn btn-default">
+                        <a href="{{ path('admin_user_index') }}" class="btn btn-primary">
                             Retour à la liste
-                        </a> <a href="{{ path('admin_user_edit', { 'id': user.id }) }}"
-                                class="btn btn-success">
+                        </a>
+                        <a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="btn btn-success">
                             Modifier
-                        </a></p>
+                        </a>
+                    </p>
                     <div class="delete_form_wrapper">
                         {{ form_start(delete_form) }}
                         <input type="submit" value="Supprimer" class="btn btn-danger">

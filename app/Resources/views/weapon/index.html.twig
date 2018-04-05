@@ -42,9 +42,9 @@
                                 <td>{{ weapon.price }}</td>
                                 <td>{{ weapon.uses }}</td>
                                 <td><a href="{{ path('admin_weapon_show', { 'id': weapon.id }) }}"
-                                       class="btn btn-xs btn-default">
+                                       class="btn btn-xs btn-primary">
                                         voir </a> <a href="{{ path('admin_weapon_edit', { 'id': weapon.id }) }}"
-                                                     class="btn btn-xs btn-default">
+                                                     class="btn btn-xs btn-primary">
                                         modifier </a></td>
                             </tr>
                         {% endfor %}

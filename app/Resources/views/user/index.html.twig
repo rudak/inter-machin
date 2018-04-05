@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col">
                     <div class="page-header">
-                        <h1>Liste des User</h1>
+                        <h1>Liste des {{ users|length }} joueurs</h1>
                     </div>
                     <p>
                         <br/>
@@ -13,8 +13,8 @@
                             Ajouter
                         </a>
                     </p>
-                    <table class="table">
-                        <thead>
+                    <table class="table table-striped table-sm">
+                        <thead class="thead-dark">
                         <tr>
                             <th>Nom</th>
                             <th>Email</th>
@@ -28,32 +28,31 @@
                         </thead>
                         <tbody>
                         {% for user in users %}
-                            <tr>
+                            <tr class="{% if not user.enabled %}table-danger{% endif %}">
                                 <td>
                                     {{ user.username }}
                                 </td>
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.competences.level }}</td>
                                 <td>{{ user.competences.life }}</td>
-
                                 <td>
                                     {% if user.alive %}
-                                        <span class="label label-success">Oui</span>
+                                        <span class="badge badge-success">Oui</span>
                                     {% else %}
-                                        <span class="label label-danger">Non</span>
+                                        <span class="badge badge-danger">Non</span>
                                     {% endif %}
                                 </td>
-                                <td>{{ user.money }}</td>
+                                <td>{{ user.money }}$</td>
                                 <td>
                                     {{ user.items.count }}
                                 </td>
                                 <td>
                                     <a href="{{ path('admin_user_show', { 'id': user.id }) }}"
-                                       class="btn btn-xs btn-default">
+                                       class="btn btn-xs btn-primary ">
                                         voir
                                     </a>
                                     <a href="{{ path('admin_user_edit', { 'id': user.id }) }}"
-                                       class="btn btn-xs btn-default">
+                                       class="btn btn-xs btn-primary ">
                                         modifier </a>
                                 </td>
                             </tr>
