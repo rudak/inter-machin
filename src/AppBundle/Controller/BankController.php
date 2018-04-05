@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Account;
 use AppBundle\Entity\Bank\Loan;
+use AppBundle\Form\Bank\LoanRefundType;
 use AppBundle\Form\Bank\LoanType;
 use AppBundle\Services\Bank\BankHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,7 +18,7 @@ class BankController extends Controller
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
         $loans = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
-        return $this->render(':default:bank.html.twig', [
+        return $this->render(':bank:bank.html.twig', [
             'loans' => $loans,
         ]);
     }
@@ -52,6 +53,55 @@ class BankController extends Controller
         return $this->createForm(LoanType::class, $loan, [
             'action' => $this->generateUrl('bank_request'),
             'method' => 'POST',
+        ]);
+    }
+
+    private function getLoanRefundForm(Loan $loan)
+    {
+        return $this->createForm(LoanRefundType::class, $loan, [
+            'action' => $this->generateUrl('bank_loan_refund', [
+                'id' => $loan->getId(),
+            ]),
+            'method' => 'POST',
+        ]);
+    }
+
+    public function refundAction(Request $request, $id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        $em   = $this->getDoctrine()->getManager();
+        $loan = $em->getRepository('AppBundle:Bank\Loan')->find($id);
+        if (!$loan) {
+            $this->addFlash('success', 'Cet emprunt est introuvable');
+            return $this->redirectToRoute('bank_index');
+        }
+        $form = $this->getLoanRefundForm($loan);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $refundAmount = $form->get('money')->getData();
+            if ($refundAmount > $loan->getUser()->getMoney()) {
+                $this->addFlash('danger', 'Vous ne pouvez pas rembourser %d$, vous n\'avez que %d$ !', $refundAmount, $loan->getUser()->getMoney());
+                return $this->redirectToRoute('bank_index');
+            }
+            $loan->setRefunded($loan->getRefunded() + $refundAmount);
+            $loan->getUser()->removeMoney($refundAmount);
+            $message = sprintf("Vous remboursez %d$ ", $refundAmount);
+            if (!$loan->getRestToPay()) {
+                $loan->setStatus(Loan::STATUS_CLOSED);
+                $message .= ", votre emprunt est remboursé intégralement, le banquier vous remercie.";
+            } else {
+                $message .= sprintf(", il vous reste %d$ à payer avant le %s...", $loan->getRestToPay(), $loan->getExpiration()->format('d/m/Y \\à H:i'));
+            }
+            $this->addFlash('success', $message);
+            $em->persist($loan);
+            $em->flush();
+
+        }
+
+        return $this->render(':bank:loan_refund.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

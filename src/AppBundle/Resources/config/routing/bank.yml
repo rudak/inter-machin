@@ -6,11 +6,10 @@ bank_request:
     path: /request
     defaults: { _controller: AppBundle:Bank:newLoan }
 
-
 bank_loan_validation:
     path: /validation
     defaults: { _controller: AppBundle:Bank:validation }
 
 bank_loan_refund:
-    path: /refund
+    path: /refund/{id}
     defaults: { _controller: AppBundle:Bank:refund }
