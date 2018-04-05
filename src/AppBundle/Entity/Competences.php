@@ -31,9 +31,9 @@ class Competences
     /**
      * @var string
      *
-     * @ORM\Column(name="power", type="smallint")
+     * @ORM\Column(name="life", type="smallint")
      */
-    private $power;
+    private $life;
 
     /**
      * @var int
@@ -65,7 +65,7 @@ class Competences
         $this->level   = 1;
         $this->attack  = 0;
         $this->defense = 0;
-        $this->power   = 1;
+        $this->life   = 1;
         $this->skill   = 0;
     }
 
@@ -105,27 +105,27 @@ class Competences
     }
 
     /**
-     * Set power
+     * Set life
      *
-     * @param integer $power
+     * @param integer $life
      *
      * @return Competences
      */
-    public function setPower($power)
+    public function setLife($life)
     {
-        $this->power = $power;
+        $this->life = $life;
 
         return $this;
     }
 
     /**
-     * Get power
+     * Get life
      *
      * @return integer
      */
-    public function getPower()
+    public function getLife()
     {
-        return $this->power;
+        return $this->life;
     }
 
     /**
@@ -202,21 +202,21 @@ class Competences
         return $this;
     }
 
-    public function addPowerPoints($amount)
+    public function addLifePoints($amount)
     {
-        $this->power += $amount;
-        if ($this->power > 100) {
-            $this->power = 100;
+        $this->life += $amount;
+        if ($this->life > 100) {
+            $this->life = 100;
         }
 
         return $this;
     }
 
-    public function removePowerPoints($amount)
+    public function removeLifePoints($amount)
     {
-        $this->power -= $amount;
-        if ($this->power < 0) {
-            $this->power = 0;
+        $this->life -= $amount;
+        if ($this->life < 0) {
+            $this->life = 0;
         }
 
         return $this;

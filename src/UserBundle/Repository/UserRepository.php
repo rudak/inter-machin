@@ -15,7 +15,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('u')
                    ->leftJoin('u.competences', 'c')
                    ->orderBy('c.level', 'DESC')
-                   ->addOrderBy('c.power', 'DESC')
+                   ->addOrderBy('c.life', 'DESC')
                    ->addOrderBy('u.money', 'DESC')
                    ->setMaxResults(3)
                    ->getQuery()

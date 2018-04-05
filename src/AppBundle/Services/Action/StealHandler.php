@@ -53,8 +53,8 @@ class StealHandler
         $steal->getVictim()->removeMoney($steal->getLoot());
         $steal->getBurglar()->addMoney($steal->getLoot());
         // dommages
-        $steal->getVictim()->getCompetences()->removePowerPoints($steal->getVictimDamage());
-        $steal->getBurglar()->getCompetences()->removePowerPoints($steal->getBurglarDamage());
+        $steal->getVictim()->getCompetences()->removeLifePoints($steal->getVictimDamage());
+        $steal->getBurglar()->getCompetences()->removeLifePoints($steal->getBurglarDamage());
         // habileté
         $steal->getVictim()->getCompetences()->addSkillPoints($steal->getBurglarSkill());
         $steal->getBurglar()->getCompetences()->addSkillPoints($steal->getBurglarSkill() * 2);
@@ -155,7 +155,7 @@ class StealHandler
             $msg[] .= sprintf("vous gagnez %d pts d'habilité", $steal->getBurglarSkill());
         }
         if ($steal->getBurglarDamage() > 0) {
-            $msg[] .= sprintf("vous perdez %d pts de power", $steal->getBurglarSkill());
+            $msg[] .= sprintf("vous perdez %d pts de vie", $steal->getBurglarSkill());
         }
         $this->message .= implode(', ', $msg) . '.';
     }
