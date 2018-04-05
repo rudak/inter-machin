@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Account;
 use AppBundle\Entity\Bank\Loan;
+use AppBundle\Entity\Bank\Refund;
 use AppBundle\Form\Bank\LoanRefundType;
 use AppBundle\Form\Bank\LoanType;
 use AppBundle\Services\Bank\BankHandler;
@@ -87,6 +88,8 @@ class BankController extends Controller
             }
             $loan->setRefunded($loan->getRefunded() + $refundAmount);
             $loan->getUser()->removeMoney($refundAmount);
+            $refund = new Refund($loan, $refundAmount);
+            $em->persist($refund);
 
             if (!$loan->getRestToPay()) {
                 $loan->setStatus(Loan::STATUS_CLOSED);
