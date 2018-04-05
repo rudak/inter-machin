@@ -63,10 +63,10 @@ class Competences
     public function __construct()
     {
         $this->level   = 1;
-        $this->attack  = 0;
-        $this->defense = 0;
-        $this->life   = 1;
-        $this->skill   = 0;
+        $this->attack  = 10;
+        $this->defense = 10;
+        $this->life   = 30;
+        $this->skill   = 10;
     }
 
 

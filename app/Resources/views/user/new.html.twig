@@ -12,16 +12,23 @@
 
             {{ form_start(form) }}
             <div class="row">
-                <div class="col">{{ form_row(form.username) }}</div>
-                <div class="col">{{ form_row(form.email) }}</div>
-            </div>
-            <div class="row">
-                <div class="col">{{ form_row(form.password) }}</div>
-            </div>
-            <div class="row">
-                <div class="col">{{ form_row(form.money) }}</div>
-                <div class="col">{{ form_row(form.alive) }}</div>
-                <div class="col">{{ form_row(form.enabled) }}</div>
+                <div class="col">
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.password) }}
+                    {{ form_row(form.alive) }}
+                    {{ form_row(form.enabled) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.money) }}
+                    {{ form_row(form.competences.level) }}
+                    {{ form_row(form.competences.life) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.competences.attack) }}
+                    {{ form_row(form.competences.defense) }}
+                    {{ form_row(form.competences.skill) }}
+                </div>
             </div>
             {{ form_widget(form) }}
             <p>

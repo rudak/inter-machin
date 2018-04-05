@@ -3,37 +3,47 @@
 {% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
 
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="page-header">
-                <h1>Modification de User</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-header">
+                    <h1>Modification de {{ user.username }}</h1>
+                </div>
+                {{ form_start(edit_form) }}
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(edit_form.username) }}
+                        {{ form_row(edit_form.email) }}
+                        {{ form_row(edit_form.alive) }}
+                        {{ form_row(edit_form.enabled) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(edit_form.money) }}
+                        {{ form_row(edit_form.competences.level) }}
+                        {{ form_row(edit_form.competences.life) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(edit_form.competences.attack) }}
+                        {{ form_row(edit_form.competences.defense) }}
+                        {{ form_row(edit_form.competences.skill) }}
+                    </div>
+                </div>
+                {{ form_widget(edit_form) }}
+                <p>
+                    <input type="submit" value="Modifier" class="btn btn-success"/>
+                </p>
+                {{ form_end(edit_form) }}
+                <p>
+                    <a href="{{ path('admin_user_index') }}" class="btn btn-primary">
+                        Retour à la liste
+                    </a>
+                </p>
+                <div class="delete_form_wrapper">
+                    {{ form_start(delete_form) }}
+                    <input type="submit" value="Supprimer" class="btn btn-danger">
+                    {{ form_end(delete_form) }}
+                </div>
             </div>
-
-            {{ form_start(edit_form) }}
-            <div class="row">
-                <div class="col">{{ form_row(edit_form.username) }}</div>
-                <div class="col">{{ form_row(edit_form.email) }}</div>
-            </div>
-            <div class="row">
-                <div class="col">{{ form_row(edit_form.money) }}</div>
-                <div class="col">{{ form_row(edit_form.alive) }}</div>
-                <div class="col">{{ form_row(edit_form.enabled) }}</div>
-            </div>
-            {{ form_widget(edit_form) }}
-            <p>
-                <input type="submit" value="Modifier" class="btn btn-success"/>
-            </p>
-            {{ form_end(edit_form) }}
-
-                        <p>
-    <a href="{{ path('admin_user_index') }}" class="btn btn-default">
-        Retour à la liste
-    </a></p>    <div class="delete_form_wrapper">
-        {{ form_start(delete_form) }}
-        <input type="submit" value="Supprimer" class="btn btn-danger">
-        {{ form_end(delete_form) }}
-    </div></div>
+        </div>
     </div>
-</div>
 {% endblock %}

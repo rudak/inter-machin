@@ -2,6 +2,7 @@
 
 namespace UserBundle\Form;
 
+use AppBundle\Form\CompetencesType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -53,6 +54,7 @@ class UserType extends AbstractType
                 'label'    => 'Activé',
                 'required' => false,
             ])
+            ->add('competences', CompetencesType::class)
         ;
     }
 
