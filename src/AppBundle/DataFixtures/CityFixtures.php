@@ -6,7 +6,7 @@ use AppBundle\Entity\City;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class ZCityFixtures extends Fixture
+class CityFixtures extends Fixture
 {
     public function __construct()
     {
