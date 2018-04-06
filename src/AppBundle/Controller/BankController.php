@@ -23,8 +23,8 @@ class BankController extends Controller
         $loans = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
         dump($loans);
         return $this->render(':bank:bank.html.twig', [
-            'activeLoans'   => LoansHanlder::filterActiveLoans($loans),
-            'inactiveLoans' => LoansHanlder::filterInactiveLoans($loans),
+            'activeLoans'   => LoansHanlder::loanFilter($loans, LoansHanlder::FILTER_ACTIVE_LOANS),
+            'inactiveLoans' => LoansHanlder::loanFilter($loans, LoansHanlder::FILTER_INACTIVE_LOANS),
         ]);
     }
 

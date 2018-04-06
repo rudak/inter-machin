@@ -3,30 +3,37 @@
 namespace AppBundle\Utils\Bank;
 
 use AppBundle\Entity\Bank\Loan;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class LoansHanlder
 {
-    public static function filterActiveLoans(array $loans)
+    const FILTER_ACTIVE_LOANS   = 'active';
+    const FILTER_INACTIVE_LOANS = 'inactive';
+
+    public static function loanFilter(array $loans, $filter)
     {
-        $activeLoans = [];
-        foreach ($loans as $loan) {
-            /** @var $loan Loan */
-            if (in_array($loan->getStatus(), [Loan::STATUS_REQUEST, Loan::STATUS_LATE, Loan::STATUS_VALID])) {
-                $activeLoans[] = $loan;
-            }
+        if (!in_array($filter, [self::FILTER_ACTIVE_LOANS, self::FILTER_INACTIVE_LOANS])) {
+            throw new Exception(sprintf("Le filtre '%s' est inconnu.", $filter));
         }
-        return $activeLoans;
+        return array_filter($loans, [__CLASS__, $filter]);
     }
 
-    public static function filterInactiveLoans(array $loans)
+
+    private static function active(Loan $loan)
     {
-        $inactiveLoans = [];
-        foreach ($loans as $loan) {
-            /** @var $loan Loan */
-            if (in_array($loan->getStatus(), [Loan::STATUS_CANCELED, Loan::STATUS_CLOSED, Loan::STATUS_REFUSED])) {
-                $inactiveLoans[] = $loan;
-            }
-        }
-        return $inactiveLoans;
+        return in_array($loan->getStatus(), [
+            Loan::STATUS_REQUEST,
+            Loan::STATUS_VALID,
+            Loan::STATUS_LATE,
+        ]);
+    }
+
+    private static function inactive(Loan $loan)
+    {
+        return in_array($loan->getStatus(), [
+            Loan::STATUS_CANCELED,
+            Loan::STATUS_CLOSED,
+            Loan::STATUS_REFUSED,
+        ]);
     }
 }
