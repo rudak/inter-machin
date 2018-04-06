@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Les villes</h1>
+                <hr>
+                <div class="content">
+                    <ul>
+                        {% for city in cities %}
+                            <li>
+                                {{ city.0.name }} : {{ city.somme }} joueurs.
+                                <span class="badge badge-secondary">Voyage : {{ city.0.price }}$</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

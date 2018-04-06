@@ -18,6 +18,9 @@ ranking:
     path: /ranking
     defaults: { _controller: AppBundle:Default:ranking}
 
+cities:
+    path: /cities
+    defaults: { _controller: AppBundle:Default:cities}
 
 
 app_bank:

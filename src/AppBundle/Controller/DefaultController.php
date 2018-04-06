@@ -89,4 +89,14 @@ class DefaultController extends Controller
             'users' => $users,
         ]);
     }
+
+    public function citiesAction()
+    {
+        $em     = $this->getDoctrine()->getManager();
+        $cities = $em->getRepository('AppBundle:City')->getCities();
+        // dump($cities);
+        return $this->render(':default:cities.html.twig', [
+            'cities' => $cities,
+        ]);
+    }
 }

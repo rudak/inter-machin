@@ -13,8 +13,10 @@ class CityRepository extends \Doctrine\ORM\EntityRepository
     public function getCities()
     {
         $qb = $this->createQueryBuilder('c')
-                   ->addSelect('c')
-                   ->orderBy('c.id', 'DESC')
+                   ->addSelect('COUNT(u) as somme')
+                   ->leftJoin('c.users', 'u')
+                   ->orderBy('somme', 'DESC')
+                   ->groupBy('c.name')
                    ->getQuery()
         ;
         return $qb->execute();
