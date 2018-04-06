@@ -1,3 +1,7 @@
 bank_index_data:
     path:     /bank/my-account-data.json
     defaults: { _controller: ApiBundle:Default:bankData }
+# user_money_data
+usersMoneyData:
+    path: /users-money-data
+    defaults: { _controller: ApiBundle:Default:userMoneyData}

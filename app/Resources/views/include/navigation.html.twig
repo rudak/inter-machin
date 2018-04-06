@@ -14,6 +14,7 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <h4>Administration</h4>
                 <ul>
+                    <li><a href="{{ path('app_admin_index') }}">admin</a></li>
                     <li><a href="{{ path('admin_user_index') }}">admin users</a></li>
                     <li><a href="{{ path('admin_weapon_index') }}">admin weapon</a></li>
                     <li><a href="{{ path('admin_city_index') }}">admin city</a></li>

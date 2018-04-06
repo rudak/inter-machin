@@ -1,0 +1,17 @@
+# app_admin_index
+app_admin_index:
+    path: /index
+    defaults: { _controller: AppBundle:Admin:index}
+
+
+app_admin_user:
+    resource: "@AppBundle/Resources/config/routing/admin/user.yml"
+    prefix:   /user
+
+app_admin_weapon:
+    resource: "@AppBundle/Resources/config/routing/admin/weapon.yml"
+    prefix:   /weapon
+
+app_admin_city:
+    resource: "@AppBundle/Resources/config/routing/admin/city.yml"
+    prefix:   /city

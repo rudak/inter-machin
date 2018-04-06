@@ -30,4 +30,18 @@ class DataGrabber
         }
         return $out;
     }
+
+    public function getUsersMoneyData()
+    {
+        $users = $this->em->getRepository(User::class)->getAllUsersForAdmin();
+        $out   = [];
+        /** @var User $user */
+        foreach ($users as $user) {
+            $out[] = [
+                'name'  => $user->getUsername(),
+                'money' => $user->getMoney(),
+            ];
+        }
+        return $out;
+    }
 }

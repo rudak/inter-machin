@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Monitoring</h1>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <div id="chartContainerUsersMoney" style="height: 370px; width: 100%;"></div>
+                    </div>
+                    <div class="col-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var api_users_money_data_index_url = '{{ absolute_url(path('usersMoneyData')) }}';
+    </script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="{{ asset('js/charts-admin.js') }}"></script>
+{% endblock %}

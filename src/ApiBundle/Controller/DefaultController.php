@@ -13,4 +13,10 @@ class DefaultController extends Controller
         $myAccountData = $this->get(DataGrabber::class)->getAccountData($this->getUser());
         return new JsonResponse($myAccountData, 200);
     }
+
+    public function userMoneyDataAction()
+    {
+        $usersMoneyData = $this->get(DataGrabber::class)->getUsersMoneyData();
+        return new JsonResponse($usersMoneyData, 200);
+    }
 }

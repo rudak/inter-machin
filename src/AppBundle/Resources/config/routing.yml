@@ -40,14 +40,6 @@ app_default_weapon:
     resource: "@AppBundle/Resources/config/routing/weapon.yml"
     prefix:   /weapon
 
-app_admin_user:
-    resource: "@AppBundle/Resources/config/routing/admin/user.yml"
-    prefix:   /admin/user
-
-app_admin_weapon:
-    resource: "@AppBundle/Resources/config/routing/admin/weapon.yml"
-    prefix:   /admin/weapon
-
-app_admin_city:
-    resource: "@AppBundle/Resources/config/routing/admin/city.yml"
-    prefix:   /admin/city
+app_admin:
+    resource: "@AppBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin
