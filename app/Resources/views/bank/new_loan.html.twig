@@ -8,6 +8,9 @@
             <div class="col">
                 <h1>Demander un pret</h1>
                 <hr>
+                <p class="lead">
+                    Vous pouvez demander jusqu'a {{ app.user.money/3|round }}$
+                </p>
                 <div class="content">
                     {{ form_start(form) }}
                     {{ form_widget(form) }}

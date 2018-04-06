@@ -19,6 +19,11 @@ class LoanType extends AbstractType
         $builder
             ->add('amount', IntegerType::class, [
                 'label' => 'Montant désiré',
+                'data'  => 1,
+                'attr'  => [
+                    'min' => 1,
+                    'max' => round($builder->getData()->getUser()->getMoney() / 3),
+                ],
             ]);
     }
 

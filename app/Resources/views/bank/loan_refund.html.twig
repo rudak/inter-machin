@@ -9,14 +9,33 @@
                 <h1>Rembourser un pret</h1>
                 <hr>
                 <div class="content">
+                    <p class="lead">
+                        Il vous reste {{ loan.restToPay }}$ à payer.
+                    </p>
                     {{ form_start(form) }}
                     {{ form_widget(form) }}
-                    <p>
+                    {#<p>#}
+                    {#<button type="submit" class="btn btn-primary">Rembourser</button>#}
+                    {#</p>#}
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-secondary" id="maxRefund">Selectionner MAX</button>
                         <button type="submit" class="btn btn-primary">Rembourser</button>
-                    </p>
+                    </div>
                     {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('#maxRefund').on('click', function (e) {
+                var max = $('#appbundle_bank_loan_money').attr('max');
+                $('#appbundle_bank_loan_money').val(max);
+            });
+        });
+    </script>
 {% endblock %}

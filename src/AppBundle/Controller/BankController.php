@@ -110,6 +110,7 @@ class BankController extends Controller
 
         return $this->render(':bank:loan_refund.html.twig', [
             'form' => $form->createView(),
+            'loan' => $loan,
         ]);
     }
 }
