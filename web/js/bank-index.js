@@ -1,5 +1,6 @@
 var dataMoney = [];
 var dataLoan = [];
+var dataLevel = [];
 
 function render() {
 
@@ -10,6 +11,14 @@ function render() {
             title: "Argent",
             valueFormatString: "#0",
             suffix: "$",
+        },
+        axisY2: {
+            title: "Niveau",
+            titleFontColor: "#C0504E",
+            lineColor: "#C0504E",
+            labelFontColor: "#C0504E",
+            tickColor: "#C0504E",
+            includeZero: false
         },
         legend: {
             cursor: "pointer",
@@ -34,7 +43,17 @@ function render() {
             showInLegend: true,
             yValueFormatString: "#$",
             dataPoints: dataLoan
-        }]
+        },
+            {
+                type: "line",
+                name: "Niveau",
+                axisYType: "secondary",
+                showInLegend: true,
+                xValueFormatString: "MMM YYYY",
+                yValueFormatString: "$#,##0.#",
+                dataPoints: dataLevel
+            }
+        ]
     };
     $("#chartContainer").CanvasJSChart(options);
 
@@ -57,6 +76,10 @@ function addData(data) {
         dataLoan.push({
             x: new Date(data[i]['date'] * 1000),
             y: data[i]['loan']
+        });
+        dataLevel.push({
+            x: new Date(data[i]['date'] * 1000),
+            y: data[i]['level']
         });
     }
     render();

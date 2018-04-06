@@ -24,7 +24,9 @@ class BankAccountsCommand extends ContainerAwareCommand
     {
         if (
             Timer::isTimeToRun('0 0 * * *') ||
-            Timer::isTimeToRun('0 12 * * *')
+            Timer::isTimeToRun('0 6 * * *') ||
+            Timer::isTimeToRun('0 12 * * *') ||
+            Timer::isTimeToRun('0 18 * * *')
         ) {
             $this->getContainer()->get(BankAccounts::class)->execute();
         }

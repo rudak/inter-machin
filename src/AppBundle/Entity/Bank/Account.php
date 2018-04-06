@@ -37,6 +37,14 @@ class Account
      */
     private $amount;
 
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="level", type="integer", nullable=true)
+     */
+    private $level;
+
     /**
      * @var \DateTime
      *
@@ -66,14 +74,14 @@ class Account
         $this->user   = $user;
         $this->amount = $user->getMoney();
         $this->date   = new \DateTime('NOW');
+        $this->level  = $user->getCompetences()->getLevel();
         $total        = 0;
-
         foreach ($user->getLoans() as $loan) {
             /** @var $loan Loan */
             if ($loan->getStatus() != Loan::STATUS_VALID) {
                 continue;
             }
-            $total += $loan->getAmount() - $loan->getRefunded();
+            $total += $loan->getRestToPay();
         }
         $this->setLoan($total);
         return $this;
@@ -184,5 +192,23 @@ class Account
     {
         return $this->user;
     }
+
+    /**
+     * @return int
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * @param int $level
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+    }
+
+
 }
 

@@ -28,6 +28,7 @@ class DataGrabber
                 'date'  => (int)$account->getDate()->format('U'),
                 'money' => $account->getAmount(),
                 'loan'  => $account->getLoan(),
+                'level' => $account->getLevel(),
             ];
         }
         return $out;
