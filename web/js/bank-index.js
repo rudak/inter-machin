@@ -3,15 +3,18 @@ var chart = new CanvasJS.Chart("chartContainer", {
     animationEnabled: true,
     axisY: {
         title: "Mon argent",
-        valueFormatString: "#0,,.",
-        suffix: "mn",
-        prefix: "$"
+        suffix: "$",
+    },
+    axisX: {
+        valueFormatString: "DD/MM/Y",
+        interval: 2,
+        intervalType: "month",
     },
     data: [{
         type: "splineArea",
         markerSize: 0,
-        xValueFormatString: "DD/MM/YY",
-        yValueFormatString: "$#,##0.##",
+        xValueFormatString: "DD/MM/Y",
+        yValueFormatString: "#$",
         xValueType: "dateTime",
         dataPoints: dataPoints
     }]
