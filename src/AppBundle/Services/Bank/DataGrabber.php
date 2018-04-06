@@ -23,9 +23,11 @@ class DataGrabber
         $accounts = $this->em->getRepository(Account::class)->getAccountsForUser($user);
         $out      = [];
         foreach ($accounts as $account) {
+            /** @var $account Account */
             $out[] = [
-                (int)$account->getDate()->format('U'),
-                $account->getAmount(),
+                'date'  => (int)$account->getDate()->format('U'),
+                'money' => $account->getAmount(),
+                'loan'  => $account->getLoan(),
             ];
         }
         return $out;

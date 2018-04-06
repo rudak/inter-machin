@@ -69,9 +69,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        var api_bank_data_index_url = '{{ absolute_url(path('bank_index_data')) }}';
-    </script>
     <script src="{{ asset('js/jquery.canvasjs.min.js') }}"></script>
     <script src="{{ asset('js/bank-index.js') }}"></script>
 {% endblock %}

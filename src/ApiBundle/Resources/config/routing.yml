@@ -1,6 +1,8 @@
 bank_index_data:
     path:     /bank/my-account-data.json
     defaults: { _controller: ApiBundle:Default:bankData }
+    options:
+        expose: true
 # user_money_data
 usersMoneyData:
     path: /users-money-data

@@ -1,38 +1,70 @@
-var dataPoints = [];
-var chart = new CanvasJS.Chart("chartContainer", {
-    animationEnabled: true,
-    axisY: {
-        title: "Mon argent",
-        suffix: "$",
-    },
-    axisX: {
-        valueFormatString: "DD/MM/Y",
-        interval: 2,
-        intervalType: "month",
-    },
-    data: [{
-        type: "splineArea",
-        markerSize: 0,
-        xValueFormatString: "DD/MM/Y",
-        yValueFormatString: "#$",
-        xValueType: "dateTime",
-        dataPoints: dataPoints
-    }]
-});
+var dataMoney = [];
+var dataLoan = [];
+
+function render() {
+
+    var options = {
+        animationEnabled: true,
+        theme: "light2",
+        axisY: {
+            title: "Argent",
+            valueFormatString: "#0",
+            suffix: "$",
+        },
+        legend: {
+            cursor: "pointer",
+            itemclick: toogleDataSeries
+        },
+        toolTip: {
+            shared: true
+        },
+        data: [{
+            type: "splineArea",
+            name: "Money",
+            markerSize: 5,
+            showInLegend: true,
+            xValueFormatString: "DD/MM/YY",
+            yValueFormatString: "#$",
+            xValueType: "dateTime",
+            dataPoints: dataMoney
+        }, {
+            type: "splineArea",
+            name: "Emprunt",
+            markerSize: 5,
+            showInLegend: true,
+            yValueFormatString: "#$",
+            dataPoints: dataLoan
+        }]
+    };
+    $("#chartContainer").CanvasJSChart(options);
+
+    function toogleDataSeries(e) {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        e.chart.render();
+    }
+
+}
 function addData(data) {
     for (var i = 0; i < data.length; i++) {
-        dataPoints.push({
-            x: new Date(data[i][0]*1000),
-            y: data[i][1]
+        dataMoney.push({
+            x: new Date(data[i]['date'] * 1000),
+            y: data[i]['money']
+        });
+        dataLoan.push({
+            x: new Date(data[i]['date'] * 1000),
+            y: data[i]['loan']
         });
     }
-    chart.render();
+    render();
 }
-$.ajax({
-    dataType: "json",
-    url: api_bank_data_index_url,
-    success: addData
-});
-
-
-
+window.onload = function () {
+    $.ajax({
+        dataType: "json",
+        url: Routing.generate('bank_index_data', {}, true),
+        success: addData
+    });
+}
