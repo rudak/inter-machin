@@ -21,7 +21,6 @@ class BankController extends Controller
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
         $loans = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
-        dump($loans);
         return $this->render(':bank:bank.html.twig', [
             'activeLoans'   => LoansHanlder::loanFilter($loans, LoansHanlder::FILTER_ACTIVE_LOANS),
             'inactiveLoans' => LoansHanlder::loanFilter($loans, LoansHanlder::FILTER_INACTIVE_LOANS),
