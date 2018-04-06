@@ -20,7 +20,7 @@ class DataGrabber
 
     public function getAccountData(User $user)
     {
-        $accounts = $this->em->getRepository(Account::class)->findBy(['user' => $user]);
+        $accounts = $this->em->getRepository(Account::class)->findBy(['user' => $user], ['orderBy' => ['date' => 'ASC']]);
         $out      = [];
         foreach ($accounts as $account) {
             $out[] = [
