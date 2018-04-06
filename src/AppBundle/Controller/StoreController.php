@@ -92,11 +92,10 @@ class StoreController extends Controller
         $item->setUser($user);
         $item->setWeapon($weapon);
 
-        $user->setMoney($user->getMoney() - $weapon->getPrice());
+        $user->removeMoney($weapon->getPrice());
 
         $em->persist(LogCreator::getLog($user, true, sprintf("%s a acheté %s", $user->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_BUY));
         $em->persist($item);
-        $em->persist($user);
         $em->flush();
 
         $this->addFlash('success', sprintf("Vous venez d'acheter '%s' pour %d$. Il vous reste %d$.", $weapon->getName(), $weapon->getPrice(), $user->getMoney()));
