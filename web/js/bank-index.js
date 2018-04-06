@@ -19,7 +19,7 @@ function render() {
             shared: true
         },
         data: [{
-            type: "splineArea",
+            type: "area",
             name: "Money",
             markerSize: 5,
             showInLegend: true,
@@ -28,7 +28,7 @@ function render() {
             xValueType: "dateTime",
             dataPoints: dataMoney
         }, {
-            type: "splineArea",
+            type: "area",
             name: "Emprunt",
             markerSize: 5,
             showInLegend: true,
