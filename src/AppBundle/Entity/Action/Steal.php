@@ -134,8 +134,6 @@ class Steal
     /**
      * Set victim
      *
-     * @param \stdClass $victim
-     *
      * @return Steal
      */
     public function setVictim($victim)

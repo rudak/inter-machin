@@ -2,22 +2,17 @@
 
 namespace AppBundle\Services\Command;
 
-use AppBundle\Utils\Log\LogCreator;
-use Doctrine\ORM\EntityManagerInterface;
 use UserBundle\Entity\User;
+use AppBundle\Utils\AppConfig;
+use AppBundle\Utils\Log\LogCreator;
 
 class NoLuckMoney extends CronEmCommand implements CronCommandInterface
 {
-    const RECURRENCE_PERCENTAGE = 2;
 
     public function execute()
     {
         foreach ($this->em->getRepository('UserBundle:User')->findAll() as $user) {
-            if (
-                'admin' == $user->getUsername() ||
-                !$user->getAlive() ||
-                rand(0, 100) > self::RECURRENCE_PERCENTAGE
-            ) {
+            if (!$user->getAlive() || rand(0, 100) > AppConfig::NO_LUCK_PERCENTAGE) {
                 continue;
             }
             $this->updateUser($user);
@@ -28,9 +23,6 @@ class NoLuckMoney extends CronEmCommand implements CronCommandInterface
     public function updateUser(User $user)
     {
         $amount = $this->getAmount($user);
-        if ($amount > $user->getMoney()) {
-            $amount = $user->getMoney();
-        }
         $this->em->persist(LogCreator::getLog($user, true, sprintf($this->getReason(), $user->getUsername(), $amount), LogCreator::TYPE_NO_LUCK));
         $user->removeMoney($amount);
         $this->em->persist($user);
