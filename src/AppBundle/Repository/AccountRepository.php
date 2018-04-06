@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use UserBundle\Entity\User;
+
 /**
  * AccountRepository
  *
@@ -10,4 +12,16 @@ namespace AppBundle\Repository;
  */
 class AccountRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAccountsForUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('a')
+                   ->where('a.user = :user')
+                   ->setParameters([
+                       'user' => $user,
+                   ])
+                   ->orderBy('a.date', 'ASC')
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
 }
