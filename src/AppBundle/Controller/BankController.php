@@ -45,6 +45,7 @@ class BankController extends Controller
                 return $this->redirectToRoute('bank_index');
             }
             $this->addFlash('danger', sprintf('%s', $loanChecker[BankHandler::MESSAGE]));
+            return $this->redirectToRoute('bank_index');
         }
 
         return $this->render('bank/new_loan.html.twig', [

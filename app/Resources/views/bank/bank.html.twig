@@ -10,8 +10,18 @@
                 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                 <hr>
                 <div class="row">
+                    <div class="col-3">
+                        <h3>Actions</h3>
+                        <hr>
+                        <p>
+                            <a href="{{ path('bank_request') }}" class="btn btn-primary">
+                                Demander un pret
+                            </a>
+                        </p>
+                    </div>
                     <div class="col">
                         <h3>Situation en cours</h3>
+                        <hr>
                         {% if activeLoans|length %}
                             <ul>
                                 {% for loan in activeLoans %}
@@ -41,7 +51,11 @@
                         {% else %}
                             <p>Pas de comptes a rendre , pour l'instant.</p>
                         {% endif %}
+
+                    </div>
+                    <div class="col">
                         <h3>Historique</h3>
+                        <hr>
                         <ul>
                             {% for loan in inactiveLoans %}
                                 <li>
@@ -55,14 +69,6 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                    </div>
-                    <div class="col">
-                        <h3>Actions</h3>
-                        <p>
-                            <a href="{{ path('bank_request') }}" class="btn btn-primary">
-                                Demander un pret
-                            </a>
-                        </p>
                     </div>
                 </div>
             </div>

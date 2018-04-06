@@ -6,15 +6,24 @@
             <div class="col">
                 <h1>Les villes</h1>
                 <hr>
-                <div class="content">
-                    <ul>
-                        {% for city in cities %}
-                            <li>
-                                {{ city.0.name }} : {{ city.somme }} joueurs.
-                                <span class="badge badge-secondary">Voyage : {{ city.0.price }}$</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                <div class="row">
+                    <div class="col">
+                        <div class="list-group">
+                            {% for city in cities %}
+                                <a href="#"
+                                   class="list-group-item list-group-item-action {% if city.0 == app.user.city %}active{% endif %}">
+                                    {{ city.0.name }} : {{ city.somme }} joueurs.
+                                    <span class="float-right badge badge-{% if city.0 == app.user.city %}light{% else %}primary{% endif %}">
+                                        Voyage : {{ city.0.price }}$
+                                    </span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                    </div>
                 </div>
             </div>
         </div>
