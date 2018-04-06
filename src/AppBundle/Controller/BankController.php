@@ -9,6 +9,7 @@ use AppBundle\Form\Bank\LoanRefundType;
 use AppBundle\Form\Bank\LoanType;
 use AppBundle\Services\Bank\BankHandler;
 use AppBundle\Services\Bank\DataGrabber;
+use AppBundle\Utils\Bank\LoansHanlder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,9 +21,10 @@ class BankController extends Controller
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
         $loans = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
-
+        dump($loans);
         return $this->render(':bank:bank.html.twig', [
-            'loans' => $loans,
+            'activeLoans'   => LoansHanlder::filterActiveLoans($loans),
+            'inactiveLoans' => LoansHanlder::filterInactiveLoans($loans),
         ]);
     }
 
@@ -112,5 +114,35 @@ class BankController extends Controller
             'form' => $form->createView(),
             'loan' => $loan,
         ]);
+    }
+
+    public function cancelAction(Request $request, $id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+
+        $submittedToken = $request->request->get('_csrf_token');
+        if (!$this->isCsrfTokenValid('cancel_loan', $submittedToken)) {
+            $this->addFlash('danger', 'Erreur du token');
+            return $this->redirectToRoute('bank_index');
+        }
+        $em   = $this->getDoctrine()->getManager();
+        $loan = $em->getRepository(Loan::class)->find($id);
+
+        if (!$loan) {
+            $this->addFlash('warning', 'Impossible de trouver ce pret.');
+            return $this->redirectToRoute('bank_index');
+        }
+
+        if (!$loan->getStatus() == Loan::STATUS_REQUEST) {
+            $this->addFlash('warning', sprintf("Désolé mais il n'est plus possible d'annuler ce pret de %d$. Bon courage...", $loan->getAmount()));
+            return $this->redirectToRoute('bank_index');
+        }
+
+        $loan->setStatus(Loan::STATUS_CANCELED);
+        $em->persist($loan);
+        $em->flush();
+
+        $this->addFlash('success', sprintf("Annulation de ce pret de %d$.", $loan->getAmount()));
+        return $this->redirectToRoute('bank_index');
     }
 }

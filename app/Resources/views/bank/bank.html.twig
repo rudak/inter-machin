@@ -12,20 +12,25 @@
                 <div class="row">
                     <div class="col">
                         <h3>Situation en cours</h3>
-                        {% if loans|length %}
+                        {% if activeLoans|length %}
                             <ul>
-                                {% for loan in loans if loan.status == 'request' or loan.status == 'validated' %}
+                                {% for loan in activeLoans %}
                                     <li>
                                         {% if loan.status == 'request' %}
                                             {{ loan.amount }}$
                                             en attente de validation du banquier.
+                                            <br>
+                                            <form action="{{ path('bank_loan_cancel', {'id': loan.id}) }}"
+                                                  method="post">
+                                                <input type="hidden" name="_csrf_token"
+                                                       value="{{ csrf_token('cancel_loan') }}">
+                                                <input type="submit" value="Annuler" class="btn btn-sm btn-danger">
+                                            </form>
                                         {% elseif loan.status == 'validated' %}
                                             {{ loan.restToPay }}$
                                             a rembourser avant le
                                             {{ loan.expiration|date('d/m/Y \\à H:i') }}
-                                        {% endif %}
-                                        <br>
-                                        {% if loan.status == 'validated' %}
+                                            <br>
                                             <a href="{{ path('bank_loan_refund',{id:loan.id}) }}"
                                                class="btn btn-sm btn-primary">Rembourser</a>
                                         {% endif %}
@@ -38,12 +43,14 @@
                         {% endif %}
                         <h3>Historique</h3>
                         <ul>
-                            {% for loan in loans if loan.status == 'refused' or loan.status == 'closed' %}
+                            {% for loan in inactiveLoans %}
                                 <li>
                                     {% if loan.status == 'refused' %}
                                         {{ loan.date|date('d/m/Y') }} Demande de {{ loan.amount }}$ refusée par le banquier.
                                     {% elseif loan.status == 'closed' %}
                                         {{ loan.date|date('d/m/Y') }} Emprunt de {{ loan.amount }}$ : remboursé.
+                                    {% elseif loan.status == 'canceled' %}
+                                        {{ loan.date|date('d/m/Y') }} Emprunt de {{ loan.amount }}$ : annulé.
                                     {% endif %}
                                 </li>
                             {% endfor %}

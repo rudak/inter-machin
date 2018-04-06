@@ -3,13 +3,17 @@ bank_index:
     defaults: { _controller: AppBundle:Bank:index}
 
 bank_request:
-    path: /request
+    path: /loan/request
     defaults: { _controller: AppBundle:Bank:newLoan }
 
 bank_loan_validation:
-    path: /validation
+    path: /loan/validation
     defaults: { _controller: AppBundle:Bank:validation }
 
 bank_loan_refund:
-    path: /refund/{id}
+    path: /loan/refund/{id}
     defaults: { _controller: AppBundle:Bank:refund }
+
+bank_loan_cancel:
+    path: /loan/cancel/{id}
+    defaults: { _controller: AppBundle:Bank:cancel }

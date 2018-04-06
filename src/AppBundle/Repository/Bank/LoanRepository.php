@@ -21,11 +21,13 @@ class LoanRepository extends \Doctrine\ORM\EntityRepository
                    ->where('l.user = :user')
                    ->andWhere('l.status != :closed')
                    ->andWhere('l.status != :refused')
+                   ->andWhere('l.status != :canceled')
                    ->setParameters(
                        [
-                           'closed'  => Loan::STATUS_CLOSED,
-                           'refused' => Loan::STATUS_REFUSED,
-                           'user'    => $user,
+                           'closed'   => Loan::STATUS_CLOSED,
+                           'refused'  => Loan::STATUS_REFUSED,
+                           'canceled' => Loan::STATUS_CANCELED,
+                           'user'     => $user,
                        ]
                    )
                    ->getQuery()

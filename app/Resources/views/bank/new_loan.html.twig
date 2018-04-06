@@ -9,17 +9,29 @@
                 <h1>Demander un pret</h1>
                 <hr>
                 <p class="lead">
-                    Vous pouvez demander jusqu'a {{ app.user.money/3|round }}$
+                    Vous pouvez demander jusqu'a {{ (app.user.money/3)|round }}$
                 </p>
                 <div class="content">
                     {{ form_start(form) }}
                     {{ form_widget(form) }}
-                    <p>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-secondary" id="maxRefund">Selectionner MAX</button>
                         <button type="submit" class="btn btn-primary">Demander au banquier</button>
-                    </p>
+                    </div>
                     {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('#maxRefund').on('click', function (e) {
+                var max = $('#appbundle_bank_loan_amount').attr('max');
+                $('#appbundle_bank_loan_amount').val(max);
+            });
+        });
+    </script>
 {% endblock %}
