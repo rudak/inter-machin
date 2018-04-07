@@ -99,4 +99,9 @@ class DefaultController extends Controller
             'cities' => $cities,
         ]);
     }
+
+    public function graphsAction()
+    {
+        return $this->render(':admin:graphs.html.twig',[]);
+    }
 }
