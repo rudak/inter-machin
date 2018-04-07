@@ -16,6 +16,7 @@ class CityRepository extends \Doctrine\ORM\EntityRepository
                    ->addSelect('COUNT(u) as somme')
                    ->leftJoin('c.users', 'u')
                    ->orderBy('somme', 'DESC')
+                   ->addOrderBy('c.name', 'ASC')
                    ->groupBy('c.name')
                    ->getQuery()
         ;

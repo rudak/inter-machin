@@ -14,7 +14,7 @@ use AppBundle\Form\CityType;
  */
 class CityController extends Controller
 {
-    const CURRENT_PAGE = '****';
+    const CURRENT_PAGE = 'city';
 
     /**
      * Lists all City entities.
