@@ -8,8 +8,6 @@ use AppBundle\Entity\Bank\Refund;
 use AppBundle\Form\Bank\LoanRefundType;
 use AppBundle\Form\Bank\LoanType;
 use AppBundle\Services\Bank\BankHandler;
-use AppBundle\Services\Bank\DataGrabber;
-use AppBundle\Utils\AppConfig;
 use AppBundle\Utils\Bank\LoansHanlder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,16 +30,17 @@ class BankController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
 
+        if (!$this->get(BankHandler::class)->maxLoansReached($this->getUser())) {
+            return $this->redirectToRoute('bank_index');
+        }
+
         $loan = new Loan($this->getUser());
         $form = $this->getLoanForm($loan);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->get(BankHandler::class)->checkLoanAmount($loan)) {
 
-            if (!$this->get(BankHandler::class)->userCanRequestNewLoan($loan)) {
-                return $this->redirectToRoute('bank_index');
-            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($loan);
             $em->flush();

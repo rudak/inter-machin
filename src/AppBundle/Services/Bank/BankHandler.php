@@ -8,6 +8,7 @@ use AppBundle\Utils\AppConfig;
 use AppBundle\Utils\Bank\LoansHanlder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use UserBundle\Entity\User;
 
 class BankHandler
 {
@@ -31,18 +32,13 @@ class BankHandler
     }
 
     /**
-     * Renvoie si oui ou non l'user peut demander un nouvel emprunt
-     * @param Loan $loan
+     * Verifie si l'user a moins de prets actifs que le max autorisé
+     * @param User $user
      * @return bool
      */
-    public function userCanRequestNewLoan(Loan $loan)
+    public function maxLoansReached(User $user)
     {
-        return $this->checkMaxLoansAllowed($loan) && $this->checkLoanAmount($loan);
-    }
-
-    private function checkMaxLoansAllowed(Loan $loan)
-    {
-        $userLoans   = $this->em->getRepository(Loan::class)->findAllLoansByUser($loan->getUser());
+        $userLoans   = $this->em->getRepository(Loan::class)->findAllLoansByUser($user);
         $activeLoans = LoansHanlder::loanFilter($userLoans, LoansHanlder::FILTER_ACTIVE_LOANS);
         if (count($activeLoans) < AppConfig::MAX_ACTIVE_LOANS_ALLOWED) {
             return true;
@@ -57,7 +53,7 @@ class BankHandler
      * @param Loan $loan
      * @return bool
      */
-    private function checkLoanAmount(Loan $loan)
+    public function checkLoanAmount(Loan $loan)
     {
         $third = round($loan->getUser()->getMoney() / 3);
         if ($loan->getAmount() <= $third) {
