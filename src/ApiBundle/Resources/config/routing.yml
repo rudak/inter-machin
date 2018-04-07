@@ -7,8 +7,13 @@ bank_index_data:
 users_money_data:
     path: /users-money-data
     defaults: { _controller: ApiBundle:Default:userMoneyData}
+    options:
+        expose: true
+
 
 # purchase_data
 purchase_data:
     path: /purchase-data
     defaults: { _controller: ApiBundle:Default:purchaseData}
+    options:
+        expose: true

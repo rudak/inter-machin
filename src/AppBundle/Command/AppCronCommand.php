@@ -32,8 +32,11 @@ class AppCronCommand extends ContainerAwareCommand
         $bankCommand = $this->getApplication()->find('app:bank');
         $bankCommand->run(new ArrayInput([]), new NullOutput());
         // commande de la banque
-        $bankAccountCommand = $this->getApplication()->find('app:bank:accounts');
-        $bankAccountCommand->run(new ArrayInput([]), new NullOutput());
+        $cityCommand = $this->getApplication()->find('app:bank:accounts');
+        $cityCommand->run(new ArrayInput([]), new NullOutput());
+        // cities command
+        $cityCommand = $this->getApplication()->find('app:city');
+        $cityCommand->run(new ArrayInput([]), new NullOutput());
     }
 
 }

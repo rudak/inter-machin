@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends main_layout %}
 
 {% block body %}
 
@@ -26,10 +26,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        var api_users_money_data_index_url = '{{ absolute_url(path('users_money_data')) }}';
-        var api_purchases_data_index_url = '{{ absolute_url(path('purchase_data')) }}';
-    </script>
-    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="{{ asset('js/jquery.canvasjs.min.js') }}"></script>
     <script src="{{ asset('js/charts-admin.js') }}"></script>
 {% endblock %}

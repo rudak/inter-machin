@@ -6,7 +6,7 @@ app_admin_index:
 # graphs
 app_admin_graphs:
     path: /graphs
-    defaults: { _controller: AppBundle:Default:graphs}
+    defaults: { _controller: AppBundle:Admin:graphs}
 
 
 

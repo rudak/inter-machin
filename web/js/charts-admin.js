@@ -22,7 +22,7 @@ function addDataMoney(data) {
 }
 $.ajax({
     dataType: "json",
-    url: api_users_money_data_index_url,
+    url: Routing.generate('users_money_data',{}),
     success: addDataMoney
 });
 
@@ -49,7 +49,7 @@ function addDataPurchases(data) {
 }
 $.ajax({
     dataType: "json",
-    url: api_purchases_data_index_url,
+    url: Routing.generate('purchase_data',{}),
     success: addDataPurchases
 });
 

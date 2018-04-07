@@ -100,8 +100,5 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function graphsAction()
-    {
-        return $this->render(':admin:graphs.html.twig',[]);
-    }
+
 }

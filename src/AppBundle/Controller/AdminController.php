@@ -14,4 +14,9 @@ class AdminController extends Controller
     {
         return $this->render(':admin:index.html.twig',[]);
     }
+
+    public function graphsAction()
+    {
+        return $this->render(':admin:graphs.html.twig',[]);
+    }
 }
