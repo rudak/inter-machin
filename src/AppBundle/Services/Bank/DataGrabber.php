@@ -2,7 +2,9 @@
 
 namespace AppBundle\Services\Bank;
 
+use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Bank\Account;
+use AppBundle\Entity\Weapon;
 use Doctrine\ORM\EntityManagerInterface;
 use UserBundle\Entity\User;
 
@@ -43,6 +45,19 @@ class DataGrabber
             $out[] = [
                 'name'  => $user->getUsername(),
                 'money' => $user->getMoney(),
+            ];
+        }
+        return $out;
+    }
+
+    public function getpurchaseData(){
+        $purchases = $this->em->getRepository(Purchase::class)->getCountPurchasesByWeapon();
+        $out = [];
+        /** @var Purchase $purchase */
+        foreach ($purchases as $purchase){
+            $out[]= [
+                $this->em->getRepository(Weapon::class)->find($purchase['id'])->getName(),
+                (int)$purchase['nb_achat'],
             ];
         }
         return $out;

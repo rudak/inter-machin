@@ -12,7 +12,7 @@
                         <div id="chartContainerUsersMoney" style="height: 370px; width: 100%;"></div>
                     </div>
                     <div class="col-6">
-
+                        <div id="chartContainerPurchases" style="height: 370px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,8 @@
 
 {% block javascripts %}
     <script>
-        var api_users_money_data_index_url = '{{ absolute_url(path('usersMoneyData')) }}';
+        var api_users_money_data_index_url = '{{ absolute_url(path('users_money_data')) }}';
+        var api_purchases_data_index_url = '{{ absolute_url(path('purchase_data')) }}';
     </script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <script src="{{ asset('js/charts-admin.js') }}"></script>
