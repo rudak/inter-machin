@@ -7,3 +7,5 @@ bank_index_data:
 usersMoneyData:
     path: /users-money-data
     defaults: { _controller: ApiBundle:Default:userMoneyData}
+    options:
+        expose: true

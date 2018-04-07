@@ -25,7 +25,7 @@ function addData(data) {
 }
 $.ajax({
     dataType: "json",
-    url: api_users_money_data_index_url,
+    url: Routing.generate('usersMoneyData',{}),
     success: addData
 });
 
