@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class City
 {
+
+    const MIN_PRICE = 300;
+    const MAX_PRICE = 1000;
+
     /**
      * @var int
      *

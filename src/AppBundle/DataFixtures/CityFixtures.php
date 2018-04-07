@@ -8,15 +8,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class CityFixtures extends Fixture
 {
-
+    const NAME_INDEX = 'name';
     const FIRST_CITY = 'FIRST_CITY';
 
     public function load(ObjectManager $manager)
     {
         foreach ($this->getCitysData() as $index => $cityData) {
             $city = new City();
-            $city->setName($cityData['name']);
-            $city->setPrice(rand(100, 800));
+            $city->setName($cityData[self::NAME_INDEX]);
+            $city->setPrice(rand(500, 600));
             if ($index == 0) {
                 $this->addReference(self::FIRST_CITY, $city);
             }
@@ -29,58 +29,25 @@ class CityFixtures extends Fixture
     {
         return [
             [
-                'name' => 'San Diego',
+                self::NAME_INDEX => 'Helsinki',
             ],
             [
-                'name' => 'Bouc-Étourdi',
+                self::NAME_INDEX => 'Moscou',
             ],
             [
-                'name' => 'Arnac-la-Poste',
+                self::NAME_INDEX => 'Berlin',
             ],
             [
-                'name' => 'Bezons',
+                self::NAME_INDEX => 'Tokyo',
             ],
             [
-                'name' => 'Longcochon',
+                self::NAME_INDEX => 'Rio',
             ],
             [
-                'name' => 'Condom',
+                self::NAME_INDEX => 'Denver',
             ],
             [
-                'name' => 'Sainte-Verge',
-            ],
-            [
-                'name' => 'Monteton',
-            ],
-            [
-                'name' => 'Bidon',
-            ],
-            [
-                'name' => 'Fourequeux',
-            ],
-            [
-                'name' => 'Bourré',
-            ],
-            [
-                'name' => 'Glandage',
-            ],
-            [
-                'name' => 'Poil',
-            ],
-            [
-                'name' => 'Vatan',
-            ],
-            [
-                'name' => 'Trécon',
-            ],
-            [
-                'name' => 'Saleich',
-            ],
-            [
-                'name' => 'Belbèze',
-            ],
-            [
-                'name' => 'Kaunas',
+                self::NAME_INDEX => 'Nairobi',
             ],
         ];
     }

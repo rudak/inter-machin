@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Services\Command\CityPrices;
 use AppBundle\Services\Command\CityRotation;
 use AppBundle\Utils\Cron\Timer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -22,7 +23,10 @@ class AppCityCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (Timer::isTimeToRun('0 5 * * *')) {
+        if (Timer::isTimeToRun('30 10 * * *') || Timer::isTimeToRun('30 22 * * *')) {
+            $this->getContainer()->get(CityPrices::class)->update();
+        }
+        if (Timer::isTimeToRun('30 5 * * *')) {
             $this->getContainer()->get(CityRotation::class)->execute();
         }
     }
