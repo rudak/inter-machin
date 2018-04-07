@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Item;
 use AppBundle\Utils\Log\LogCreator;
 use AppBundle\Utils\User\UserWeapon;
@@ -94,7 +95,13 @@ class StoreController extends Controller
 
         $user->removeMoney($weapon->getPrice());
 
+        $purchase = new Purchase();
+        $purchase->setUser($user);
+        $purchase->setWeapon($weapon);
+        $purchase->setDate(new \DateTime());
+
         $em->persist(LogCreator::getLog($user, true, sprintf("%s a acheté %s", $user->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_BUY));
+        $em->persist($purchase);
         $em->persist($item);
         $em->flush();
 

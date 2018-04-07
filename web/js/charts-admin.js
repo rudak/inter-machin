@@ -1,15 +1,9 @@
 var dataPoints = [];
 var chart = new CanvasJS.Chart("chartContainerUsersMoney", {
     animationEnabled: true,
-    axisY: {
-        title: "Répartition de l'argent",
-        valueFormatString: "#0,,.",
-        suffix: "mn",
-        prefix: "$"
-    },
     data: [{
         type: "pie",
-        yValueFormatString: "#,##0.00\"%\"",
+        yValueFormatString: "#,##0 $",
         indexLabel: "{label} ({y})",
         dataPoints: dataPoints
     }]
