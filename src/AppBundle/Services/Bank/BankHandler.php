@@ -4,8 +4,10 @@ namespace AppBundle\Services\Bank;
 
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\Bank\Refund;
+use AppBundle\Utils\AppConfig;
+use AppBundle\Utils\Bank\LoansHanlder;
 use Doctrine\ORM\EntityManagerInterface;
-use UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class BankHandler
 {
@@ -14,52 +16,55 @@ class BankHandler
 
     protected $em;
 
-    protected $message;
+    /**
+     * @var Session
+     */
+    private $session;
 
     /**
      * @param $em
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, SessionInterface $session)
     {
-        $this->em = $em;
+        $this->em      = $em;
+        $this->session = $session;
     }
 
-    public function userCanRequest(User $user, Loan $loan)
+    /**
+     * Renvoie si oui ou non l'user peut demander un nouvel emprunt
+     * @param Loan $loan
+     * @return bool
+     */
+    public function userCanRequestNewLoan(Loan $loan)
     {
-        if (!$this->checkCurrentLoans($user)) {
-            return [
-                self::STATUS  => false,
-                self::MESSAGE => $this->message,
-            ];
-        }
-        if (!$this->checkLoan($user, $loan)) {
-            return [
-                self::STATUS  => false,
-                self::MESSAGE => $this->message,
-            ];
-        }
-        return [self::STATUS => true];
+        return $this->checkMaxLoansAllowed($loan) && $this->checkLoanAmount($loan);
     }
 
-    private function checkCurrentLoans(User $user)
+    private function checkMaxLoansAllowed(Loan $loan)
     {
-        $currentLoans = $this->em->getRepository(Loan::class)->getLoansForUser($user);
-
-        if (count($currentLoans) >= 3) {
-            $this->message = 'Vous avez déja 3 prets en cours, régularisez votre situation.';
-            return false;
+        $userLoans   = $this->em->getRepository(Loan::class)->findAllLoansByUser($loan->getUser());
+        $activeLoans = LoansHanlder::loanFilter($userLoans, LoansHanlder::FILTER_ACTIVE_LOANS);
+        if (count($activeLoans) < AppConfig::MAX_ACTIVE_LOANS_ALLOWED) {
+            return true;
         }
-        return true;
+        $this->session->getFlashBag()->add('danger', sprintf("Demande refusée. Vous ne pouvez avoir que %d emprunts actifs.", AppConfig::MAX_ACTIVE_LOANS_ALLOWED));
+        return false;
     }
 
-    private function checkLoan(User $user, Loan $loan)
+    /**
+     * Verifie si l'emprunt s'eleve a moins d'un tiers du total de l'utilisateur
+     *
+     * @param Loan $loan
+     * @return bool
+     */
+    private function checkLoanAmount(Loan $loan)
     {
-        $third = round($user->getMoney() / 3);
-        if ($loan->getAmount() > $third) {
-            $this->message = sprintf('Vous ne pouvez pas demander un pret plus d\'un tiers de votre solde total (max %d$).', $third);
-            return false;
+        $third = round($loan->getUser()->getMoney() / 3);
+        if ($loan->getAmount() <= $third) {
+            return true;
         }
-        return true;
+        $this->session->getFlashBag()->add('danger', sprintf("Demande refusée. Vous ne pouvez pas demander plus de %d$ au banquier.", $third));
+        return false;
     }
 
     /**
