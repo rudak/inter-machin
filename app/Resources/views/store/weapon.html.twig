@@ -9,18 +9,28 @@
                 <p>
                     <a href="{{ path('store_list') }}">Retour magasin</a>
                 </p>
-                <h3>{{ weapon.name }}</h3>
-                <ul>
-                    <li>Prix : {{ weapon.price }}$</li>
-                    <li>Attaque : {{ weapon.price }}</li>
-                    <li>Défense : {{ weapon.defense }}</li>
-                    <li>Utilisations max: {{ weapon.uses }}</li>
-                    <li>Niveau min : {{ weapon.lvl }}</li>
-                </ul>
-                <form action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('weapon_buy') }}">
-                    <input type="submit" value="Acheter" class="btn btn-primary">
-                </form>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ weapon.image.webpath|imagine_filter('thumbnail_large') }}" alt="{{ weapon.image.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ weapon.name|upper }}</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Prix : {{ weapon.price }}$</li>
+                                    <li class="list-group-item">Attaque : {{ weapon.price }}</li>
+                                    <li class="list-group-item">Défense : {{ weapon.defense }}</li>
+                                    <li class="list-group-item">Utilisations max: {{ weapon.uses }}</li>
+                                    <li class="list-group-item">Niveau min : {{ weapon.lvl }}</li>
+                                </ul>
+                                <form action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('weapon_buy') }}">
+                                    <input type="submit" value="Acheter" class="btn btn-primary btn-block">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
