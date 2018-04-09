@@ -15,15 +15,23 @@
                                 <div class="col-4">
                                     <div class="card mb-3">
                                         <div class="card-header text-center">{{ weapon.name|upper }}</div>
-
-                                            <img class="card-img-top"
-                                                 src="{{ weapon.image.webpath|imagine_filter('thumbnail_large') }}"
-                                                 alt="{{ weapon.image.name }}">
-
+                                        <img class="card-img-top"
+                                             src="{{ weapon.image.webpath|imagine_filter('thumbnail_large') }}"
+                                             alt="{{ weapon.image.name }}">
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item text-center">
                                                     Prix : {{ weapon.price }}$
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-warning" role="progressbar"
+                                                             style="width: {{ ((100*weapon.attack)/(weapon.attack+weapon.defense))|round }}%"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                             style="width: {{ ((100*weapon.defense)/(weapon.attack+weapon.defense))|round }}%"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -32,7 +40,8 @@
                                                class="btn btn-secondary btn-block">
                                                 Voir {{ weapon.name }}
                                             </a>
-                                            <form action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post">
+                                            <form action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post"
+                                                  style="margin-top: 3px;">
                                                 <input type="hidden" name="_csrf_token"
                                                        value="{{ csrf_token('weapon_buy') }}">
                                                 <input type="submit" value="Acheter {{ weapon.price }} $"
