@@ -2,6 +2,7 @@
 
 namespace AppBundle\DataFixtures;
 
+use AppBundle\Entity\Bank\Account;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -36,9 +37,15 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $password = $this->encoder->encodePassword($user, $userData['plainPassword']);
             $user->setPassword($password);
             $user->setCity($this->getReference(CityFixtures::FIRST_CITY));
+            $manager->persist($this->createStartAccount($user));
             $manager->persist($user);
         }
         $manager->flush();
+    }
+
+    private function createStartAccount(User $user)
+    {
+        return (new Account())->hydratAccount($user)->setDate(New \DateTime('0 hour'));
     }
 
     private function getUserssData()
