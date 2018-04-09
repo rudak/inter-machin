@@ -11,7 +11,7 @@ use Symfony\Component\Filesystem\Filesystem;
 class WeaponFixtures extends Fixture
 {
 
-    const IMG_NAME = 'img_name';
+    const IMG_PATH = 'img_name';
 
     public function load(ObjectManager $manager)
     {
@@ -24,27 +24,32 @@ class WeaponFixtures extends Fixture
             $weapon->setUses($weaponData['uses']);
             $weapon->setLvl($weaponData['lvl']);
             $weapon->setImage(
-                $this->getImage($weaponData[self::IMG_NAME])
+                $this->getImage($weaponData[self::IMG_PATH])
             );
             $manager->persist($weapon);
         }
         $manager->flush();
     }
 
-    private function getImage($name)
+    private function getImage($path)
     {
         $image = new WeaponImage();
         $image->setName('default weapon image');
-        $image->setPath($name);
+        $image->setPath($path);
         $this->copyRealImage($image);
         return $image;
     }
 
     private function copyRealImage(WeaponImage $image)
     {
-        $fileSystem = new Filesystem();
-        $oldPath    = 'src/AppBundle/DataFixtures/Imgs/default_weapon.jpg';
-        $newPath    = sprintf('web/imgs/weapon/%s', $image->getPath());
+        $fileSystem    = new Filesystem();
+        $default_image = 'default_weapon.jpg';
+        $pattern       = 'src/AppBundle/DataFixtures/Imgs/%s';
+        $oldPath       = sprintf($pattern, $image->getPath());
+        if (!$fileSystem->exists($oldPath)) {
+            $oldPath = sprintf($pattern, $default_image);
+        }
+        $newPath = sprintf('web/%s/%s', WeaponImage::UPLOAD_DIR, $image->getPath());
         $fileSystem->copy($oldPath, $newPath, true);
     }
 
@@ -58,7 +63,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 6,
                 'uses'         => 5,
                 'lvl'          => 1,
-                self::IMG_NAME => 'test_couteau_suisse.jpg',
+                self::IMG_PATH => 'test_couteau_suisse.jpg',
             ],
             [
                 'name'         => 'batte',
@@ -67,7 +72,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 12,
                 'uses'         => 3,
                 'lvl'          => 1,
-                self::IMG_NAME => 'test_batte.jpg',
+                self::IMG_PATH => 'test_batte.jpg',
             ],
             [
                 'name'         => 'balais',
@@ -76,7 +81,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 4,
                 'uses'         => 5,
                 'lvl'          => 1,
-                self::IMG_NAME => 'test_couteau_suisse.jpg',
+                self::IMG_PATH => 'test_couteau_suisse.jpg',
             ],
             [
                 'name'         => 'matraque',
@@ -85,7 +90,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 6,
                 'uses'         => 5,
                 'lvl'          => 1,
-                self::IMG_NAME => 'test_matraque.jpg',
+                self::IMG_PATH => 'test_matraque.jpg',
             ],
             [
                 'name'         => 'planche',
@@ -94,7 +99,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 3,
                 'uses'         => 3,
                 'lvl'          => 1,
-                self::IMG_NAME => 'test_planche.jpg',
+                self::IMG_PATH => 'test_planche.jpg',
             ],
 
             [
@@ -104,7 +109,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 12,
                 'uses'         => 7,
                 'lvl'          => 3,
-                self::IMG_NAME => 'test_fourche_fumier.jpg',
+                self::IMG_PATH => 'test_fourche_fumier.jpg',
             ],
 
             [
@@ -114,7 +119,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 19,
                 'uses'         => 8,
                 'lvl'          => 5,
-                self::IMG_NAME => 'test_hache.jpg',
+                self::IMG_PATH => 'test_hache.jpg',
             ],
             [
                 'name'         => '357 Magnum',
@@ -123,7 +128,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 60,
                 'uses'         => 7,
                 'lvl'          => 12,
-                self::IMG_NAME => 'test_357.jpg',
+                self::IMG_PATH => 'test_357.jpg',
             ],
             [
                 'name'         => 'Bazooka',
@@ -132,7 +137,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 120,
                 'uses'         => 1,
                 'lvl'          => 15,
-                self::IMG_NAME => 'test_bazook.jpg',
+                self::IMG_PATH => 'test_bazook.jpg',
             ],
             [
                 'name'         => 'grenade',
@@ -141,7 +146,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 60,
                 'uses'         => 1,
                 'lvl'          => 7,
-                self::IMG_NAME => 'test_grenade.jpg',
+                self::IMG_PATH => 'test_grenade.jpg',
             ],
             [
                 'name'         => 'bouclier',
@@ -150,7 +155,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 15,
                 'uses'         => 5,
                 'lvl'          => 2,
-                self::IMG_NAME => 'test_bouclier.jpg',
+                self::IMG_PATH => 'test_bouclier.jpg',
             ],
             [
                 'name'         => 'sac de sable',
@@ -159,7 +164,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 6,
                 'uses'         => 2,
                 'lvl'          => 2,
-                self::IMG_NAME => 'test_sac_sable.jpg',
+                self::IMG_PATH => 'test_sac_sable.jpg',
             ],
             [
                 'name'         => 'poing américain',
@@ -168,7 +173,7 @@ class WeaponFixtures extends Fixture
                 'price'        => 24,
                 'uses'         => 5,
                 'lvl'          => 2,
-                self::IMG_NAME => 'test_poing.jpg',
+                self::IMG_PATH => 'test_poing.jpg',
             ],
         ];
     }

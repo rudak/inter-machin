@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class WeaponImage
 {
+
+    const UPLOAD_DIR = 'uploads/weapon';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -60,7 +63,7 @@ class WeaponImage
 
     protected function getUploadDir()
     {
-        return 'uploads/weapon';
+        return self::UPLOAD_DIR;
     }
 
     /**
