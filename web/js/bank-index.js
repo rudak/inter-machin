@@ -18,7 +18,8 @@ function render() {
             lineColor: "#C0504E",
             labelFontColor: "#C0504E",
             tickColor: "#C0504E",
-            includeZero: false
+            includeZero: false,
+            valueFormatString: "##",
         },
         legend: {
             cursor: "pointer",
@@ -49,8 +50,6 @@ function render() {
                 name: "Niveau",
                 axisYType: "secondary",
                 showInLegend: true,
-                xValueFormatString: "MMM YYYY",
-                yValueFormatString: "$#,##0.#",
                 dataPoints: dataLevel
             }
         ]
@@ -69,16 +68,17 @@ function render() {
 }
 function addData(data) {
     for (var i = 0; i < data.length; i++) {
+        var date = new Date(data[i]['date'] * 1000);
         dataMoney.push({
-            x: new Date(data[i]['date'] * 1000),
+            x: date,
             y: data[i]['money']
         });
         dataLoan.push({
-            x: new Date(data[i]['date'] * 1000),
+            x: date,
             y: data[i]['loan']
         });
         dataLevel.push({
-            x: new Date(data[i]['date'] * 1000),
+            x: date,
             y: data[i]['level']
         });
     }

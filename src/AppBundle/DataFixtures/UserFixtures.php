@@ -11,6 +11,12 @@ use UserBundle\Entity\User;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+    const INDEX_USERNAME      = 'username';
+    const INDEX_PLAINPASSWORD = 'plainPassword';
+    const INDEX_EMAIL         = 'email';
+    const INDEX_ROLES         = 'roles';
+    const INDEX_LEVEL         = 'level';
+
     private $encoder;
 
     public function __construct(UserPasswordEncoderInterface $encoder)
@@ -22,19 +28,19 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         foreach ($this->getUserssData() as $key => $userData) {
             $user = new User();
-            if ('admin' == $userData['username']) {
+            if ('admin' == $userData[self::INDEX_USERNAME]) {
                 $user->setMoney(999);
                 $user->getCompetences()->setLevel(10);
             }
-            $user->setUsername($userData['username']);
-            $user->setEmail($userData['email']);
-            $user->setRoles($userData['roles']);
+            $user->setUsername($userData[self::INDEX_USERNAME]);
+            $user->setEmail($userData[self::INDEX_EMAIL]);
+            $user->setRoles($userData[self::INDEX_ROLES]);
             $user->setDateOfBirth($this->getRandomDateTime());
             $user->setEnabled(true);
-            if (isset($userData['level'])) {
-                $user->getCompetences()->setLevel($userData['level']);
+            if (isset($userData[self::INDEX_LEVEL])) {
+                $user->getCompetences()->setLevel($userData[self::INDEX_LEVEL]);
             }
-            $password = $this->encoder->encodePassword($user, $userData['plainPassword']);
+            $password = $this->encoder->encodePassword($user, $userData[self::INDEX_PLAINPASSWORD]);
             $user->setPassword($password);
             $user->setCity($this->getReference(CityFixtures::FIRST_CITY));
             $manager->persist($this->createStartAccount($user));
@@ -45,80 +51,80 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     private function createStartAccount(User $user)
     {
-        return (new Account())->hydratAccount($user)->setDate(New \DateTime('0 hour'));
+        return (new Account())->hydratAccount($user)->setDate(New \DateTime('today midnight'));
     }
 
     private function getUserssData()
     {
         return [
             [
-                'username'      => 'admin',
-                'plainPassword' => 'admin',
-                'email'         => 'admin@free.fr',
-                'roles'         => ['ROLE_SUPER_ADMIN'],
+                self::INDEX_USERNAME      => 'admin',
+                self::INDEX_PLAINPASSWORD => 'admin',
+                self::INDEX_EMAIL         => 'admin@free.fr',
+                self::INDEX_ROLES         => ['ROLE_SUPER_ADMIN'],
             ],
             [
-                'username'      => 'joe',
-                'plainPassword' => '0000',
-                'email'         => 'joe@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => rand(1, 15),
+                self::INDEX_USERNAME      => 'joe',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'joe@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => rand(1, 15),
             ],
             [
-                'username'      => 'mitch',
-                'plainPassword' => '0000',
-                'email'         => 'mitch@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => 12,
+                self::INDEX_USERNAME      => 'mitch',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'mitch@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => 12,
             ],
             [
-                'username'      => 'eric',
-                'plainPassword' => '0000',
-                'email'         => 'eric@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => rand(1, 15),
+                self::INDEX_USERNAME      => 'eric',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'eric@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => rand(1, 15),
             ],
             [
-                'username'      => 'caroline',
-                'plainPassword' => '0000',
-                'email'         => 'caroline@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => rand(1, 15),
+                self::INDEX_USERNAME      => 'caroline',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'caroline@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => rand(1, 15),
             ],
             [
-                'username'      => 'sophie',
-                'plainPassword' => '0000',
-                'email'         => 'sophie@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => 12,
+                self::INDEX_USERNAME      => 'sophie',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'sophie@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => 12,
             ],
             [
-                'username'      => 'bryan',
-                'plainPassword' => '0000',
-                'email'         => 'bryan@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => 4,
+                self::INDEX_USERNAME      => 'bryan',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'bryan@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => 4,
             ],
             [
-                'username'      => 'philippe',
-                'plainPassword' => '0000',
-                'email'         => 'phil@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => rand(1, 15),
+                self::INDEX_USERNAME      => 'philippe',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'phil@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => rand(1, 15),
             ],
             [
-                'username'      => 'eddy',
-                'plainPassword' => '0000',
-                'email'         => 'eddy@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => rand(1, 15),
+                self::INDEX_USERNAME      => 'eddy',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'eddy@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => rand(1, 15),
             ],
             [
-                'username'      => 'raoul',
-                'plainPassword' => '0000',
-                'email'         => 'raoul@free.fr',
-                'roles'         => ['ROLE_USER'],
-                'level'         => 17,
+                self::INDEX_USERNAME      => 'raoul',
+                self::INDEX_PLAINPASSWORD => '0000',
+                self::INDEX_EMAIL         => 'raoul@free.fr',
+                self::INDEX_ROLES         => ['ROLE_USER'],
+                self::INDEX_LEVEL         => 17,
             ],
         ];
     }
