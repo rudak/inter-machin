@@ -13,13 +13,9 @@
 
                                 <a href="{{ path('user',{id:user.id,username:user.username}) }}"
                                    class="list-group-item list-group-item-action {% if user == app.user %}active{% endif %}">
-                                    {{ user.username }}
-
+                                    {{ user.username }} [LVL {{ user.competences.level }}]
                                     {% if user.alive %}
-                                        en vie depuis
-                                        <span class="badge badge-pill badge-dark">{{ duration(user.dateOfBirth) }}
-                                            jours</span>
-
+                                        en vie depuis {{ duration(user.dateOfBirth) }} jours
                                     {% else %}
                                         <span class="badge badge-pill badge-danger">mort.</span>
                                     {% endif %}
