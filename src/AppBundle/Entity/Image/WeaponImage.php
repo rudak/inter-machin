@@ -23,40 +23,17 @@ class WeaponImage
     public $id;
 
     /**
-     * @ORM\Column(type="string", length=255 ,nullable=true)
+     * @ORM\Column(type="string", length=80 ,nullable=true)
      */
     public $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=40)
      */
     public $path;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    public $webPathTest;
-
-
-    public function setWebPathTest()
-    {
-
-        $this->webPathTest = null === $this->path
-            ? null
-            : $this->getUploadDir() . '/' . $this->path;
-        return $this;
-    }
-
-    public function getWebPathTest()
-    {
-        return null === $this->path
-            ? null
-            : $this->getUploadDir() . '/' . $this->path;
-    }
-
-
-    /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="12000000")
      */
     private $file;
 
@@ -152,4 +129,37 @@ class WeaponImage
             unlink($file);
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
 }
