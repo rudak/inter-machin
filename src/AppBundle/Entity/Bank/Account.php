@@ -59,12 +59,7 @@ class Account
      */
     private $user;
 
-    /**
-     * Account constructor.
-     * @param int       $loan
-     * @param int       $amount
-     * @param \stdClass $user
-     */
+
     public function __construct()
     {
     }

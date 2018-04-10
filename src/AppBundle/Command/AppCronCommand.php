@@ -22,24 +22,14 @@ class AppCronCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // commande de chance
-        $luckyCommand = $this->getApplication()->find('app:luck');
-        $luckyCommand->run(new ArrayInput([]), new NullOutput());
-        // commande de poisse
-        $NoluckCommand = $this->getApplication()->find('app:no-luck');
-        $NoluckCommand->run(new ArrayInput([]), new NullOutput());
-        // commande du banquier
-        $bankCommand = $this->getApplication()->find('app:bank');
-        $bankCommand->run(new ArrayInput([]), new NullOutput());
-        // commande de la banque
-        $bankAccounts = $this->getApplication()->find('app:bank:accounts');
-        $bankAccounts->run(new ArrayInput([]), new NullOutput());
-        // cities command
-        $cityCommand = $this->getApplication()->find('app:city');
-        $cityCommand->run(new ArrayInput([]), new NullOutput());
-        // action point command
-        $actionPoint = $this->getApplication()->find('app:action-point');
-        $actionPoint->run(new ArrayInput([]), new NullOutput());
+        $commandNames = [
+            'app:luck', 'app:no-luck', 'app:bank', 'app:bank:accounts', 'app:city', 'app:action-point',
+        ];
+
+        foreach ($commandNames as $commandName) {
+            $action = $this->getApplication()->find($commandName);
+            $action->run(new ArrayInput([]), new NullOutput());
+        }
     }
 
 }

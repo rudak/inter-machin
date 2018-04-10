@@ -15,14 +15,18 @@
                 <div class="col">
                     {{ form_row(form.username) }}
                     {{ form_row(form.email) }}
+                    {{ form_row(form.city) }}
                     {{ form_row(form.password) }}
                     {{ form_row(form.alive) }}
                     {{ form_row(form.enabled) }}
                 </div>
                 <div class="col">
                     {{ form_row(form.money) }}
-                    {{ form_row(form.competences.level) }}
-                    {{ form_row(form.competences.life) }}
+                    <div class="row">
+                        <div class="col">{{ form_row(form.competences.level) }}</div>
+                        <div class="col">{{ form_row(form.competences.life) }}</div>
+                    </div>
+                    {{ form_row(form.action) }}
                 </div>
                 <div class="col">
                     {{ form_row(form.competences.attack) }}
