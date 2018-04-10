@@ -35,6 +35,9 @@ class UserType extends AbstractType
                 'class' => City::class,
                 'label' => 'Ville',
             ])
+            ->add('action', IntegerType::class,[
+                'label' => 'Points d\'action'
+            ])
         ;
         if ($options['mode'] != 'edit') {
             $builder

@@ -21,8 +21,11 @@
                 </div>
                 <div class="col">
                     {{ form_row(form.money) }}
-                    {{ form_row(form.competences.level) }}
-                    {{ form_row(form.competences.life) }}
+                    <div class="row">
+                        <div class="col">{{ form_row(form.competences.level) }}</div>
+                        <div class="col">{{ form_row(form.competences.life) }}</div>
+                    </div>
+                    {{ form_row(form.action) }}
                 </div>
                 <div class="col">
                     {{ form_row(form.competences.attack) }}
