@@ -89,21 +89,18 @@ function getUserAccounts(userData) {
  *      AJAX LAUNCHES
  **/
 window.onload = function () {
-    $.ajax({
-        dataType: "json",
-        url: Routing.generate('purchase_data'),
-        success: addDataPurchases
-    });
-    $.ajax({
-        dataType: "json",
-        url: Routing.generate('users_money_data'),
-        success: addDataMoney
-    });
-    $.ajax({
-        dataType: "json",
-        url: Routing.generate('bank_users_accounts'),
-        success: addDataAccounts
-    });
+    requests = [
+        {route: 'purchase_data', callback: addDataPurchases},
+        {route: 'users_money_data', callback: addDataMoney},
+        {route: 'bank_users_accounts', callback: addDataAccounts}
+    ];
+    for (var i in requests) {
+        $.ajax({
+            dataType: "json",
+            url: Routing.generate(requests[i].route),
+            success: requests[i].callback
+        });
+    }
 }
 
 
