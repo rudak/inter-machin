@@ -16,23 +16,15 @@ class ActionController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if (!$user = $em->getRepository('UserBundle:User')->find($id)) {
+        if (!$victim = $em->getRepository('UserBundle:User')->find($id)) {
             $this->addFlash('danger', "Cet user n'existe pas");
             return $this->redirectToRoute('user_list');
         }
 
-        $stealResult = $this->get(StealHandler::class)->execute($user, $this->getUser());
-        $stealEntity = $stealResult[StealHandler::INDEX_ENTITY];
-
-        $em->persist($stealResult[StealHandler::INDEX_LOG_VICTIM]);
-        $em->persist($stealResult[StealHandler::INDEX_LOG_BURGLAR]);
-        $em->persist($stealEntity);
-        $em->flush();
-
-        $this->addFlash($stealEntity->getStatus() == Steal::STATUS_SUCCESSFULL ? 'success' : 'danger', $stealResult[StealHandler::INDEX_MESSAGE]);
+        $this->get(StealHandler::class)->execute($victim, $this->getUser());
 
         return $this->render(':default:user.html.twig', [
-            'user' => $user,
+            'user' => $victim,
         ]);
 
     }

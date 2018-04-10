@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity\Action;
 
+use AppBundle\Entity\Weapon;
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
 /**
  * Purchase
@@ -38,6 +40,19 @@ class Purchase
      */
     private $weapon;
 
+    /**
+     * Purchase constructor.
+     * @param \DateTime $date
+     * @param           $user
+     * @param           $weapon
+     */
+    public function __construct(User $user, Weapon $weapon)
+    {
+        $this->date   = new \DateTime('NOW');
+        $this->user   = $user;
+        $this->weapon = $weapon;
+    }
+
 
     /**
      * Get id
@@ -72,7 +87,6 @@ class Purchase
     {
         return $this->date;
     }
-
 
 
     /**

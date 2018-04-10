@@ -23,6 +23,7 @@ class BankAccountsCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (
+            Timer::isTimeToRun(Timer::PATTERN_ALL_HOURS) ||
             Timer::isTimeToRun('0 0 * * *') ||
             Timer::isTimeToRun('0 6 * * *') ||
             Timer::isTimeToRun('0 12 * * *') ||

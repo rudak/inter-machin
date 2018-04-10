@@ -95,13 +95,8 @@ class StoreController extends Controller
 
         $user->removeMoney($weapon->getPrice());
 
-        $purchase = new Purchase();
-        $purchase->setUser($user);
-        $purchase->setWeapon($weapon);
-        $purchase->setDate(new \DateTime());
-
         $em->persist(LogCreator::getLog($user, true, sprintf("%s a acheté %s", $user->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_BUY));
-        $em->persist($purchase);
+        $em->persist(new Purchase($user, $weapon));
         $em->persist($item);
         $em->flush();
 

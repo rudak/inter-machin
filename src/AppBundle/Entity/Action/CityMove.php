@@ -51,12 +51,6 @@ class CityMove
      */
     private $type;
 
-    /**
-     * CityMove constructor.
-     * @param \stdClass $user
-     * @param \stdClass $city
-     * @param string    $type
-     */
     public function __construct(User $user, $type = self::TYPE_RANDOM)
     {
         $this->user = $user;

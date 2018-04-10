@@ -1,6 +1,8 @@
 <?php
 
 namespace UserBundle\Repository;
+use AppBundle\Entity\City;
+use UserBundle\Entity\User;
 
 /**
  * UserRepository
@@ -12,6 +14,10 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 {
 
 
+    /**
+     * Renvoie les 3 meilleurs joueurs
+     * @return mixed
+     */
     public function getBestUsers()
     {
         $qb = $this->createQueryBuilder('u')
@@ -24,6 +30,24 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         ;
         return $qb->execute();
     }
+
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function getUsersByCity(City $city)
+    {
+        $qb = $this->createQueryBuilder('u')
+                   ->where('u.city = :city')
+                   ->setParameters([
+                       'city' => $city,
+                   ])
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
+
 
     // **  ADMIN  **
 

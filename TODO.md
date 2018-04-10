@@ -2,7 +2,6 @@
 
 ##Idées
 
--  ajouter un banquier qui te prete de l'argent
 -  ajouter un systeme de coefs qui change le prix des articles automatiquement via cron
 -  lister comment gagner des points:
 
@@ -12,9 +11,9 @@
     
 - point de compétences par level pour les caractéristiques
 - ajouter des villes    
-        - dans les fixtures    
-        - relations user  
-        - interface   
+        - changer de ville
         A la naissance on est dans une ville aléatoire, le déplacement d'une ville a l'autre coute cher.   
         on ne peut pas se déplacer d'une ville a l'autre sans attendre un minimum de temps entre chaque deplacements.
         
+- drop item, récupérable si ont est dans la même ville
+- jeu de loterie

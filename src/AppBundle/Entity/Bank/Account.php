@@ -76,6 +76,10 @@ class Account
         $this->date   = new \DateTime('NOW');
         $this->level  = $user->getCompetences()->getLevel();
         $total        = 0;
+        if (!$user->getLoans()) {
+            $this->setLoan($total);
+            return $this;
+        }
         foreach ($user->getLoans() as $loan) {
             /** @var $loan Loan */
             if ($loan->getStatus() != Loan::STATUS_VALID) {

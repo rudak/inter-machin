@@ -7,30 +7,70 @@
                 <h1>Magasin</h1>
                 <hr>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-8">
                         <h3>Achat</h3>
-                        <p>Ces objets sont a acheter :</p>
-                        <ul class="list-group">
+                        <p class="lead">Ces objets sont a acheter :</p>
+                        <div class="row">
                             {% for weapon in weapons %}
-                                <a class="list-group-item list-group-item-action"
-                                   href="{{ path('store_weapon',{id:weapon.id}) }}">
-                                    {% if weapon.image is not null %}
-                                        <img src="{{ weapon.image.webpath|imagine_filter('shop_thumb') }}"
-                                             alt="{{ weapon.image.name }}" class="img-fluid">
-                                    {% endif %}
-                                    {{ weapon.name }}
-                                    <form class="float-right" action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post">
-                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('weapon_buy') }}">
-                                        <input type="submit" value="Acheter {{ weapon.price }} $" class="btn btn-primary">
-                                    </form>
-                                </a>
+                                <div class="col-4">
+                                    <div class="card mb-3">
+                                        <div class="card-header text-center">{{ weapon.name|upper }}</div>
+                                        <img class="card-img-top"
+                                             src="{{ weapon.image.webpath|imagine_filter('thumbnail_large') }}"
+                                             alt="{{ weapon.image.name }}">
+                                        <div class="card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item text-center">
+                                                    Prix : {{ weapon.price }}$
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-warning" role="progressbar"
+                                                             style="width: {{ ((100*weapon.attack)/(weapon.attack+weapon.defense))|round }}%"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                             style="width: {{ ((100*weapon.defense)/(weapon.attack+weapon.defense))|round }}%"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="card-footer bg-transparent">
+                                            <a href="{{ path('store_weapon',{id:weapon.id}) }}"
+                                               class="btn btn-secondary btn-block">
+                                                Voir {{ weapon.name }}
+                                            </a>
+                                            <form action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post"
+                                                  style="margin-top: 3px;">
+                                                <input type="hidden" name="_csrf_token"
+                                                       value="{{ csrf_token('weapon_buy') }}">
+                                                <input type="submit" value="Acheter {{ weapon.price }} $"
+                                                       class="btn btn-primary btn-block">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {#<a class="list-group-item list-group-item-action"#}
+                                {#href="{{ path('store_weapon',{id:weapon.id}) }}">#}
+                                {#{% if weapon.image is not null %}#}
+                                {#<img src="{{ weapon.image.webpath|imagine_filter('shop_thumb') }}"#}
+                                {#alt="{{ weapon.image.name }}" class="img-fluid">#}
+                                {#{% endif %}#}
+                                {#{{ weapon.name }}#}
+                                {#<form class="float-right" action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post">#}
+                                {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('weapon_buy') }}">#}
+                                {#<input type="submit" value="Acheter {{ weapon.price }} $" class="btn btn-primary">#}
+                                {#</form>#}
+                                {#</a>#}
                             {% endfor %}
-                        </ul>
+                        </div>
                     </div>
                     <div class="col">
                         <h3>Vente</h3>
                         {% if app.user %}
-                            <p>Vous pouvez vendre vos objets :</p>
+                            <p class="lead">Vous pouvez vendre vos objets :</p>
 
                             <ul class="list-group">
                                 {% for item in user_items %}

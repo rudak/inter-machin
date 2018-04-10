@@ -30,9 +30,10 @@ class DefaultController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('UserBundle:User')->findAll();
+        $users = $em->getRepository('UserBundle:User')->getUsersByCity($this->getUser()->getCity());
         return $this->render('default/users.html.twig', [
             'users' => $users,
+            'city'  => $this->getUser()->getCity(),
         ]);
     }
 
