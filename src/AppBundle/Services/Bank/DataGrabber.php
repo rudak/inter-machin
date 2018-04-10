@@ -40,20 +40,14 @@ class DataGrabber
     {
         $accounts = $this->em->getRepository(Account::class)->findAll();
         $out      = [];
-        foreach ($accounts as $key => $account) {
-//            $out[] = [
-//                'date'  => (int)$account->getDate()->format('U'),
-//                'money' => $account->getAmount(),
-//                'username'  => $account->getUser()->getUsername(),
-//            ];
-            $out[$account->getUser()->getUsername()][$key] = [
-                'date'  => (int)$account->getDate()->format('U'),
-                'money' => $account->getAmount(),
-                'username'  => $account->getUser()->getUsername(),
+        foreach ($accounts as $account) {
+            $username         = $account->getUser()->getUsername();
+            $out[$username][] = [
+                'date'     => (int)$account->getDate()->format('U'),
+                'money'    => $account->getAmount(),
+                'username' => $username,
             ];
         }
-//        dump($out);
-//        die;
         return $out;
 
     }

@@ -1,3 +1,6 @@
+/**
+ *      CHART CAMEMBERT MONEY
+ **/
 var dataPoints = [];
 var chartMoney = new CanvasJS.Chart("chartContainerUsersMoney", {
     title: {
@@ -20,12 +23,10 @@ function addDataMoney(data) {
     }
     chartMoney.render();
 }
-$.ajax({
-    dataType: "json",
-    url: Routing.generate('users_money_data', {}),
-    success: addDataMoney
-});
 
+/**
+ *      CHART ACHATS ARMES
+ **/
 var dataPointsPurchases = [];
 var chartPurchases = new CanvasJS.Chart("chartContainerPurchases", {
     title: {
@@ -46,13 +47,11 @@ function addDataPurchases(data) {
     }
     chartPurchases.render();
 }
-$.ajax({
-    dataType: "json",
-    url: Routing.generate('purchase_data', {}),
-    success: addDataPurchases
-});
 
 
+/**
+ *      CHART USERS ACCOUNTS
+ **/
 var dataUsersAccounts = [];
 var chartAccounts = new CanvasJS.Chart("chartContainerAccounts", {
     title: {
@@ -90,12 +89,22 @@ function getUserAccounts(value) {
     })
     return userAccount;
 }
-
-$.ajax({
-    dataType: "json",
-    url: Routing.generate('bank_users_accounts', {}),
-    success: addDataAccounts
-});
-
+window.onload = function () {
+    $.ajax({
+        dataType: "json",
+        url: Routing.generate('purchase_data', {}),
+        success: addDataPurchases
+    });
+    $.ajax({
+        dataType: "json",
+        url: Routing.generate('users_money_data', {}),
+        success: addDataMoney
+    });
+    $.ajax({
+        dataType: "json",
+        url: Routing.generate('bank_users_accounts', {}),
+        success: addDataAccounts
+    });
+}
 
 
