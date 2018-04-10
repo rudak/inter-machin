@@ -146,7 +146,7 @@ class WeaponFixtures extends Fixture
                 self::IMG_NAME       => '357 Magnum',
             ],
             [
-                self::WEAPON_NAME    => 'Bazooka',
+                self::WEAPON_NAME    => 'bazooka',
                 self::WEAPON_ATTACK  => 55,
                 self::WEAPON_DEFENSE => 2,
                 self::WEAPON_PRICE   => 120,
@@ -194,6 +194,16 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_LVL     => 2,
                 self::IMG_PATH       => 'poing_americain.jpg',
                 self::IMG_NAME       => 'poing américain',
+            ],
+            [
+                self::WEAPON_NAME    => 'lucille',
+                self::WEAPON_ATTACK  => 16,
+                self::WEAPON_DEFENSE => 2,
+                self::WEAPON_PRICE   => 30,
+                self::WEAPON_USES    => 10,
+                self::WEAPON_LVL     => 6,
+                self::IMG_PATH       => 'lucille.jpg',
+                self::IMG_NAME       => 'lucille',
             ],
         ];
     }
