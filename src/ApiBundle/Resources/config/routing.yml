@@ -10,6 +10,14 @@ users_money_data:
     options:
         expose: true
 
+# bank users accounts
+bank_users_accounts:
+    path: /bank/users-accounts
+    defaults: { _controller: ApiBundle:Default:bankUsersAccounts}
+    options:
+        expose: true
+
+
 
 # purchase_data
 purchase_data:

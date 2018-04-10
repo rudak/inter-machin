@@ -70,7 +70,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 6,
                 self::WEAPON_USES    => 5,
                 self::WEAPON_LVL     => 1,
-                self::IMG_PATH       => 'toto_couteau_suisse.png',
+                self::IMG_PATH       => 'couteau_suisse.png',
                 self::IMG_NAME       => 'couteau',
             ],
             [

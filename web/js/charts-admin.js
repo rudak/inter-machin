@@ -1,6 +1,6 @@
 var dataPoints = [];
 var chartMoney = new CanvasJS.Chart("chartContainerUsersMoney", {
-    title:{
+    title: {
         text: "Distribution de l'argent en jeu"
     },
     animationEnabled: true,
@@ -22,13 +22,13 @@ function addDataMoney(data) {
 }
 $.ajax({
     dataType: "json",
-    url: Routing.generate('users_money_data',{}),
+    url: Routing.generate('users_money_data', {}),
     success: addDataMoney
 });
 
 var dataPointsPurchases = [];
 var chartPurchases = new CanvasJS.Chart("chartContainerPurchases", {
-    title:{
+    title: {
         text: "Nombre d'achat par armes"
     },
     animationEnabled: true,
@@ -38,7 +38,6 @@ var chartPurchases = new CanvasJS.Chart("chartContainerPurchases", {
     }]
 });
 function addDataPurchases(data) {
-    console.log(data);
     for (var i = 0; i < data.length; i++) {
         dataPointsPurchases.push({
             "label": data[i][0],
@@ -49,8 +48,53 @@ function addDataPurchases(data) {
 }
 $.ajax({
     dataType: "json",
-    url: Routing.generate('purchase_data',{}),
+    url: Routing.generate('purchase_data', {}),
     success: addDataPurchases
+});
+
+
+var dataUsersAccounts = [];
+var chartAccounts = new CanvasJS.Chart("chartContainerAccounts", {
+    title: {
+        text: "Récap des accounts"
+    },
+    toolTip: {
+        shared: true
+    },
+    animationEnabled: true,
+    data: dataUsersAccounts
+});
+function addDataAccounts(data) {
+    $.each(data, function (index, value) {
+        dataUsersAccounts.push({
+            type: "line",
+            axisYType: "secondary",
+            name: index,
+            showInLegend: true,
+            markerSize: 0,
+            yValueFormatString: "###$",
+            dataPoints: getUserAccounts(value)
+        })
+    });
+    chartAccounts.render();
+}
+
+function getUserAccounts(value) {
+    var userAccount = [];
+    $.each(value, function (index2, value2) {
+        var date = new Date(value2['date'] * 1000);
+        userAccount.push({
+            x: date,
+            y: value2['money']
+        })
+    })
+    return userAccount;
+}
+
+$.ajax({
+    dataType: "json",
+    url: Routing.generate('bank_users_accounts', {}),
+    success: addDataAccounts
 });
 
 
