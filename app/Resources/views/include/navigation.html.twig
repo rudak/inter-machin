@@ -33,12 +33,18 @@
                     </li>
                     <li class="list-group-item">
                         <div class="row">
+
+                            <div class="col text-center">Ville : <a href="{{ path('user_list') }}">{{ app.user.city.name }}</a></div>
+                        </div>
+                        <div class="row">
                             <div class="col text-center">
-                                {{ app.user.money }}$
+                                Argent : {{ app.user.money }}$
                             </div>
-                            <div class="col text-center"><a href="{{ path('user_list') }}">{{ app.user.city.name }}</a></div>
-                            <div class="col text-center">Lvl {{ app.user.competences.level }}</div>
-                            <div class="col text-center">{{ app.user.action }}PA</div>
+                            <div class="col text-center">Niveau : {{ app.user.competences.level }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">PA : {{ app.user.action }}</div>
+                            <div class="col text-center">Vie : {{ app.user.competences.life }}/100</div>
                         </div>
                     </li>
                     <li class="list-group-item">
