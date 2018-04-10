@@ -45,7 +45,6 @@ class DataGrabber
             $out[$username][] = [
                 'date'     => (int)$account->getDate()->format('U'),
                 'money'    => $account->getAmount(),
-                'username' => $username,
             ];
         }
         return $out;

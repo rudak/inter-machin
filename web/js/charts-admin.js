@@ -15,7 +15,7 @@ var chartMoney = new CanvasJS.Chart("chartContainerUsersMoney", {
     }]
 });
 function addDataMoney(data) {
-    for (var i = 0; i < data.length; i++) {
+    for (var i in data) {
         dataPoints.push({
             "label": data[i]['name'],
             "y": data[i]['money']
@@ -23,7 +23,6 @@ function addDataMoney(data) {
     }
     chartMoney.render();
 }
-
 /**
  *      CHART ACHATS ARMES
  **/
@@ -39,7 +38,7 @@ var chartPurchases = new CanvasJS.Chart("chartContainerPurchases", {
     }]
 });
 function addDataPurchases(data) {
-    for (var i = 0; i < data.length; i++) {
+    for (var i in data) {
         dataPointsPurchases.push({
             "label": data[i][0],
             "y": data[i][1]
@@ -47,8 +46,6 @@ function addDataPurchases(data) {
     }
     chartPurchases.render();
 }
-
-
 /**
  *      CHART USERS ACCOUNTS
  **/
@@ -64,45 +61,47 @@ var chartAccounts = new CanvasJS.Chart("chartContainerAccounts", {
     data: dataUsersAccounts
 });
 function addDataAccounts(data) {
-    $.each(data, function (index, value) {
+    $.each(data, function (username, userData) {
         dataUsersAccounts.push({
             type: "line",
             axisYType: "secondary",
-            name: index,
+            name: username,
             showInLegend: true,
             markerSize: 0,
             yValueFormatString: "###$",
-            dataPoints: getUserAccounts(value)
+            dataPoints: getUserAccounts(userData)
         })
     });
     chartAccounts.render();
 }
 
-function getUserAccounts(value) {
+function getUserAccounts(userData) {
     var userAccount = [];
-    $.each(value, function (index2, value2) {
-        var date = new Date(value2['date'] * 1000);
+    for (var i in userData) {
         userAccount.push({
-            x: date,
-            y: value2['money']
+            x: new Date(userData[i]['date'] * 1000),
+            y: userData[i]['money']
         })
-    })
+    }
     return userAccount;
 }
+/**
+ *      AJAX LAUNCHES
+ **/
 window.onload = function () {
     $.ajax({
         dataType: "json",
-        url: Routing.generate('purchase_data', {}),
+        url: Routing.generate('purchase_data'),
         success: addDataPurchases
     });
     $.ajax({
         dataType: "json",
-        url: Routing.generate('users_money_data', {}),
+        url: Routing.generate('users_money_data'),
         success: addDataMoney
     });
     $.ajax({
         dataType: "json",
-        url: Routing.generate('bank_users_accounts', {}),
+        url: Routing.generate('bank_users_accounts'),
         success: addDataAccounts
     });
 }
