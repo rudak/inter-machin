@@ -68,11 +68,11 @@ class StealHandler
     private function updateUsersWithSteal(User $victim, User $burglar, Steal $steal)
     {
         $victim->removeMoney($steal->getLoot());
-        $victim->getCompetences()->removeDefensePoints($steal->getVictimDamage());
+        $victim->getCompetences()->removeLifePoints($steal->getVictimDamage());
         $burglar->addMoney($steal->getLoot());
         $burglar->removeActionPoint(AppConfig::ACTION_POINTS_FOR_STEAL);
         $burglar->getCompetences()->addSkillPoints($steal->getBurglarSkill());
-        $burglar->getCompetences()->removeAttackPoints($steal->getBurglarDamage());
+        $burglar->getCompetences()->removeLifePoints($steal->getBurglarDamage());
     }
 
     private function getStealAction(User $victim, User $burglar, $amount)
