@@ -4,6 +4,7 @@ namespace UserBundle\Entity;
 
 use AppBundle\Entity\City;
 use AppBundle\Entity\Competences;
+use AppBundle\Utils\AppConfig;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -59,12 +60,18 @@ class User extends BaseUser
      */
     private $city;
 
+    /**
+     * @ORM\Column(name="action_point", type="smallint")
+     */
+    private $action;
+
     public function __construct()
     {
         parent::__construct();
         $this->alive       = true;
         $this->money       = 20;
         $this->competences = new Competences();
+        $this->action      = AppConfig::USER_DEFAULT_ACTION_POINT;
     }
 
     /**
@@ -258,5 +265,35 @@ class User extends BaseUser
     public function setCity($city)
     {
         $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * @param mixed $action
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
+
+    public function addActionPoint($number)
+    {
+        $this->action += $number;
+        $this->action = $this->action > AppConfig::USER_MAX_ACTION_POINT ? AppConfig::USER_MAX_ACTION_POINT : $this->action;
+        return $this->action;
+    }
+
+    public function removeActionPoint($number)
+    {
+        $this->action -= $number;
+        $this->action = $this->action < 0 ? 0 : $this->action;
+        return $this->action;
     }
 }
