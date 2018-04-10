@@ -50,8 +50,8 @@ class WeaponFixtures extends Fixture
     private function copyRealImage(WeaponImage $image)
     {
         $fileSystem    = new Filesystem();
-        $default_image = 'default_weapon.jpg';
-        $pattern       = 'src/AppBundle/DataFixtures/Imgs/%s';
+        $default_image = 'default_weapon.png';
+        $pattern       = 'src/AppBundle/DataFixtures/imgs/%s';
         $oldPath       = sprintf($pattern, $image->getPath());
         if (!$fileSystem->exists($oldPath)) {
             $oldPath = sprintf($pattern, $default_image);
@@ -70,7 +70,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 6,
                 self::WEAPON_USES    => 5,
                 self::WEAPON_LVL     => 1,
-                self::IMG_PATH       => 'test_couteau_suisse.jpg',
+                self::IMG_PATH       => 'toto_couteau_suisse.png',
                 self::IMG_NAME       => 'couteau',
             ],
             [
@@ -80,7 +80,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 12,
                 self::WEAPON_USES    => 3,
                 self::WEAPON_LVL     => 1,
-                self::IMG_PATH       => 'test_batte.jpg',
+                self::IMG_PATH       => 'batte.jpg',
                 self::IMG_NAME       => 'batte',
             ],
             [
@@ -90,7 +90,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 4,
                 self::WEAPON_USES    => 5,
                 self::WEAPON_LVL     => 1,
-                self::IMG_PATH       => 'test_couteau_suisse.jpg',
+                self::IMG_PATH       => 'balais.jpg',
                 self::IMG_NAME       => 'balais',
             ],
             [
@@ -100,7 +100,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 6,
                 self::WEAPON_USES    => 5,
                 self::WEAPON_LVL     => 1,
-                self::IMG_PATH       => 'test_matraque.jpg',
+                self::IMG_PATH       => 'matraque.jpg',
                 self::IMG_NAME       => 'matraque',
             ],
             [
@@ -110,7 +110,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 3,
                 self::WEAPON_USES    => 3,
                 self::WEAPON_LVL     => 1,
-                self::IMG_PATH       => 'test_planche.jpg',
+                self::IMG_PATH       => 'planche.jpg',
                 self::IMG_NAME       => 'planche de bois',
             ],
 
@@ -121,7 +121,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 12,
                 self::WEAPON_USES    => 7,
                 self::WEAPON_LVL     => 3,
-                self::IMG_PATH       => 'test_fourche_fumier.jpg',
+                self::IMG_PATH       => 'fourche.jpg',
                 self::IMG_NAME       => 'fourche',
             ],
 
@@ -132,7 +132,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 19,
                 self::WEAPON_USES    => 8,
                 self::WEAPON_LVL     => 5,
-                self::IMG_PATH       => 'test_hache.jpg',
+                self::IMG_PATH       => 'hache.jpg',
                 self::IMG_NAME       => 'hache',
             ],
             [
@@ -142,7 +142,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 60,
                 self::WEAPON_USES    => 7,
                 self::WEAPON_LVL     => 12,
-                self::IMG_PATH       => 'test_357.jpg',
+                self::IMG_PATH       => '357_magnum.jpeg',
                 self::IMG_NAME       => '357 Magnum',
             ],
             [
@@ -152,7 +152,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 120,
                 self::WEAPON_USES    => 1,
                 self::WEAPON_LVL     => 15,
-                self::IMG_PATH       => 'test_bazook.jpg',
+                self::IMG_PATH       => 'bazooka.jpeg',
                 self::IMG_NAME       => 'Bazooka',
             ],
             [
@@ -162,7 +162,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 60,
                 self::WEAPON_USES    => 1,
                 self::WEAPON_LVL     => 7,
-                self::IMG_PATH       => 'test_grenade.jpg',
+                self::IMG_PATH       => 'grenade.jpg',
                 self::IMG_NAME       => 'grenade',
             ],
             [
@@ -172,7 +172,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 15,
                 self::WEAPON_USES    => 5,
                 self::WEAPON_LVL     => 2,
-                self::IMG_PATH       => 'test_bouclier.jpg',
+                self::IMG_PATH       => 'bouclier.jpg',
                 self::IMG_NAME       => 'bouclier',
             ],
             [
@@ -182,7 +182,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 6,
                 self::WEAPON_USES    => 2,
                 self::WEAPON_LVL     => 2,
-                self::IMG_PATH       => 'test_sac_sable.jpg',
+                self::IMG_PATH       => 'sac_de_sable.jpg',
                 self::IMG_NAME       => 'sac de sable',
             ],
             [
@@ -192,7 +192,7 @@ class WeaponFixtures extends Fixture
                 self::WEAPON_PRICE   => 24,
                 self::WEAPON_USES    => 5,
                 self::WEAPON_LVL     => 2,
-                self::IMG_PATH       => 'test_poing.jpg',
+                self::IMG_PATH       => 'poing_americain.jpg',
                 self::IMG_NAME       => 'poing américain',
             ],
         ];
