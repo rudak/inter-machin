@@ -43,6 +43,10 @@ app_default_weapon:
     resource: "@AppBundle/Resources/config/routing/weapon.yml"
     prefix:   /weapon
 
+app_game:
+    resource: "@AppBundle/Resources/config/routing/game.yml"
+    prefix:   /game
+
 app_admin:
     resource: "@AppBundle/Resources/config/routing/admin.yml"
     prefix:   /admin

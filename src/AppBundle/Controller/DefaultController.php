@@ -38,6 +38,12 @@ class DefaultController extends Controller
     }
 
 
+    public function gameAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        return $this->render(':default:game.html.twig');
+    }
+
     public function userAction($id)
     {
         $em   = $this->getDoctrine()->getManager();
