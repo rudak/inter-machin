@@ -20,7 +20,7 @@ class AppActionPointCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (true || Timer::isTimeToRun(Timer::PATTERN_ALL_HOURS)) {
+        if (Timer::isTimeToRun(Timer::PATTERN_ALL_HOURS)) {
             $this->getContainer()->get(ActionPointHandler::class)->addPoints();
         }
     }
