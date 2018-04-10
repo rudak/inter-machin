@@ -11,4 +11,6 @@ class AppConfig
     const NO_LUCK_PERCENTAGE           = 3;
     const USER_MAX_ACTION_POINT        = 8;
     const USER_DEFAULT_ACTION_POINT    = 3;
+    const MAX_STEAL_BASE_VALUE         = 20;
+    const ACTION_POINTS_FOR_STEAL      = 2;
 }

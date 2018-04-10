@@ -15,7 +15,6 @@ class Steal
 {
     const STATUS_SUCCESSFULL   = 'successfull';
     const STATUS_FAILED        = 'failed';
-    const MAX_AMOUNT_PER_LEVEL = 8;
 
     /**
      * @var int
