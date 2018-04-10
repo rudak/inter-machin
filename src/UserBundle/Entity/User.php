@@ -71,7 +71,7 @@ class User extends BaseUser
         $this->alive       = true;
         $this->money       = 20;
         $this->competences = new Competences();
-        $this->action      = 3;
+        $this->action      = AppConfig::USER_DEFAULT_ACTION_POINT;
     }
 
     /**
