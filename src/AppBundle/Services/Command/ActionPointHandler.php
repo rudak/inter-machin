@@ -10,7 +10,9 @@ class ActionPointHandler extends CronEmCommand
     {
         $users = $this->em->getRepository(User::class)->findAll();
         foreach ($users as $user){
-//            $user->add
+            $user->addActionPoint(1);
+            $this->em->persist($user);
         }
+        $this->em->flush();
     }
 }
