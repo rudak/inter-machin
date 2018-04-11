@@ -14,4 +14,5 @@
   overflow: scroll;
   height: 100vh;
   position: sticky;
+  -webkit-position: sticky;
 }

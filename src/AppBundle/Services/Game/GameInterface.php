@@ -12,7 +12,7 @@ interface GameInterface
 
     public function getCost();
 
-    public function recordGameAction(User $user, $gain, $status);
+    public function recordGameAction(User $user, $gain, $amount, $status);
 
     public function userCanPlay(User $user, $amount);
 }
