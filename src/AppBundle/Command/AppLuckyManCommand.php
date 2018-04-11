@@ -3,6 +3,7 @@
 namespace AppBundle\Command;
 
 use AppBundle\Services\Command\LuckMoney;
+use AppBundle\Services\Command\LuckPA;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,6 +23,7 @@ class AppLuckyManCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->getContainer()->get(LuckMoney::class)->execute();
+        $this->getContainer()->get(LuckPA::class)->execute();
     }
 
 }
