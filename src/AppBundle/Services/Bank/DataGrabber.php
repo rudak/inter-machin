@@ -36,6 +36,21 @@ class DataGrabber
         return $out;
     }
 
+    public function getAccountsData()
+    {
+        $accounts = $this->em->getRepository(Account::class)->findAll();
+        $out      = [];
+        foreach ($accounts as $account) {
+            $username         = $account->getUser()->getUsername();
+            $out[$username][] = [
+                'date'     => (int)$account->getDate()->format('U'),
+                'money'    => $account->getAmount(),
+            ];
+        }
+        return $out;
+
+    }
+
     public function getUsersMoneyData()
     {
         $users = $this->em->getRepository(User::class)->getAllUsersForAdmin();
@@ -50,12 +65,13 @@ class DataGrabber
         return $out;
     }
 
-    public function getpurchaseData(){
+    public function getpurchaseData()
+    {
         $purchases = $this->em->getRepository(Purchase::class)->getCountPurchasesByWeapon();
-        $out = [];
+        $out       = [];
         /** @var Purchase $purchase */
-        foreach ($purchases as $purchase){
-            $out[]= [
+        foreach ($purchases as $purchase) {
+            $out[] = [
                 $this->em->getRepository(Weapon::class)->find($purchase['id'])->getName(),
                 (int)$purchase['nb_achat'],
             ];

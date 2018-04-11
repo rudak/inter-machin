@@ -1,6 +1,9 @@
+/**
+ *      CHART CAMEMBERT MONEY
+ **/
 var dataPoints = [];
 var chartMoney = new CanvasJS.Chart("chartContainerUsersMoney", {
-    title:{
+    title: {
         text: "Distribution de l'argent en jeu"
     },
     animationEnabled: true,
@@ -12,7 +15,7 @@ var chartMoney = new CanvasJS.Chart("chartContainerUsersMoney", {
     }]
 });
 function addDataMoney(data) {
-    for (var i = 0; i < data.length; i++) {
+    for (var i in data) {
         dataPoints.push({
             "label": data[i]['name'],
             "y": data[i]['money']
@@ -20,15 +23,12 @@ function addDataMoney(data) {
     }
     chartMoney.render();
 }
-$.ajax({
-    dataType: "json",
-    url: Routing.generate('users_money_data',{}),
-    success: addDataMoney
-});
-
+/**
+ *      CHART ACHATS ARMES
+ **/
 var dataPointsPurchases = [];
 var chartPurchases = new CanvasJS.Chart("chartContainerPurchases", {
-    title:{
+    title: {
         text: "Nombre d'achat par armes"
     },
     animationEnabled: true,
@@ -38,8 +38,7 @@ var chartPurchases = new CanvasJS.Chart("chartContainerPurchases", {
     }]
 });
 function addDataPurchases(data) {
-    console.log(data);
-    for (var i = 0; i < data.length; i++) {
+    for (var i in data) {
         dataPointsPurchases.push({
             "label": data[i][0],
             "y": data[i][1]
@@ -47,11 +46,61 @@ function addDataPurchases(data) {
     }
     chartPurchases.render();
 }
-$.ajax({
-    dataType: "json",
-    url: Routing.generate('purchase_data',{}),
-    success: addDataPurchases
+/**
+ *      CHART USERS ACCOUNTS
+ **/
+var dataUsersAccounts = [];
+var chartAccounts = new CanvasJS.Chart("chartContainerAccounts", {
+    title: {
+        text: "Récap des accounts"
+    },
+    toolTip: {
+        shared: true
+    },
+    animationEnabled: true,
+    data: dataUsersAccounts
 });
+function addDataAccounts(data) {
+    $.each(data, function (username, userData) {
+        dataUsersAccounts.push({
+            type: "line",
+            axisYType: "secondary",
+            name: username,
+            showInLegend: true,
+            markerSize: 4,
+            yValueFormatString: "###$",
+            dataPoints: getUserAccounts(userData)
+        })
+    });
+    chartAccounts.render();
+}
 
+function getUserAccounts(userData) {
+    var userAccount = [];
+    for (var i in userData) {
+        userAccount.push({
+            x: new Date(userData[i]['date'] * 1000),
+            y: userData[i]['money']
+        })
+    }
+    return userAccount;
+}
+/**
+ *      AJAX LAUNCHES
+ **/
+window.onload = function () {
+    requests = [
+        {route: 'purchase_data', callback: addDataPurchases},
+        {route: 'users_money_data', callback: addDataMoney},
+        {route: 'bank_users_accounts', callback: addDataAccounts}
+    ];
+    for (var i in requests) {
+        $.ajax({
+            dataType: "json",
+            url: Routing.generate(requests[i].route),
+            success: requests[i].callback
+        });
+    }
+}
 
 
