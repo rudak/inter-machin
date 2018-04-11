@@ -118,10 +118,11 @@ class WeaponImage
     public function preUpload()
     {
         if (null !== $this->getFile()) {
-            $filename   = sha1(uniqid(mt_rand(), true));
+            $filename   = substr(sha1(uniqid(mt_rand(), true)), 0, 8);
             $this->path = $filename . '.' . $this->getFile()->guessExtension();
         }
     }
+
 
     /**
      * @ORM\PostRemove()
