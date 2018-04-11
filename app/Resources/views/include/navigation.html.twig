@@ -34,8 +34,8 @@
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-
-                            <div class="col text-center">Ville : <a href="{{ path('user_list') }}">{{ app.user.city.name }}</a></div>
+                            <div class="col text-center">Ville : <a
+                                        href="{{ path('user_list') }}">{{ app.user.city.name }}</a></div>
                         </div>
                         <div class="row">
                             <div class="col text-center">
@@ -49,10 +49,27 @@
                         </div>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{ path('fos_user_security_logout') }}" class="btn btn-secondary btn-block">Deconnexion</a>
+                        <div class="progress">
+                            {% if app.user.competences.life < 20 %}
+                                {% set bartype = 'danger' %}
+                            {% elseif app.user.competences.life < 40 %}
+                                {% set bartype = 'warning' %}
+                            {% else %}
+                                {% set bartype = 'success' %}
+                            {% endif %}
+                            <div class="progress-bar bg-{{ bartype }}" role="progressbar"
+                                 style="width: {{ app.user.competences.life }}%"
+                                 aria-valuenow="{{ app.user.competences.life }}" aria-valuemin="0"
+                                 aria-valuemax="100">
+                            </div>
+                        </div>
                     </li>
-
+                    <li class="list-group-item">
+                        <a href="{{ path('fos_user_security_logout') }}"
+                           class="btn btn-secondary btn-block">Deconnexion</a>
+                    </li>
                 </ul>
+
 
 
 
