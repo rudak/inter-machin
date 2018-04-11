@@ -40,7 +40,7 @@ class StealHandler
     private function burglarCanSteal(User $victim, User $burglar)
     {
         if ($burglar->getAction() < AppConfig::ACTION_POINTS_FOR_STEAL) {
-            $this->session->getFlashBag()->add('warning', sprintf("Impossible de voler %s, vous n'avez pas assez de PA!", $victim->getUsername()));
+            $this->session->getFlashBag()->add('warning', sprintf("Impossible de voler %s, vous n'avez pas assez de PA_COST!", $victim->getUsername()));
             return false;
         }
         if (!$victim->getAlive()) {
