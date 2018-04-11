@@ -17,7 +17,8 @@
                         <li class="list-group-item list-group-item-action">Argent : {{ user.money }}$</li>
                         <li class="list-group-item list-group-item-action">Niveau : {{ user.competences.level }}</li>
                         <li class="list-group-item list-group-item-action">Vie : {{ user.competences.life }}</li>
-                        <li class="list-group-item list-group-item-action">Ville : <a href="{{ path('user_list') }}">{{ user.city.name }}</a> </li>
+                        <li class="list-group-item list-group-item-action">Ville : <a
+                                    href="{{ path('user_list') }}">{{ user.city.name }}</a></li>
                         <li class="list-group-item list-group-item-action">Points d'action : {{ user.action }}</li>
                     </ul>
                 </div>
@@ -26,28 +27,7 @@
                 <div class="card card-body bg-light">
                     <h3>Compétences</h3>
                     <hr>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: {{ user.competences.attack }}%;"
-                             aria-valuenow="{{ user.competences.attack }}" aria-valuemin="0" aria-valuemax="100">
-                            Attaque {{ user.competences.attack }}</div>
-                    </div>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: {{ user.competences.defense }}%;"
-                             aria-valuenow="{{ user.competences.defense }}" aria-valuemin="0" aria-valuemax="100">
-                            Defense {{ user.competences.defense }}</div>
-                    </div>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: {{ user.competences.skill }}%;"
-                             aria-valuenow="{{ user.competences.skill }}" aria-valuemin="0" aria-valuemax="100">
-                            Habileté {{ user.competences.skill }}</div>
-                    </div>
-
-                    <ul>
-                        <li>Attaque : {{ user.competences.attack }}</li>
-                        <li>Défense : {{ user.competences.defense }}</li>
-                        <li>Habileté : {{ user.competences.skill }}</li>
-                    </ul>
-
+                    <div id="user-competences" style="height: 100px;"></div>
                 </div>
             </div>
             <div class="col">
@@ -88,5 +68,24 @@
 
 
 
-{% block stylesheets %}
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.canvasjs.min.js') }}"></script>
+    <script>
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("user-competences", {
+                animationEnabled: true,
+                data: [{
+                    type: "bar",
+                    name: "companies",
+                    axisYType: "secondary",
+                    dataPoints: [
+                        {y: {{ user.competences.attack }}, label: "Attaque"},
+                        {y: {{ user.competences.defense }}, label: "Défense"},
+                        {y: {{ user.competences.skill }}, label: "Habileté"},
+                    ]
+                }]
+            });
+            chart.render();
+        }
+    </script>
 {% endblock %}
