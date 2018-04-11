@@ -8,7 +8,7 @@ interface GameInterface
 {
     const BIM = 123;
 
-    public function execute(User $user, $amount);
+    public function execute(User $user, $amount, $data);
 
     public function getName();
 

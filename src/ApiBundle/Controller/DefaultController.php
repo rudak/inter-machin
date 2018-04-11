@@ -10,30 +10,31 @@ class DefaultController extends Controller
 {
     public function bankDataAction()
     {
-        $myAccountData = $this->get(DataGrabber::class)->getAccountData($this->getUser());
-        return new JsonResponse($myAccountData, 200);
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        return new JsonResponse($this->get(DataGrabber::class)->getAccountData($this->getUser()), 200);
     }
 
     public function bankUsersAccountsAction()
     {
-        $bankUsersAccounts = $this->get(DataGrabber::class)->getAccountsData();
-        return new JsonResponse($bankUsersAccounts, 200);
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        return new JsonResponse($this->get(DataGrabber::class)->getAccountsData(), 200);
     }
 
     public function game_oneTenDataAction()
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         return new JsonResponse($this->get(DataGrabber::class)->getGameOneTenData(), 200);
     }
 
     public function purchaseDataAction()
     {
-        $purchaseData = $this->get(DataGrabber::class)->getpurchaseData();
-        return new JsonResponse($purchaseData, 200);
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        return new JsonResponse($this->get(DataGrabber::class)->getpurchaseData(), 200);
     }
 
     public function userMoneyDataAction()
     {
-        $usersMoneyData = $this->get(DataGrabber::class)->getUsersMoneyData();
-        return new JsonResponse($usersMoneyData, 200);
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        return new JsonResponse($this->get(DataGrabber::class)->getUsersMoneyData(), 200);
     }
 }

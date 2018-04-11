@@ -9,7 +9,7 @@ class OneTen extends GameMaster
     const GAME_NAME = 'OneTen';
     const PA_COST   = 1;
 
-    public function execute(User $user, $amount)
+    public function execute(User $user, $amount, $data = null)
     {
         if (!$this->userCanPlay($user, $amount)) {
             return false;

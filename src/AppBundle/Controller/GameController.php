@@ -11,12 +11,10 @@ class GameController extends Controller
 
     public function oneTenAction(Request $request, $amount)
     {
-        if (in_array($amount, [1, 5, 10, 100])) {
+        if (in_array($amount, [1, 5, 10, 100, 500])) {
             $this->get(OneTen::class)->execute($this->getUser(), $amount);
             $this->getDoctrine()->getManager()->flush();
         }
         return $this->redirectToRoute('game_index');
     }
-
-
 }
