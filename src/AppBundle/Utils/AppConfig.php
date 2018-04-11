@@ -9,7 +9,7 @@ class AppConfig
     const MAX_ACTIVE_LOANS_ALLOWED     = 3;
     const LUCK_PERCENTAGE              = 1;
     const NO_LUCK_PERCENTAGE           = 3;
-    const USER_MAX_ACTION_POINT        = 8;
+    const USER_MAX_ACTION_POINT        = 24;
     const USER_DEFAULT_ACTION_POINT    = 3;
     const MAX_STEAL_BASE_VALUE         = 20;
     const ACTION_POINTS_FOR_STEAL      = 2;
