@@ -19,14 +19,14 @@ class OneTen extends GameMaster
         if (mt_rand(0, 1000) > 100) {
             $this->session->getFlashBag()->add('warning', sprintf("Vous avez joué %d$ à %s mais vous avez perdu ! Merci.", $amount, $this->getName()));
             $this->em->persist($user);
-            $this->recordGameAction($user, false, false);
+            $this->recordGameAction($user, false, $amount, false);
             return false;
         }
 
         $gain = $amount * 10;
         $this->session->getFlashBag()->add('success', sprintf("Vous avez joué %d$ à %s et vous avez gagné %d$ !", $amount, $this->getName(), $gain));
         $user->addMoney($gain);
-        $this->recordGameAction($user, $gain, true);
+        $this->recordGameAction($user, $gain, $amount, true);
         $this->em->persist($user);
     }
 

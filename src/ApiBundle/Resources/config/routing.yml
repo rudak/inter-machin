@@ -17,11 +17,15 @@ bank_users_accounts:
     options:
         expose: true
 
-
-
 # purchase_data
 purchase_data:
     path: /purchase-data
     defaults: { _controller: ApiBundle:Default:purchaseData}
+    options:
+        expose: true
+
+game_oneTenData:
+    path: /game/one-ten-data
+    defaults: { _controller: ApiBundle:Default:game_oneTenData}
     options:
         expose: true

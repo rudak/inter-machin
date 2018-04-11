@@ -2,9 +2,11 @@
 
 namespace AppBundle\Services\Bank;
 
+use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\Weapon;
+use AppBundle\Services\Game\OneTen;
 use Doctrine\ORM\EntityManagerInterface;
 use UserBundle\Entity\User;
 
@@ -43,8 +45,8 @@ class DataGrabber
         foreach ($accounts as $account) {
             $username         = $account->getUser()->getUsername();
             $out[$username][] = [
-                'date'     => (int)$account->getDate()->format('U'),
-                'money'    => $account->getAmount(),
+                'date'  => (int)$account->getDate()->format('U'),
+                'money' => $account->getAmount(),
             ];
         }
         return $out;
@@ -77,5 +79,11 @@ class DataGrabber
             ];
         }
         return $out;
+    }
+
+    public function getGameOneTenData()
+    {
+        $infos = $this->em->getRepository(Game::class)->getGameInfos(OneTen::GAME_NAME);
+        return $infos;
     }
 }

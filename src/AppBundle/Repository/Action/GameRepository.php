@@ -10,4 +10,18 @@ namespace AppBundle\Repository\Action;
  */
 class GameRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getGameInfos($game)
+    {
+        $qb = $this->createQueryBuilder('g')
+                   ->select('SUM(g.gain) as total_gain,SUM(g.amount) as total_amount,COUNT(g.id) as total_try,g.status as status')
+                   ->where('g.game = :game')
+                   ->setParameters([
+                       'game' => $game,
+                   ])
+                   ->addGroupBy('g.status')
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
 }

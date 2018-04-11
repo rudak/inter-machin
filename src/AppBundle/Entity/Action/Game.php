@@ -58,6 +58,13 @@ class Game
     private $gain;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="amount", type="smallint", nullable=true)
+     */
+    private $amount;
+
+    /**
      * Game constructor.
      * @param User      $user
      * @param \DateTime $date
@@ -65,13 +72,14 @@ class Game
      * @param string    $game
      * @param int       $gain
      */
-    public function __construct(User $user, $status, $game, $gain)
+    public function __construct(User $user, $status, $game, $amount = 0, $gain = 0)
     {
         $this->user   = $user;
         $this->date   = new \DateTime('NOW');
         $this->status = $status;
         $this->game   = $game;
         $this->gain   = $gain;
+        $this->amount = $amount;
     }
 
 
@@ -204,5 +212,23 @@ class Game
     {
         return $this->gain;
     }
+
+    /**
+     * @return int
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param int $amount
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+    }
+
+
 }
 
