@@ -19,7 +19,7 @@ class LogRepository extends \Doctrine\ORM\EntityRepository
                    ->setParameter('public', true)
                    ->setParameter('user', $user)
                    ->orderBy('l.id', 'DESC')
-                   ->setMaxResults(6)
+                   ->setMaxResults(20)
                    ->getQuery()
         ;
         return $qb->execute();
