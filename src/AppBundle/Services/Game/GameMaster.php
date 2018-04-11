@@ -45,7 +45,6 @@ abstract class GameMaster implements GameInterface
     }
 
 
-
     public function recordGameAction(User $user, $gain, $status)
     {
         $this->em->persist(new Game($user, $status, $this->getName(), $gain));
