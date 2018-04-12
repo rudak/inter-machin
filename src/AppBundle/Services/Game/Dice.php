@@ -14,29 +14,33 @@ class Dice extends GameMaster
 {
     const GAME_NAME = 'Dice';
     const PA_COST   = 1;
-    const NB_DICE   = 2;
+    const NB_DICE   = 5;
 
     private $dices;
+
+    private $dicesRegrouped;
 
     public function execute(User $user, $amount, $data = null)
     {
         if (!$this->userCanPlay($user, $amount)) {
             return false;
         }
-//        $user->removeMoney($amount);
-//        $user->removeActionPoint($this->getCost());
-//        $this->recordGameAction($user, 10, true);
+        $user->removeMoney($amount);
+        $user->removeActionPoint($this->getCost());
 
         $this->launchDices();
-
-        if (!$this->isPaire($this->dices)) {
-            $this->session->getFlashBag()->add('warning', sprintf("Vous avez parier %d $ à %s, mais vous avez perdu. Try again", $amount, $this->getName()));
+        $this->dicesRegrouped = array_count_values($this->dices);
+        if (!$this->isPaire()) {
+            $this->session->getFlashBag()->add('warning', sprintf("Vous avez parier %d$ à %s, mais vous avez perdu. Try again", $amount, $this->getName()));
             $this->em->persist($user);
             $this->recordGameAction($user, false, $amount, false);
             return false;
         }
-        $gain = $amount * $this->dices[0];
-        $this->session->getFlashBag()->add('success', sprintf("Vous avez parier %d $, vous avez fait une paire de %d, vous avez donc gagner %d $", $amount, $this->dices[0], $gain));
+
+        $valeurGagnante = $this->isPaire();
+
+        $gain = $amount * $valeurGagnante;
+        $this->session->getFlashBag()->add('success', sprintf("Vous avez parier %d$, vous avez fait une paire de %d , vous avez donc gagner %d$", $amount, $valeurGagnante, $gain));
         $user->addMoney($gain);
         $this->recordGameAction($user, $gain, $amount, true);
         $this->em->persist($user);
@@ -52,11 +56,12 @@ class Dice extends GameMaster
         return self::GAME_NAME;
     }
 
-    private function isPaire($dices)
+    private function isPaire()
     {
         // Return la valeur de la paire si non false
-        if ($dices[0] == $dices[1]) {
-            return true;
+        $value = array_search(2, $this->dicesRegrouped);
+        if ($value) {
+            return $value;
         }
         return false;
     }
