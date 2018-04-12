@@ -12,11 +12,17 @@ use UserBundle\Entity\User;
 
 class Dice extends GameMaster
 {
-    const GAME_NAME         = 'Dice';
-    const PA_COST           = 1;
-    const NB_DICES          = 5;
-    const INDEX_FACE_NUMBER = 'faceNumber';
-    const INDEX_NB          = 'nb';
+    const GAME_NAME               = 'Dice';
+    const PA_COST                 = 8;
+    const NB_DICES                = 5;
+
+    const GAIN_COEF_FOR_PAIR      = 2;
+    const GAIN_COEF_FOR_TWO_PAIRS = 3;
+    const GAIN_COEF_FOR_BRELAN    = 4;
+    const GAIN_COEF_FOR_SQUARE    = 6;
+    const GAIN_COEF_FOR_QUINT     = 8;
+    const GAIN_COEF_FOR_FULL      = 11;
+    const GAIN_COEF_FOR_SUIT      = 15;
 
     private $pair = [];
 
@@ -26,8 +32,6 @@ class Dice extends GameMaster
 
     private $quint;
 
-    private $full = false;
-
     public function execute(User $user, $amount, $data = null)
     {
         if (!$this->userCanPlay($user, $amount)) {
@@ -36,80 +40,129 @@ class Dice extends GameMaster
         $user->removeMoney($amount);
         $user->removeActionPoint($this->getCost());
 
-        $dices = array_count_values($this->launcheDices());
-
-        $results = [];
-        foreach ($dices as $faceNumber => $nb) {
-            if (1 == $nb) {
-                continue;
-            }
-            $results[] = $this->hydratResults($faceNumber, $nb);
+        if (mt_rand(0, 10) == 3) {
+            $this->session->getFlashBag()->add('warning', $this->getLooseReason());
+            $this->recordGameAction($user, null, $amount, false);
+            return;
         }
 
-        if (!count($results)) {
-            echo "perdu !";
-            die;
+        $diceResults = array_count_values($this->launcheDices());
+
+        if (5 == count($diceResults)) {
+            $this->suitResult($user, $amount);
+            $this->em->persist($user);
+            return;
         }
 
-        foreach ($results as $result) {
-            $this->dispatchResults($result[self::INDEX_NB], $result[self::INDEX_FACE_NUMBER]);
+        foreach ($diceResults as $faceNumber => $nb) {
+            if (1 == $nb) continue;
+            $this->dispatchResults($nb, $faceNumber);
         }
+
+        if ($this->isItLoose()) {
+            $this->session->getFlashBag()->add('warning', sprintf("Vous avez joué %d$ à %s est vous avez perdu ! LOL", $amount, $this->getName()));
+            $this->recordGameAction($user, null, $amount, false);
+            return;
+        }
+        $this->win($user, $amount);
+    }
+
+    private function isItLoose()
+    {
+        return empty($this->pair) && !$this->brelan && !$this->square && !$this->quint;
+    }
+
+    private function win(User $user, $amount)
+    {
 
         if ($this->brelan && count($this->pair)) {
-            $this->full = true;
-        }
-
-        if ($this->full) {
-            $this->fullresult();
+            $this->fullresult($user, $amount);
         }
 
         if ($this->quint) {
-            $this->quintResult();
+            $this->quintResult($user, $amount);
         }
 
         if ($this->square) {
-            $this->squareResult();
+            $this->squareResult($user, $amount);
         }
         if ($this->brelan) {
-            $this->brelanResult();
+            $this->brelanResult($user, $amount);
         }
-
-        if (is_array($this->pair) && !empty($this->pair)) {
-            $this->pairResult();
+        if (!empty($this->pair)) {
+            $this->pairResult($user, $amount);
         }
-        die;
     }
 
-    private function fullresult()
+    private function suitResult(User $user, $amount)
     {
-        echo sprintf("Amazing ! Vous faites un putain de FULL au %d par les %d !", $this->brelan, $this->pair[0]);
+        $gain = $amount * self::GAIN_COEF_FOR_SUIT;
+        $user->addMoney($gain);
+        $this->recordGameAction($user, $gain, $amount, true);
+        $this->session->getFlashBag()->add('success', "Mais putain! Vous faites une Suite !!" . $this->getGainMessage($gain));
+    }
+
+    private function fullresult(User $user, $amount)
+    {
+        $gain = $amount * self::GAIN_COEF_FOR_FULL;
+        $user->addMoney($gain);
+        $this->recordGameAction($user, $gain, $amount, true);
+        $this->session->getFlashBag()->add('success', sprintf("Amazing ! Vous faites un putain de FULL au %d par les %d !%s", $this->brelan, array_shift($this->pair), $this->getGainMessage($gain)));
         $this->brelan = null;
-        $this->pair   = null;
     }
 
-    private function quintResult()
+    private function quintResult(User $user, $amount)
     {
-        echo sprintf("Ouuahhh ! Vous faites une quinte de %d !", $this->quint);
+        $gain = $amount * self::GAIN_COEF_FOR_QUINT;
+        $user->addMoney($gain);
+        $this->recordGameAction($user, $gain, $amount, true);
+        $this->session->getFlashBag()->add('success', sprintf("Ouuahhh ! Vous faites une quinte de %d !%s", $this->quint, $this->getGainMessage($gain)));
     }
 
-    private function squareResult()
+    private function squareResult(User $user, $amount)
     {
-        echo sprintf("Yooo mannn ! Vous faites un carré de %d !", $this->square);
+        $gain = $amount * self::GAIN_COEF_FOR_SQUARE;
+        $user->addMoney($gain);
+        $this->recordGameAction($user, $gain, $amount, true);
+        $this->session->getFlashBag()->add('success', sprintf("Yooo mannn ! Vous faites un carré de %d !%s", $this->square, $this->getGainMessage($gain)));
     }
 
-    private function brelanResult()
+    private function brelanResult(User $user, $amount)
     {
-        echo sprintf("Youpii mannn ! Vous faites un brelan de %d !", $this->brelan);
+        $gain = $amount * self::GAIN_COEF_FOR_BRELAN;
+        $user->addMoney($gain);
+        $this->recordGameAction($user, $gain, $amount, true);
+        $this->session->getFlashBag()->add('success', sprintf("Youpii ! Vous faites un brelan de %d !%s", $this->brelan, $this->getGainMessage($gain)));
     }
 
-    private function pairResult()
+    private function pairResult(User $user, $amount)
     {
         $pairMessage = [];
-
+        rsort($this->pair);
         foreach ($this->pair as $pair) {
             $pairMessage[] = sprintf("une paire de %d", $pair);
         }
-        echo "Gagné ! Vous faites " . implode(' et ', $pairMessage) . ' !';
+        $gain = $amount * (count($this->pair) == 1 ? self::GAIN_COEF_FOR_PAIR : self::GAIN_COEF_FOR_TWO_PAIRS);
+        $user->addMoney($gain);
+        $this->recordGameAction($user, $gain, $amount, true);
+        $this->session->getFlashBag()->add('success', "Gagné ! Vous faites " . implode(' et ', $pairMessage) . ' !' . $this->getGainMessage($gain));
+    }
+
+    private function getGainMessage($gain)
+    {
+        return sprintf(" Vous gagnez %d$ !", $gain);
+    }
+
+    private function getLooseReason()
+    {
+        $reasons = [
+            'Tu as balancé les dés par terre, tu perds.',
+            'Un dé a sauté sous la table, perdu.',
+            'Un dé a affiché 7, il doit y avoir une erreur, dans le doute, perdu.',
+            'Un dé est en équilibre sur un bord, pas de bol, perdu.',
+            'Le banquier regardait la télé, c\'est perdu. Try again ?',
+        ];
+        return $reasons[array_rand($reasons)];
     }
 
     private function dispatchResults($nb, $faceNumber)
@@ -134,7 +187,7 @@ class Dice extends GameMaster
     {
         $dices = [];
         for ($i = 0; $i < self::NB_DICES; $i++) {
-            $dices[] = mt_rand(1, 4);
+            $dices[] = mt_rand(1, 6);
         }
         return $dices;
     }
@@ -147,13 +200,5 @@ class Dice extends GameMaster
     public function getName()
     {
         return self::GAME_NAME;
-    }
-
-    private function hydratResults($faceNumber, $nb)
-    {
-        return [
-            self::INDEX_FACE_NUMBER => $faceNumber,
-            self::INDEX_NB          => $nb,
-        ];
     }
 }

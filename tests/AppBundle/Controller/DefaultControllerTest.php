@@ -15,7 +15,10 @@ class DefaultControllerTest extends WebTestCase
     public function testLoginRedirect()
     {
         $client = static::createClient();
-        $urls   = ['/store/list', '/ranking', '/cities', '/bank/', '/game/', '/user/my-profile', '/store/weapon/157'];
+        $urls   = [
+            '/store/list', '/ranking', '/cities', '/bank/', '/game/', '/user/my-profile', '/store/weapon/157',
+            '/game/dice/1', '/game/one-ten/10',
+        ];
         foreach ($urls as $url) {
             $client->request('GET', $url);
             $this->assertEquals(302, $client->getResponse()->getStatusCode(), sprintf("L'url '%s' devrait renvoyer un code 302", $url));
