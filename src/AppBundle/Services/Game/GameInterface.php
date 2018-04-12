@@ -6,7 +6,7 @@ use UserBundle\Entity\User;
 
 interface GameInterface
 {
-    public function execute(User $user, $amount);
+    public function execute(User $user, $amount, $data);
 
     public function getName();
 

@@ -13,7 +13,7 @@ use UserBundle\Entity\User;
 class Dice extends GameMaster
 {
 
-    public function execute(User $user, $amount)
+    public function execute(User $user, $amount, $data = null)
     {
         if (!$this->userCanPlay($user, $amount)) {
             return false;

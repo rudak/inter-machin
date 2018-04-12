@@ -8,34 +8,41 @@
                 <h1>GameLand</h1>
                 <hr>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col">
                         <h3>Le 1 sur 10 !</h3>
                         <p class="lead">
                             Tente de gagner 10 fois ta mise !
                             <br>
                             Cout : 1PA
                         </p>
-                        <ul>
-                            <li><a href="{{ path('game_one_ten',{amount:1}) }}">Miser 1$</a></li>
-                            <li><a href="{{ path('game_one_ten',{amount:5}) }}">Miser 5$</a></li>
-                            <li><a href="{{ path('game_one_ten',{amount:10}) }}">Miser 10$</a></li>
-                            <li><a href="{{ path('game_one_ten',{amount:100}) }}">Miser 100$</a></li>
-                        </ul>
+                        <div class="list-group">
+                            <a href="{{ path('game_one_ten',{amount:1}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 1$</a>
+                            <a href="{{ path('game_one_ten',{amount:5}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 5$</a>
+                            <a href="{{ path('game_one_ten',{amount:10}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 10$</a>
+                            <a href="{{ path('game_one_ten',{amount:100}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 100$</a>
+                            <a href="{{ path('game_one_ten',{amount:500}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 500$</a>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <h3>foo</h3>
-                    </div>
-                    <div class="col-4">
-                        <h3>bar</h3>
+                    <div class="col">
+                        <div id="chartOneTen" style="height: 370px; width: 100%;"></div>
                     </div>
                 </div>
+                <hr>
             </div>
         </div>
     </div>
 
 {% endblock %}
 
-
-
 {% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.canvasjs.min.js') }}"></script>
+    <script src="{{ asset('js/game-index.js') }}"></script>
 {% endblock %}

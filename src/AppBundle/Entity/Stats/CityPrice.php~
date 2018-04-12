@@ -1,0 +1,51 @@
+<?php
+
+namespace AppBundle\Entity\Stats;
+
+use AppBundle\Entity\City;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CityPrice
+ *
+ * @ORM\Table(name="stats_city_price")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Stats\CityPriceRepository")
+ */
+class CityPrice
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var City
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="amount", type="smallint", nullable=true)
+     */
+    private $amount;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="smallint")
+     */
+    private $price;
+}
+

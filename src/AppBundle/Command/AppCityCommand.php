@@ -4,11 +4,10 @@ namespace AppBundle\Command;
 
 use AppBundle\Services\Command\CityPrices;
 use AppBundle\Services\Command\CityRotation;
+use AppBundle\Services\Command\Stats\CityHandler;
 use AppBundle\Utils\Cron\Timer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AppCityCommand extends ContainerAwareCommand
@@ -28,6 +27,9 @@ class AppCityCommand extends ContainerAwareCommand
         }
         if (Timer::isTimeToRun('30 5 * * *')) {
             $this->getContainer()->get(CityRotation::class)->execute();
+        }
+        if (Timer::isTimeToRun(Timer::PATTERN_ALL_HOURS)) {
+            $this->getContainer()->get(CityHandler::class)->execute();
         }
     }
 
