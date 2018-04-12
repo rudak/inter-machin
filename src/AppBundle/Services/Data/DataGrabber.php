@@ -53,6 +53,8 @@ class DataGrabber
 
     }
 
+
+
     public function getUsersMoneyData()
     {
         $users = $this->em->getRepository(User::class)->getAllUsersForAdmin();

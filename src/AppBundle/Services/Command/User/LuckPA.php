@@ -2,6 +2,8 @@
 
 namespace AppBundle\Services\Command\User;
 
+use AppBundle\Services\Command\CronCommandInterface;
+use AppBundle\Services\Command\CronEmCommand;
 use UserBundle\Entity\User;
 use AppBundle\Utils\AppConfig;
 

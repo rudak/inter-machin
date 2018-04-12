@@ -3,6 +3,7 @@
 namespace AppBundle\Services\Command\Stats;
 
 use AppBundle\Entity\Bank\Account;
+use AppBundle\Services\Command\CronEmCommand;
 use UserBundle\Entity\User;
 
 class BankAccounts extends CronEmCommand

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services\Command\User;
 
+use AppBundle\Services\Command\CronEmCommand;
 use UserBundle\Entity\User;
 
 class ActionPointHandler extends CronEmCommand

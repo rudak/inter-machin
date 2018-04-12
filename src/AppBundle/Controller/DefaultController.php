@@ -99,6 +99,7 @@ class DefaultController extends Controller
 
     public function citiesAction()
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em     = $this->getDoctrine()->getManager();
         $cities = $em->getRepository('AppBundle:City')->getCities();
         // dump($cities);
