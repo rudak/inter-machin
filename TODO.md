@@ -17,3 +17,4 @@
         
 - drop item, récupérable si ont est dans la même ville
 - jeu de loterie
+- ajouter une église, on peut prier pour avoir des PA ou des tunes mais bon faudra pas trop y compter ^^...
