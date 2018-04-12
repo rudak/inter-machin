@@ -91,6 +91,14 @@ class DefaultControllerTest extends WebTestCase
         );
     }
 
+    public function testLoginRedirect()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/');
+        $this->assertRegExp('/\/login$/', $client->getResponse()->headers->get('location'));
+    }
+
+
     protected function createAuthorizedClient()
     {
         $client    = static::createClient();
