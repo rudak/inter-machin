@@ -14,7 +14,7 @@ class Dice extends GameMaster
 {
     const GAME_NAME = 'Dice';
     const PA_COST   = 1;
-    const NB_DICE   = 5;
+    const NB_DICES  = 5;
 
     private $dices;
 
@@ -28,19 +28,17 @@ class Dice extends GameMaster
         $user->removeMoney($amount);
         $user->removeActionPoint($this->getCost());
 
-        $this->launchDices();
-        $this->dicesRegrouped = array_count_values($this->dices);
-        if (!$this->isPaire()) {
-            $this->session->getFlashBag()->add('warning', sprintf("Vous avez parier %d$ à %s, mais vous avez perdu. Try again", $amount, $this->getName()));
+        $this->dicesRegrouped = array_count_values($this->launchDices());
+
+        if (!$valeurGagnante = $this->getPair()) {
+            $this->session->getFlashBag()->add('warning', sprintf("Vous avez parié %d$ à %s, mais vous avez perdu. Try again", $amount, $this->getName()));
             $this->em->persist($user);
             $this->recordGameAction($user, false, $amount, false);
             return false;
         }
 
-        $valeurGagnante = $this->isPaire();
-
         $gain = $amount * $valeurGagnante;
-        $this->session->getFlashBag()->add('success', sprintf("Vous avez parier %d$, vous avez fait une paire de %d , vous avez donc gagner %d$", $amount, $valeurGagnante, $gain));
+        $this->session->getFlashBag()->add('success', sprintf("Vous avez parié %d$, vous avez fait une paire de %d , vous avez donc gagné %d$", $amount, $valeurGagnante, $gain));
         $user->addMoney($gain);
         $this->recordGameAction($user, $gain, $amount, true);
         $this->em->persist($user);
@@ -56,27 +54,24 @@ class Dice extends GameMaster
         return self::GAME_NAME;
     }
 
-    private function isPaire()
+    /**
+     * Return la valeur de la paire si non false
+     * @return false|int|string
+     */
+    private function getPair()
     {
-        // Return la valeur de la paire si non false
-        $value = array_search(2, $this->dicesRegrouped);
-        if ($value) {
-            return $value;
-        }
-        return false;
+        return array_search(2, $this->dicesRegrouped);
     }
 
+    /**
+     * Lances les dés
+     */
     private function launchDices()
     {
-        // Lances les dés
-        for ($i = 1; $i <= self::NB_DICE; $i++) {
-            $this->dices[] = $this->getDiceValue();
+        $dices = [];
+        for ($i = 0; $i < self::NB_DICES; $i++) {
+            $dices[] = mt_rand(1, 6);
         }
-    }
-
-    private function getDiceValue()
-    {
-        //Créer la valeur d'un dé
-        return mt_rand(1, 6);
+        return $dices;
     }
 }
