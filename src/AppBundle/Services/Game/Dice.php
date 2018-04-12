@@ -16,8 +16,6 @@ class Dice extends GameMaster
     const PA_COST   = 1;
     const NB_DICES  = 5;
 
-    private $dices;
-
     private $dicesRegrouped;
 
     public function execute(User $user, $amount, $data = null)
