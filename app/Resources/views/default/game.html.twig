@@ -33,6 +33,32 @@
                     </div>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="col">
+                        <h3>Paire de dés</h3>
+                        <p class="lead">
+                            Tente de gagner 6 fois ta mise !
+                            <br>
+                            Cout : 1PA
+                        </p>
+                        <div class="list-group">
+                            <a href="{{ path('dice',{amount:1}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 1$</a>
+                            <a href="{{ path('dice',{amount:5}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 5$</a>
+                            <a href="{{ path('dice',{amount:10}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 10$</a>
+                            <a href="{{ path('dice',{amount:100}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 100$</a>
+                            <a href="{{ path('dice',{amount:500}) }}"
+                               class="list-group-item list-group-item-action text-center">Miser 500$</a>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\Item;
+use AppBundle\Services\Game\Dice;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
@@ -70,21 +71,26 @@ class DefaultController extends Controller
 
     public function testAction()
     {
-        $agi1 = 0;
-        $agi2 = 0;
+//        $agi1 = 0;
+//        $agi2 = 0;
+//
+//        $chanceVoleur = 10 * 2.9901 / log10($agi1 + 12);
+//        $chanceVoler  = 5 * 2.9901 / log10($agi2 + 12);
+//
+//        $chanceBase = ($chanceVoler / $chanceVoleur) * 100;
+//
+//        $p = rand(0, 99);
+//
+//        if ($p < $chanceBase) {
+//            echo 'Je vole';
+//        }
+//        dump($chanceBase);
+//        die;
 
-        $chanceVoleur = 10 * 2.9901 / log10($agi1 + 12);
-        $chanceVoler  = 5 * 2.9901 / log10($agi2 + 12);
-
-        $chanceBase = ($chanceVoler / $chanceVoleur) * 100;
-
-        $p = rand(0, 99);
-
-        if ($p < $chanceBase) {
-            echo 'Je vole';
-        }
-        dump($chanceBase);
+        $dices = $this->get(Dice::class)->execute($this->getUser(), 100);
+        dump($dices);
         die;
+
 
         return $this->render(':default:test.html.twig');
     }

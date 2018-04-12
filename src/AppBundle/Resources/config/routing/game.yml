@@ -5,3 +5,8 @@ game_index:
 game_one_ten:
     path: /one-ten/{amount}
     defaults: { _controller: AppBundle:Game:oneTen}
+
+dice:
+    path: /dice/{amount}
+    defaults: { _controller: AppBundle:Game:dice}
+
