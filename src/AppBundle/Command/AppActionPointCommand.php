@@ -2,7 +2,7 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Services\Command\ActionPointHandler;
+use AppBundle\Services\Command\User\ActionPointHandler;
 use AppBundle\Utils\Cron\Timer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;

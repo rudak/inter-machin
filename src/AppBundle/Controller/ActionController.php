@@ -2,8 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Action\Steal;
-use AppBundle\Services\Action\StealHandler;
+use AppBundle\Services\Action\User\StealHandler;
 use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

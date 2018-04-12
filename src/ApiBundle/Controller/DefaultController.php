@@ -2,7 +2,7 @@
 
 namespace ApiBundle\Controller;
 
-use AppBundle\Services\Bank\DataGrabber;
+use AppBundle\Services\Data\DataGrabber;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

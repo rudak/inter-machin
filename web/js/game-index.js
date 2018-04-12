@@ -19,7 +19,6 @@ window.onload = function () {
         dataType: "json",
         url: Routing.generate('game_oneTenData', {}, true),
         success: function (data) {
-            console.log(data[0]);
             oneTenData.push({y: parseInt(data[0].total) - parseInt(data[0].total_win), label: 'Perdu'});
             oneTenData.push({y: parseInt(data[0].total_win), label: 'Gagné'});
             chart.render();

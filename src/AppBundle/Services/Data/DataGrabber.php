@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Services\Bank;
+namespace AppBundle\Services\Data;
 
 use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
@@ -83,7 +83,6 @@ class DataGrabber
 
     public function getGameOneTenData()
     {
-        $infos = $this->em->getRepository(Game::class)->getGameInfos(OneTen::GAME_NAME);
-        return $infos;
+        return $this->em->getRepository(Game::class)->getGameInfos(OneTen::GAME_NAME);
     }
 }

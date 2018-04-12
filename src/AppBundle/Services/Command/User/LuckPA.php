@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Services\Command;
+namespace AppBundle\Services\Command\User;
 
 use UserBundle\Entity\User;
 use AppBundle\Utils\AppConfig;

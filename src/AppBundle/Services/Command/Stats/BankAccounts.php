@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Services\Command;
+namespace AppBundle\Services\Command\Stats;
 
 use AppBundle\Entity\Bank\Account;
 use UserBundle\Entity\User;

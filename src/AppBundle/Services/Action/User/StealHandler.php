@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Services\Action;
+namespace AppBundle\Services\Action\User;
 
 use AppBundle\Entity\Action\Steal;
 use AppBundle\Utils\AppConfig;

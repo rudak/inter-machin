@@ -2,8 +2,8 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Services\Command\LuckMoney;
-use AppBundle\Services\Command\LuckPA;
+use AppBundle\Services\Command\User\LuckMoney;
+use AppBundle\Services\Command\User\LuckPA;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
