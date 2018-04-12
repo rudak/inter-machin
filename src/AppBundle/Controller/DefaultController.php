@@ -6,6 +6,7 @@ use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use UserBundle\Entity\User;
 
 class DefaultController extends Controller
 {
@@ -25,18 +26,20 @@ class DefaultController extends Controller
         ]);
     }
 
-
+    /**
+     * Lister les users qu'il y a dans la ville
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function usersAction()
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('UserBundle:User')->getUsersByCity($this->getUser()->getCity());
+        $users = $em->getRepository(User::class)->getUsersByCity($this->getUser()->getCity());
         return $this->render('default/users.html.twig', [
             'users' => $users,
             'city'  => $this->getUser()->getCity(),
         ]);
     }
-
 
     public function gameAction()
     {

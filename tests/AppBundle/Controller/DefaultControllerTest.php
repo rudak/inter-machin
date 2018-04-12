@@ -10,6 +10,19 @@ use UserBundle\Entity\User;
 
 class DefaultControllerTest extends WebTestCase
 {
+
+
+    public function testLoginRedirect()
+    {
+        $client = static::createClient();
+        $urls   = ['/store/list', '/ranking', '/cities', '/bank/', '/game/', '/user/my-profile', '/store/weapon/157'];
+        foreach ($urls as $url) {
+            $client->request('GET', $url);
+            $this->assertEquals(302, $client->getResponse()->getStatusCode(), sprintf("L'url '%s' devrait renvoyer un code 302", $url));
+            $this->assertRegExp('/\/login$/', $client->getResponse()->headers->get('location'), sprintf("L'url '%s' ne redirige pas vers le login.", $url));
+        }
+    }
+
     public function testIndex()
     {
         $client  = static::createClient();
@@ -89,13 +102,6 @@ class DefaultControllerTest extends WebTestCase
             0,
             $crawler->filter('html:contains("GameLand")')->count()
         );
-    }
-
-    public function testLoginRedirect()
-    {
-        $client = static::createClient();
-        $client->request('GET', '/');
-        $this->assertRegExp('/\/login$/', $client->getResponse()->headers->get('location'));
     }
 
 

@@ -36,6 +36,7 @@ class StoreController extends Controller
      */
     public function weaponAction($id)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em     = $this->getDoctrine()->getManager();
         $weapon = $em->getRepository('AppBundle:Weapon')->find($id);
 
