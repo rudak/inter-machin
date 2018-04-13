@@ -87,7 +87,7 @@ class DefaultController extends Controller
 //        dump($chanceBase);
 //        die;
 
-        $dices = $this->get(Dice::class)->execute($this->getUser(), 100);
+        $dices = $this->get(Dice    ::class)->execute($this->getUser(), 100);
         dump($dices);
         die;
 
@@ -116,6 +116,4 @@ class DefaultController extends Controller
             'cities' => $cities,
         ]);
     }
-
-
 }

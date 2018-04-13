@@ -1,0 +1,13 @@
+# church index
+church_index:
+    path: /
+    defaults: { _controller: AppBundle:Church:churchIndex}
+
+# church pray
+church_pray:
+    path: /pray
+    defaults: { _controller: AppBundle:Church:churchPray}
+# church steal
+church_steal:
+    path: /steal
+    defaults: { _controller: AppBundle:Church:churchSteal}
