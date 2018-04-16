@@ -8,7 +8,9 @@ use UserBundle\Entity\User;
 
 class UserWeapon
 {
-    const ERROR_KEY = 'error';
+    const ERROR_KEY      = 'error';
+    const ATTACK_POINTS  = 'attackPoints';
+    const DEFENSE_POINTS = 'defensePoints';
 
     /**
      * selectionne l'item pour l'user (si il peut)
@@ -62,11 +64,12 @@ class UserWeapon
         }
     }
 
+
     /**
      * Verifie si l'user a déja cette arme
-     *
      * @param User   $user
      * @param Weapon $weapon
+     * @return bool
      */
     public static function isWeaponAlreadyPossessed(User $user, Weapon $weapon)
     {
@@ -95,5 +98,25 @@ class UserWeapon
         return $number;
     }
 
+    /**
+     * Renvoie un tableau contenant ses points attack / defense en fonction des armes actives qu'il a.
+     * @param User $user
+     * @return mixed
+     */
+    public static function getItemsAmountPointsForUser(User $user)
+    {
+        $points [self::ATTACK_POINTS]  = 0;
+        $points [self::DEFENSE_POINTS] = 0;
+        $items                         = $user->getItems();
+        foreach ($items as $item) {
+            /** @var $item Item */
+            if (!$item->getActive()) continue;
+            $points[self::ATTACK_POINTS]  += $item->getWeapon()->getAttack();
+            $points[self::DEFENSE_POINTS] += $item->getWeapon()->getDefense();
+        }
+        $points[self::ATTACK_POINTS]  = $points[self::ATTACK_POINTS] > 100 ? 100 : $points[self::ATTACK_POINTS];
+        $points[self::DEFENSE_POINTS] = $points[self::DEFENSE_POINTS] > 100 ? 100 : $points[self::DEFENSE_POINTS];
+        return $points;
+    }
 
 }

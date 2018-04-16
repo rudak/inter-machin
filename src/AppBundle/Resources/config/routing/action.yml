@@ -2,3 +2,8 @@ action_steal:
     path: /steal/{id}
     defaults: { _controller: AppBundle:Action:steal}
     methods: [POST]
+
+action_attack:
+    path: /attack/{id}
+    defaults: { _controller: AppBundle:Action:attack}
+    methods: [POST]

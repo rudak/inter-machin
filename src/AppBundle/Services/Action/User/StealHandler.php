@@ -3,29 +3,14 @@
 namespace AppBundle\Services\Action\User;
 
 use AppBundle\Entity\Action\Steal;
+use AppBundle\Services\Action\ActionMaster;
 use AppBundle\Utils\AppConfig;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use UserBundle\Entity\User;
 
-class StealHandler
+class StealHandler extends ActionMaster
 {
-    protected $em;
-
-    /**
-     * @var SessionInterface
-     */
-    private $session;
-
-    /**
-     * @param $em
-     */
-    public function __construct(EntityManagerInterface $em, SessionInterface $session)
-    {
-        $this->em      = $em;
-        $this->session = $session;
-    }
-
     public function execute(User $victim, User $burglar)
     {
         if (!$this->burglarCanSteal($victim, $burglar)) {
@@ -63,7 +48,26 @@ class StealHandler
         $amountToSteal = mt_rand(1, $this->maxCanSteal($victim));
         $this->em->persist($stealAction = $this->getStealAction($victim, $burglar, $amountToSteal));
         $this->updateUsersWithSteal($victim, $burglar, $stealAction);
+        $this->session->getFlashBag()->add('success', sprintf("Vous volez %d$ à %s ! %s", $amountToSteal, $victim->getUsername(), $this->getComplement($stealAction)));
     }
+
+    /**
+     * Génère le texte qui explique ce que tu viens de perdre en volant le type
+     * @param Steal $stealAction
+     * @return string
+     */
+    private function getComplement(Steal $stealAction)
+    {
+        $complement = [];
+        if ($stealAction->getBurglarDamage()) {
+            $complement[] = sprintf('vous perdez %s de vie', $this->getPointsText($stealAction->getBurglarDamage()));
+        }
+        if ($stealAction->getBurglarSkill()) {
+            $complement[] = sprintf('vous gagnez %s d\'habileté', $this->getPointsText($stealAction->getBurglarSkill()));
+        }
+        return sprintf('Conséquences : %s.', implode(' mais ', $complement));
+    }
+
 
     private function updateUsersWithSteal(User $victim, User $burglar, Steal $steal)
     {

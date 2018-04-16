@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
 /**
  * Competences
@@ -215,7 +216,7 @@ class Competences
     public function removeLifePoints($amount)
     {
         $this->life -= $amount;
-        if ($this->life < 0) {
+        if ($this->life < 1) {
             $this->life = 0;
         }
 
