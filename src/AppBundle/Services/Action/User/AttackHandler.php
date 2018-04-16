@@ -101,7 +101,7 @@ class AttackHandler extends ActionMaster
 
     private function getItemsNames(User $attacker)
     {
-
+        #todo: renvoyer le nom des items actifs ppour dire avec quoi on a tabassé la victime
     }
 
     private function getDamages(User $victim, User $attacker)
