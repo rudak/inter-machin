@@ -11,10 +11,10 @@ use UserBundle\Entity\User;
  * @ORM\Table(name="action_steal")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Action\StealRepository")
  */
-class Steal
+class Steal implements ActionInterface
 {
-    const STATUS_SUCCESSFULL   = 'successfull';
-    const STATUS_FAILED        = 'failed';
+    const STATUS_SUCCESSFULL = 'successfull';
+    const STATUS_FAILED      = 'failed';
 
     /**
      * @var int

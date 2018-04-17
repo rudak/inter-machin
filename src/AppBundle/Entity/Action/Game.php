@@ -11,7 +11,7 @@ use UserBundle\Entity\User;
  * @ORM\Table(name="action_game")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Action\GameRepository")
  */
-class Game
+class Game implements ActionInterface
 {
     /**
      * @var int

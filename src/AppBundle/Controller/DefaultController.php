@@ -17,7 +17,7 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', []);
     }
 
-    public function listLogsAction()
+    public function listActionsAction()
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em   = $this->getDoctrine()->getManager();

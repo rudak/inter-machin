@@ -12,7 +12,7 @@ use UserBundle\Entity\User;
  * @ORM\Table(name="action_purchase")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Action\PurchaseRepository")
  */
-class Purchase
+class Purchase implements ActionInterface
 {
     /**
      * @var int

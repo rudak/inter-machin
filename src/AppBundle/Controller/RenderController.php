@@ -2,21 +2,27 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Utils\Action\ActionHandler;
+use AppBundle\Utils\Action\HtmlFormater;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class RenderController extends Controller
 {
 
-    public function getLogsAction()
+    public function getActionsAction()
     {
         if (!$this->getUser()) {
             return new Response();
         }
-        $em   = $this->getDoctrine()->getManager();
 
-        return $this->render('render/logs.html.twig', [
-            'logs' => [],
+        $dateFrom = new \DateTime('-1 month');
+
+        $actions = $this->get(ActionHandler::class)->getActions($this->getUser(), $dateFrom);
+        $html    = $this->get(HtmlFormater::class)->getHtmlForActions($this->getUser(), $actions);
+
+        return $this->render('render/actions.html.twig', [
+            'html' => $html,
         ]);
     }
 }

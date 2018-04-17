@@ -1,0 +1,8 @@
+<span class="date">
+    {{ action.date|date('d/m/Y \\à H:i:s') }}
+</span>
+{% if action.status == 'successfull' %}
+    Vous avez volé xx$ à <a href="{{ path('user', {'id': action.victim.id, 'username': action.victim.username}) }}">{{ action.victim.username }}</a>
+{% else %}
+    Vous avez essayé de voler {{ action.victim.username }} mais vous avez foiré
+{% endif %}

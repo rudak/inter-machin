@@ -24,6 +24,7 @@ class AttackHandler extends ActionMaster
 
     private function userCanAttack(User $victim, User $attacker)
     {
+        #TODO: checker la meme ville
         if (!$victim->getAlive()) {
             $this->session->getFlashBag()->add('warning', sprintf(
                 "Vous ne pouvez pas attaquer %s, il est déja mort !",

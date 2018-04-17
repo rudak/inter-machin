@@ -12,7 +12,7 @@ use UserBundle\Entity\User;
  * @ORM\Table(name="action_city_move")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Action\CityMoveRepository")
  */
-class CityMove
+class CityMove implements ActionInterface
 {
 
     const TYPE_RANDOM = 'random';

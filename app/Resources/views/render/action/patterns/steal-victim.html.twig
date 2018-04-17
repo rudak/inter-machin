@@ -1,0 +1,8 @@
+<span class="date">
+    {{ action.date|date('d/m/Y \\à H:i:s') }}
+</span>
+{% if action.status == 'successfull' %}
+    {{ action.burglar.username }} vous a volé
+{% else %}
+    {{ action.burglar.username }} a essayé de vous voler
+{% endif %}

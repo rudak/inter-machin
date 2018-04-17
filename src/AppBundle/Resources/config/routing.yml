@@ -3,11 +3,11 @@ homepage:
     path: /
     defaults: { _controller: AppBundle:Default:index}
 
-# list logs
+# list actions
 
-listLogs:
-    path: /list/logs
-    defaults: { _controller: AppBundle:Default:listLogs}
+listActions:
+    path: /actions
+    defaults: { _controller: AppBundle:Default:listActions}
 
 # test
 test:
@@ -21,7 +21,6 @@ ranking:
 cities:
     path: /cities
     defaults: { _controller: AppBundle:Default:cities}
-
 
 app_bank:
     resource: "@AppBundle/Resources/config/routing/bank.yml"
