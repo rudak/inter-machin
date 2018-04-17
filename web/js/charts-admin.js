@@ -67,7 +67,7 @@ function addDataAccounts(data) {
             axisYType: "secondary",
             name: username,
             showInLegend: true,
-            markerSize: 4,
+            markerSize: 2,
             yValueFormatString: "###$",
             dataPoints: getUserAccounts(userData)
         })
