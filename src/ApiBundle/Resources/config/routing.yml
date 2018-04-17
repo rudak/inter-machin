@@ -1,34 +1,23 @@
 bank_index_data:
     path:     /bank/my-account-data.json
     defaults: { _controller: ApiBundle:Default:bankData }
-    options:
-        expose: true
 
 # bank users accounts
 bank_users_accounts:
     path: /bank/users-accounts.json
     defaults: { _controller: ApiBundle:Default:bankUsersAccounts}
-    options:
-        expose: true
 
 game_oneTenData:
     path: /game/one-ten-data.json
     defaults: { _controller: ApiBundle:Default:game_oneTenData}
-    options:
-        expose: true
 
 # purchase_data
 purchase_data:
     path: /store/purchase-data.json
     defaults: { _controller: ApiBundle:Default:purchaseData}
-    options:
-        expose: true
 
 # user_money_data
 users_money_data:
     path: /bank/users-money-data.json
     defaults: { _controller: ApiBundle:Default:userMoneyData}
-    options:
-        expose: true
-
 

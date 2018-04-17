@@ -1,0 +1,187 @@
+[33m3bd4178[m refacto church pray and steal
+[33m27ba57d[m Eglise WIP fait à la rache je vais corriger
+[33me031d95[m update todo for church
+[33m0fe14e7[m refacto dice game
+[33m8084c5e[m modif robin's dice game
+[33me0cc5fe[m small dices refacto
+[33mcd8da3b[m small dices refacto
+[33m5be1fc7[m refacto dice game
+[33m589da84[m jeu de dés créer
+[33me9f4287[m Merge branch 'master' of https://github.com/rudak/inter-machin
+[33mfd7a3e4[m add tests
+[33m7d105ef[m edit message de vole PA_COST to PA
+[33m2b936b5[m insert tests
+[33m61fb26c[m insert tests
+[33mf9d606b[m refacto dirs and files + add phpunit in composer
+[33mccbd6d7[m add city status record for stats
+[33me15d3ac[m remove files
+[33m2e3b678[m add stats oneten
+[33mddbefd5[m add stats oneten
+[33mf7d6a26[m edit conflic
+[33m6bfef83[m create game Dice
+[33ma6b5d5e[m Merge branch 'master' of github.com:rudak/inter-machin
+[33mee7c857[m prepare api data for game graph - wip
+[33mbb32a73[m fix nb logs to display
+[33m2549659[m create css file
+[33mf25e5e8[m fail de css
+[33m3fbd052[m edit view of weapons my profile
+[33md39bfb4[m edit bar compétences profile
+[33md7b7b65[m refacto game system
+[33md212ad7[m front add progress bar for life
+[33m42d9fda[m Luck : add rand PA gain
+[33m8d01339[m store img square
+[33md5ae5c5[m Merge branch 'master' of https://github.com/rudak/inter-machin
+[33m323947f[m fix long path for img
+[33m0c11828[m add gameland + first big game - the oneTen
+[33m4deaf4b[m quick refacto JS for ajax loop
+[33m4b8126e[m quick refacto JS
+[33me22f5d4[m quick refacto JS
+[33m7339918[m Merge branch 'master' into robin
+[33m5b7ad1b[m add users accounts
+[33m8895a62[m front update
+[33ma13e07e[m fix steal damages and new user form
+[33m2cd42bb[m add PA in admin forms
+[33md178466[m add steal function wip
+[33mf7a988e[m refacto cron main command
+[33m8806735[m add lucille weapon fixture
+[33m057860f[m add images weapon
+[33m965773f[m add action points in front
+[33m02cafbe[m add action points in front
+[33mabfc78b[m remove true AppActionPointCommande
+[33meceb882[m add cron add action point
+[33mc56ae93[m Merge branch 'master' of github.com:rudak/inter-machin
+[33m4b669bd[m WIP cron add points
+[33m9d08b73[m add default values for Action Points
+[33mf46fb59[m add action points in user entity
+[33ma753543[m nothing
+[33m7b50b7b[m erase shit code and refacto steal service - wip
+[33m906b437[m refacto front
+[33m5a3340a[m refacto front
+[33md3566eb[m refacto front
+[33mb992d13[m add progress bar in store for ratio attack / defense
+[33md5193dc[m fix cron pattern error
+[33m27cadd0[m quick refacto store index
+[33m1b322de[m quick refacto weapon page
+[33m51b50f7[m refacto user fixtures
+[33m6236c9e[m fix no loans account
+[33mc68e046[m refacto fixtures imgs weapon
+[33m3a1efe0[m refacto fixtures imgs weapon
+[33m75d6ef9[m fixtures imgs weapon
+[33m9860fad[m exemple fixture image
+[33m7ae59f9[m update cron times (for dev)
+[33m842aeb7[m fix conflic et rename route users money data
+[33m9f9c897[m add stats achat weapon graph
+[33mf0adb9e[m fix sort cities
+[33m92206f1[m correct bad places for admin graph method
+[33m093ab3a[m Merge branch 'master' of github.com:rudak/inter-machin
+[33mb242f00[m add prices variation randomly
+[33m7f096e2[m add purchase entity get buy action
+[33mfeb204a[m add random city rotaion every night + action city move
+[33me6aeea8[m refacto loan check logic
+[33m4e8119f[m refacto loan request
+[33ma81f54a[m add graphs page
+[33m4837972[m improve cities and bank index
+[33m0bf3031[m add cities list
+[33m19add67[m remove dump
+[33m3b240c1[m improve loans filters
+[33mdcc890f[m improve bank index for active/inactive loans
+[33mcd2da2c[m improve bank refund form
+[33mf108403[m add level in bank chart
+[33m8ae4417[m update chart style
+[33mab1427f[m add fos js routing + update JS charts for add Loans
+[33mfb9031b[m Merge branch 'master' of github.com:rudak/inter-machin
+[33m205cf38[m add admin route && api users money data
+[33mbc694b2[m cron settings
+[33m42d9faf[m update bank chart
+[33m6e4699e[m add non comercial version chart js
+[33m384e6f6[m add city to profile
+[33m21dcbf3[m fix accounts order for tests
+[33m3a56b05[m fix accounts order for tests
+[33m494a9bc[m rearrange
+[33m28d0ac2[m fix
+[33m376bfbb[m refacto city bordel
+[33m9f17656[m Merge branch 'master' of github.com:rudak/inter-machin
+[33mb20a3ba[m change chart mode
+[33maea1133[m Merge pull request #5 from rudak/robin
+[33mb4d51ef[m add api for json data + chart in bank index
+[33mbc8f84a[m Rename cityfixtures
+[33mc235581[m Merge branch 'master' into robin
+[33m105e779[m WIP fixtures load cities
+[33m3f7868d[m refacto refund action
+[33ma5edd02[m refacto refund action
+[33maf253ff[m refacto refund action
+[33maf6a5f5[m add refund entity for future loan graphs
+[33m8370a8c[m add city entity and fixtures
+[33mc839dec[m fix loan refund
+[33mdb58365[m add refund loan
+[33ma34ffbf[m refacto user show
+[33m28b7838[m update btn default to primary
+[33mea1adc9[m refacto form user create and edit
+[33m8ba1b20[m switch power to life
+[33m7f60a2d[m update todo
+[33m4826525[m cron time settings for banker actions
+[33mf3769e3[m banker actions
+[33m7f2d8cf[m banker reminder daily
+[33m5b57ed9[m add cron time handler for cron tasks
+[33mf945d61[m fix burglar skill serror
+[33mfe51a3d[m fix no luck money
+[33ma4b2048[m cron automatization for record users accounts
+[33m5aa06fa[m account state for graphs
+[33m2fe5ad9[m small refacto
+[33m1cbdbda[m add loan and banker cron for validation
+[33m334d3f0[m demande de pret en cours
+[33mf0719b0[m merge job computer
+[33ma14f6f2[m job linux
+[33m9ae7ba3[m add request loan - WIP
+[33mc859e57[m add bank index
+[33mc647b61[m modif ?
+[33ma10f4e4[m Merge branch 'master' of github.com:rudak/inter-machin
+[33m0c5b453[m modifs
+[33m2cf6c24[m Merge pull request #3 from rudak/robin
+[33me91ac6a[m after merge master
+[33m3405f50[m add test route
+[33maf8fff6[m add comments on twig extension + refacto
+[33m0abd6f1[m add duration from birth to users
+[33m5517490[m add ranking page
+[33m9d00800[m petites modifs rien de ouf
+[33me0c917a[m fix erreur url 403 error page
+[33m5f3c40c[m add requireJs and main.js file
+[33md4df970[m delete gitignore files
+[33m4edfa69[m correction NMP => boulet
+[33m7639410[m Merge branch 'master' into robin
+[33m720492f[m add package.json et cdn
+[33m13aa1a5[m Merge pull request #1 from rudak/robin
+[33m05f96b9[m after merge master
+[33m17a196c[m Merge branch 'master' of github.com:rudak/inter-machin
+[33md814ad6[m add TODO / Ideas List
+[33m11c3ba5[m add steal action - [stable but work to progress]
+[33m89afaa6[m edit width log list
+[33m452addc[m edit listing item in shop
+[33m03b842b[m before install imagin filter
+[33me1fb88a[m add page list all logs, add collaps 10 last logs with css, add npm bootstrap
+[33m159dbeb[m cant buy weapon if insufficient level
+[33mf26508d[m add level min to weapon
+[33mbd03ad4[m refacto luck et no luck + interface
+[33m35f710c[m refacto + add no luckmoney command
+[33m047602d[m remove cached files
+[33md68d6af[m Merge branch 'master' into robin
+[33m3f8fd4b[m Merge branch MErg'master' of github.com:rudak/inter-machin
+[33m3f221af[m WIP image weapon
+[33m2435a26[m add class to log lines
+[33m26ff9b1[m update log creation
+[33m48b2179[m merge master
+[33me8ff7bd[m remove .idea/workspace.xml from git
+[33mee68f1e[m pull master
+[33m08abbfd[m WIP image weapon
+[33m8c2bd01[m add cron job + luck command
+[33me3d7409[m before pull
+[33m642be26[m before pull
+[33m487f5da[m check if weapon is already possessed
+[33mbcef73c[m add doc for helpers
+[33m63c46fb[m update users fixtures for level
+[33m4fc6110[m denyAccessUnlessGranted for ROLE_USER
+[33mdf8719a[m set full money to admin
+[33m99a5bca[m add user fixtures
+[33m2f76c8e[m add weapon fixture
+[33mb419192[m first
+[33m7dc8181[m Initial commit

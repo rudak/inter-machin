@@ -34,7 +34,7 @@ class User extends BaseUser
     private $alive;
 
     /**
-     * @ORM\Column(name="money", type="smallint")
+     * @ORM\Column(name="money", type="integer")
      */
     private $money;
 

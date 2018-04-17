@@ -1,0 +1,4 @@
+# getMyNotifications
+getMyNotifications:
+    path: /get-my-notifications
+    defaults: { _controller: ApiBundle:Ajax:notifications}
