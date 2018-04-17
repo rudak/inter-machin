@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Item;
-use AppBundle\Utils\Log\LogCreator;
 use AppBundle\Utils\User\UserWeapon;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,7 +83,8 @@ class ItemController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        $em->persist(LogCreator::getLog($this->getUser(), false, sprintf("%s a jeté %s", $this->getUser()->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_THROW));
+        //            TODO: Transformer en 'action'
+//        $em->persist(LogCreator::getLog($this->getUser(), false, sprintf("%s a jeté %s", $this->getUser()->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_THROW));
 
         $this->addFlash('success', sprintf('Vous avez jeté : %s.', $item->getWeapon()->getName()));
         $em->remove($item);

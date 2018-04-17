@@ -6,7 +6,6 @@ use AppBundle\Services\Command\CronCommandInterface;
 use AppBundle\Services\Command\CronEmCommand;
 use UserBundle\Entity\User;
 use AppBundle\Utils\AppConfig;
-use AppBundle\Utils\Log\LogCreator;
 
 class NoLuckMoney extends CronEmCommand implements CronCommandInterface
 {
@@ -25,7 +24,8 @@ class NoLuckMoney extends CronEmCommand implements CronCommandInterface
     public function updateUser(User $user)
     {
         $amount = $this->getAmount($user);
-        $this->em->persist(LogCreator::getLog($user, true, sprintf($this->getReason(), $user->getUsername(), $amount), LogCreator::TYPE_NO_LUCK));
+        //            TODO: Transformer en 'action'
+//        $this->em->persist(LogCreator::getLog($user, true, sprintf($this->getReason(), $user->getUsername(), $amount), LogCreator::TYPE_NO_LUCK));
         $user->removeMoney($amount);
         $this->em->persist($user);
     }

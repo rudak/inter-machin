@@ -4,7 +4,6 @@ namespace AppBundle\Utils\Bank;
 
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\Notification;
-use AppBundle\Utils\Log\LogCreator;
 use AppBundle\Utils\Notification\NotificationCreator;
 use Doctrine\ORM\EntityManager;
 

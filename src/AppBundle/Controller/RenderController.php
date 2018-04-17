@@ -14,10 +14,9 @@ class RenderController extends Controller
             return new Response();
         }
         $em   = $this->getDoctrine()->getManager();
-        $logs = $em->getRepository('AppBundle:Log')->getLogs($this->getUser());
 
         return $this->render('render/logs.html.twig', [
-            'logs' => $logs,
+            'logs' => [],
         ]);
     }
 }

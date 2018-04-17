@@ -21,9 +21,9 @@ class DefaultController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em   = $this->getDoctrine()->getManager();
-        $logs = $em->getRepository('AppBundle:Log')->getAllLogs($this->getUser());
+//        $logs = $em->getRepository('AppBundle:Log')->getAllLogs($this->getUser());
         return $this->render(':default:listLogs.html.twig', [
-            'logs' => $logs,
+            'logs' => [],
         ]);
     }
 

@@ -7,7 +7,6 @@ use AppBundle\Entity\Notification;
 use AppBundle\Utils\AppConfig;
 use AppBundle\Utils\Bank\FriendlyVisit;
 use AppBundle\Utils\Bank\ReminderHandler;
-use AppBundle\Utils\Log\LogCreator;
 use AppBundle\Utils\Notification\NotificationCreator;
 
 class Banker extends CronEmCommand
@@ -37,8 +36,9 @@ class Banker extends CronEmCommand
             );
             $this->em->persist(
                 NotificationCreator::getNotification($loan->getUser(), $message, Notification::TYPE_LOAN_VALIDATION));
-            $this->em->persist(
-                LogCreator::getLog($loan->getUser(), false, $message, LogCreator::TYPE_BANKER));
+//            TODO: Transformer en 'action'
+//            $this->em->persist(
+//                LogCreator::getLog($loan->getUser(), false, $message, LogCreator::TYPE_BANKER));
             $this->em->persist($loan);
         }
         $this->em->flush();

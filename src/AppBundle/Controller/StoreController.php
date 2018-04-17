@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Item;
-use AppBundle\Utils\Log\LogCreator;
 use AppBundle\Utils\User\UserWeapon;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,7 +95,8 @@ class StoreController extends Controller
 
         $user->removeMoney($weapon->getPrice());
 
-        $em->persist(LogCreator::getLog($user, true, sprintf("%s a acheté %s", $user->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_BUY));
+        //            TODO: Transformer en 'action'
+//        $em->persist(LogCreator::getLog($user, true, sprintf("%s a acheté %s", $user->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_BUY));
         $em->persist(new Purchase($user, $weapon));
         $em->persist($item);
         $em->flush();
@@ -130,7 +130,8 @@ class StoreController extends Controller
 
         $this->addFlash('success', sprintf("Vous venez de vendre %s pour %d$. Merci.", $item->getWeapon()->getName(), $item->getPrice()));
 
-        $em->persist(LogCreator::getLog($user, true, sprintf("%s a vendu %s", $user->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_SELL));
+        //            TODO: Transformer en 'action'
+//        $em->persist(LogCreator::getLog($user, true, sprintf("%s a vendu %s", $user->getUsername(), $item->getWeapon()->getName()), LogCreator::TYPE_ITEM_SELL));
         $user->setMoney($user->getMoney() + $item->getPrice());
         $user->removeItem($item);
         $em->remove($item);
