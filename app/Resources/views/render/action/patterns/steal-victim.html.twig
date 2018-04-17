@@ -1,8 +1,21 @@
-<span class="date">
-    {{ action.date|date('d/m/Y \\à H:i:s') }}
-</span>
-{% if action.status == 'successfull' %}
-    {{ action.burglar.username }} vous a volé
-{% else %}
-    {{ action.burglar.username }} a essayé de vous voler
-{% endif %}
+{% extends 'render/action/patterns/main-pattern.html.twig' %}
+{% block line %}
+    {% if action.status == constant('AppBundle\\Entity\\Action\\Steal::STATUS_SUCCESSFULL') %}
+        {{ action.burglar.username }} vous a volé {{ action.loot }}$
+    {% else %}
+        {{ action.burglar.username }} a essayé de vous voler
+        {% if action.victimDamage or action.burglarDamage or action.burglar_skill %}
+            <ul class="details" style="display: none;">
+                {% if  action.victimDamage %}
+                    <li>Vous perdez {{ action.victimDamage }} pts de vie</li>
+                {% endif %}
+                {% if action.burglarDamage %}
+                    <li>{{ action.burglar.username }} a perdu {{ action.burglarDamage }} pts de vie</li>
+                {% endif %}
+                {% if  action.burglarSkill %}
+                    <li>{{ action.burglar.username }} a gagné {{ action.burglarSkill }} pts d'habileté</li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,4 +1,10 @@
-<span class="date">
-    {{ action.date|date('d/m/Y \\à H:i:s') }}
-</span>
-vous jouez au jeu etc..
+{% extends 'render/action/patterns/main-pattern.html.twig' %}
+
+{% block line %}
+    {% if action.status %}
+        Vous misez {{ action.amount }}$ et vous gagnez {{ action.gain }}$ a une partie de {{ action.game }} !
+    {% else %}
+        Vous perdez {{ action.amount }}$ a une partie de {{ action.game }}.
+    {% endif %}
+{% endblock %}
+
