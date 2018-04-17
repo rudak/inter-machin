@@ -1,8 +1,39 @@
-<span class="date">
-    {{ action.date|date('d/m/Y \\à H:i:s') }}
-</span>
-{% if action.status == 'successfull' %}
-    Vous avez volé xx$ à <a href="{{ path('user', {'id': action.victim.id, 'username': action.victim.username}) }}">{{ action.victim.username }}</a>
-{% else %}
-    Vous avez essayé de voler {{ action.victim.username }} mais vous avez foiré
-{% endif %}
+{% extends 'render/action/patterns/main-pattern.html.twig' %}
+{% block line %}
+    {% if action.status == constant('AppBundle\\Entity\\Action\\Steal::STATUS_SUCCESSFULL') %}
+        Vous avez volé {{ action.loot }}$ à
+        <a href="{{ path('user', {'id': action.victim.id, 'username': action.victim.username}) }}">
+            {{ action.victim.username }}
+        </a>
+
+        {% if action.victimDamage or action.burglarDamage or action.burglar_skill %}
+            <ul class="details" style="display: none;">
+                {% if  action.victimDamage %}
+                    <li> {{ action.victim.username }} perd {{ action.victimDamage }} pts de vie</li>
+                {% endif %}
+                {% if action.burglarDamage %}
+                    <li>Vous perdez {{ action.burglarDamage }} pts de vie</li>
+                {% endif %}
+                {% if  action.burglarSkill %}
+                    <li> Vous gagnez {{ action.burglarSkill }} pts d'habileté</li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+    {% else %}
+        Vous avez essayé de voler {{ action.victim.username }} mais vous avez foiré...
+        {% if action.victimDamage or action.burglarDamage or action.burglar_skill %}
+            <ul class="details" style="display: none;">
+                {% if  action.victimDamage %}
+                    <li> {{ action.victim.username }} perd {{ action.victimDamage }} pts de vie</li>
+                {% endif %}
+                {% if action.burglarDamage %}
+                    <li>Vous perdez {{ action.burglarDamage }} pts de vie</li>
+                {% endif %}
+                {% if  action.burglarSkill %}
+                    <li> Vous gagnez {{ action.burglarSkill }} pts d'habileté</li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}

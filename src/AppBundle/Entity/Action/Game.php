@@ -13,6 +13,7 @@ use UserBundle\Entity\User;
  */
 class Game implements ActionInterface
 {
+    const ACTION_NAME = 'game';
     /**
      * @var int
      *
@@ -230,5 +231,9 @@ class Game implements ActionInterface
     }
 
 
+    public function getActionName()
+    {
+        return self::ACTION_NAME;
+    }
 }
 

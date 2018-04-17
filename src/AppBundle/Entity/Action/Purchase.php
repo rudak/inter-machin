@@ -14,6 +14,7 @@ use UserBundle\Entity\User;
  */
 class Purchase implements ActionInterface
 {
+    const ACTION_NAME = 'purchase';
     /**
      * @var int
      *
@@ -119,6 +120,11 @@ class Purchase implements ActionInterface
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    public function getActionName()
+    {
+        return self::ACTION_NAME;
     }
 }
 

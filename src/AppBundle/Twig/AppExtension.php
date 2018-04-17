@@ -13,6 +13,13 @@ class AppExtension extends \Twig_Extension
         ];
     }
 
+    public function getTests()
+    {
+        return [
+            'instanceof' =>  new \Twig_Function_Method($this, 'instance')
+        ];
+    }
+
     /**
      * Renvoie la période entre aujourd'hui et la date passée en parametre (sortie en nb de jours).
      *
@@ -23,6 +30,18 @@ class AppExtension extends \Twig_Extension
     {
         return $this->getNow()->diff($datetime)->format('%a');
     }
+
+    /**
+     * Renvoie si $var est une instance de $instance
+     * @param $var
+     * @param $instance
+     * @return bool
+     */
+    public function instance($var, $instance)
+    {
+        return $var instanceof $instance;
+    }
+
 
     private function getNow()
     {

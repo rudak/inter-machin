@@ -1,4 +1,9 @@
-<span class="date">
-    {{ action.date|date('d/m/Y \\à H:i:s') }}
-</span>
-vous changez de ville vous arrivez a <a href="#">{{ action.city.name }}</a>
+{% extends 'render/action/patterns/main-pattern.html.twig' %}
+{% block line %}
+    {% if action.type ==  constant('AppBundle\\Entity\\Action\\CityMove::TYPE_USER') %}
+        Vous changez de ville vous arrivez à <a href="#">{{ action.city.name }}</a>
+    {% else %}
+        Le hasard vous emmène à <a href="#">{{ action.city.name }}</a>
+    {% endif %}
+{% endblock %}
+

@@ -18,4 +18,5 @@
 - drop item, récupérable si ont est dans la même ville
 - jeu de loterie
 - ajouter une église, on peut prier pour avoir des PA ou des tunes mais bon faudra pas trop y compter ^^...
+###Rejected
 - Interface intermediraire pour l'attaque pour voir ses point d'attaque et les point de déf de l'autre et sa vie

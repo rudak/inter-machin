@@ -1,0 +1,7 @@
+<div class="{{ action.actionName }}">
+    <span class="date">
+        {{ action.date|date('d/m/Y \\à H:i:s') }}
+    </span>
+    {% block line %}
+    {% endblock %}
+</div>

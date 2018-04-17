@@ -13,6 +13,7 @@ use UserBundle\Entity\User;
  */
 class Steal implements ActionInterface
 {
+    const ACTION_NAME        = 'steal';
     const STATUS_SUCCESSFULL = 'successfull';
     const STATUS_FAILED      = 'failed';
 
@@ -294,6 +295,11 @@ class Steal implements ActionInterface
     public function getBurglarSkill()
     {
         return $this->burglarSkill;
+    }
+
+    public function getActionName()
+    {
+        return self::ACTION_NAME;
     }
 }
 

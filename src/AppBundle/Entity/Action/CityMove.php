@@ -14,9 +14,9 @@ use UserBundle\Entity\User;
  */
 class CityMove implements ActionInterface
 {
-
     const TYPE_RANDOM = 'random';
     const TYPE_USER   = 'user';
+    const ACTION_NAME = 'citymove';
 
     /**
      * @var int
@@ -164,6 +164,11 @@ class CityMove implements ActionInterface
     public function getType()
     {
         return $this->type;
+    }
+
+    public function getActionName()
+    {
+        return self::ACTION_NAME;
     }
 }
 

@@ -11,9 +11,6 @@ use UserBundle\Entity\User;
 
 class HtmlFormater
 {
-    const HTML   = 'html';
-    const ACTION = 'action';
-
     private $user;
 
     private $htmlElements = [];
@@ -37,38 +34,22 @@ class HtmlFormater
         return $this->getHtml();
     }
 
+    /**
+     * Renvoie le résultat en HTML
+     * @return string
+     */
     private function getHtml()
     {
-        $html = '';
-        foreach ($this->htmlElements as $element) {
-            $html .= sprintf('<div class="%s">%s</div>', $this->getClassNameFromAction($element[self::ACTION]), $element[self::HTML]);
-        }
-        return $html;
-    }
-
-    private function getClassNameFromAction($action)
-    {
-        if ($action instanceof CityMove) {
-            return 'city-move';
-        }
-        if ($action instanceof Game) {
-            return 'game';
-        }
-        if ($action instanceof Purchase) {
-            return 'purchase';
-        }
-        if ($action instanceof Steal) {
-            return 'steal';
-        }
+        return implode('', $this->htmlElements);
     }
 
     private function createActionHtmlElement($action)
     {
-        $pattern              = $this->getPatternForAction($action);
-        $this->htmlElements[] = [
-            self::HTML   => $this->twig->render($pattern, ['action' => $action]),
-            self::ACTION => $action,
-        ];
+        $this->htmlElements[] = $this->twig->render(
+            $this->getPatternForAction($action), [
+                'action' => $action,
+            ]
+        );
     }
 
     /**
