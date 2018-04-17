@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use UserBundle\Entity\User;
 
 /**
  * NotificationRepository
@@ -10,4 +11,18 @@ namespace AppBundle\Repository;
  */
 class NotificationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getUserNotificationByStatus($status, User $user)
+    {
+        $qb = $this->createQueryBuilder('n')
+                   ->where('n.user = :user')
+                   ->andWhere('n.status = :status')
+                   ->setParameters([
+                       'user'   => $user,
+                       'status' => $status,
+                   ])
+                   ->orderBy('n.id', 'DESC')
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
 }

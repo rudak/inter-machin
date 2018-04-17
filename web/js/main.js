@@ -1,12 +1,28 @@
 function sendNotifications(notifications) {
+    var n = [];
+    var j = 0;
     for (var i in notifications) {
-        new Noty({
-            type: 'warning',
+        n[i] = new Noty({
+            type: 'success',
             layout: 'topRight',
             theme: 'bootstrap-v4',
+            dismissQueue: 'billy',
+            maxVisible: 3,
+            modal: true,
+            buttons: true,
             text: notifications[i].title.toUpperCase() + ' - ' + notifications[i].message,
-        }).show();
+        });
     }
+    var notyInterval;
+
+    notyInterval = setInterval(function () {
+        if (typeof n[j] === 'undefined') {
+            clearInterval(notyInterval);
+        } else {
+            n[j].show();
+        }
+        j++;
+    }, 250);
 }
 
 $(function () {
