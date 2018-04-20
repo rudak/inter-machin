@@ -3,8 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Bank\Account;
+use AppBundle\Entity\City;
 use AppBundle\Entity\Item;
+use AppBundle\Services\Action\City\CityHandler;
 use AppBundle\Services\Game\Dice;
+use Cocur\Slugify\Slugify;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
@@ -20,8 +24,7 @@ class DefaultController extends Controller
     public function listActionsAction()
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-        $em   = $this->getDoctrine()->getManager();
-//        $logs = $em->getRepository('AppBundle:Log')->getAllLogs($this->getUser());
+        $em = $this->getDoctrine()->getManager();
         return $this->render(':default:listLogs.html.twig', [
             'logs' => [],
         ]);
@@ -91,7 +94,6 @@ class DefaultController extends Controller
         dump($dices);
         die;
 
-
         return $this->render(':default:test.html.twig');
     }
 
@@ -111,9 +113,41 @@ class DefaultController extends Controller
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em     = $this->getDoctrine()->getManager();
         $cities = $em->getRepository('AppBundle:City')->getCities();
-        // dump($cities);
         return $this->render(':default:cities.html.twig', [
             'cities' => $cities,
         ]);
+    }
+
+    public function cityAction($id)
+    {
+        $em   = $this->getDoctrine()->getManager();
+        $city = $em->getRepository(City::class)->find($id);
+        if (!$city) {
+            throw new EntityNotFoundException(sprintf("La ville avec l'ID #%d est introuvable.", $id));
+        }
+        return $this->render(':default:city.html.twig', ['city' => $city]);
+    }
+
+    public function cityMoveAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+
+        $submittedToken = $request->request->get('token');
+        if (!$this->isCsrfTokenValid('cityMove', $submittedToken)) {
+            $this->addFlash('danger', 'Jeton CSRF invalide, attention...');
+            return $this->redirectToRoute('cities');
+        }
+
+        $em   = $this->getDoctrine()->getManager();
+        $city = $em->getRepository(City::class)->find($request->get('cityID'));
+
+        if (!$city) {
+            throw new EntityNotFoundException(sprintf("La ville avec l'ID #%d est introuvable.", $request->get('cityID')));
+        }
+
+        $this->get(CityHandler::class)->move($this->getUser(), $city);
+        $em->flush();
+
+        return $this->redirectToRoute('cities');
     }
 }

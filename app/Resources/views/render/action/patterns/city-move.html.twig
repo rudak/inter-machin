@@ -1,9 +1,13 @@
 {% extends 'render/action/patterns/main-pattern.html.twig' %}
 {% block line %}
     {% if action.type ==  constant('AppBundle\\Entity\\Action\\CityMove::TYPE_USER') %}
-        Vous changez de ville vous arrivez à <a href="#">{{ action.city.name }}</a>
+        Vous changez de ville et vous arrivez à
+        <a href="{{ path('city', {'id': action.city.id, 'slug': action.city.name|slugify}) }}">
+            {{ action.city.name }}
+        </a>
+        pour {{ action.amount }}$.
     {% else %}
-        Le hasard vous emmène à <a href="#">{{ action.city.name }}</a>
+        Le hasard vous emmène à <a href="{{ path('city', {'id': action.city.id, 'slug': action.city.name|slugify}) }}">{{ action.city.name }}</a>
     {% endif %}
 {% endblock %}
 

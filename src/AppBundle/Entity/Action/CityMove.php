@@ -33,6 +33,7 @@ class CityMove implements ActionInterface
     private $user;
 
     /**
+     * @var  City
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
      */
     private $city;
@@ -51,12 +52,22 @@ class CityMove implements ActionInterface
      */
     private $type;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="amount", type="smallint", nullable=true)
+     */
+    private $amount;
+
     public function __construct(User $user, $type = self::TYPE_RANDOM)
     {
         $this->user = $user;
         $this->city = $user->getCity();
         $this->type = $type;
         $this->date = new \DateTime('NOW');
+        if ($type == self::TYPE_USER) {
+            $this->amount = $this->city->getPrice();
+        }
     }
 
 
@@ -170,5 +181,23 @@ class CityMove implements ActionInterface
     {
         return self::ACTION_NAME;
     }
+
+    /**
+     * @return int
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param int $amount
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+    }
+
+
 }
 

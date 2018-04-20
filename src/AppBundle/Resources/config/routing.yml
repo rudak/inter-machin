@@ -22,6 +22,15 @@ cities:
     path: /cities
     defaults: { _controller: AppBundle:Default:cities}
 
+city:
+    path: /city/{id}/{slug}
+    defaults: { _controller: AppBundle:Default:city}
+
+city_move:
+    path: /city/move
+    defaults: { _controller: AppBundle:Default:cityMove}
+    methods: [POST]
+
 app_bank:
     resource: "@AppBundle/Resources/config/routing/bank.yml"
     prefix:   /bank

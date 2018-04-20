@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{{ city.name }}</h1>
+                <p class="lead">
+                    {{ city.users|length }} joueurs dans cette ville.
+                </p>
+                {% if city != app.user.city %}
+                    <form action="{{ path('city_move') }}" method="post">
+                        <input type="hidden" name="token" value="{{ csrf_token('cityMove') }}"/>
+                        <input type="hidden" name="cityID" value="{{ city.id }}">
+                        <p>
+                            <button type="submit" class="btn btn-primary">
+                                Voyager jusqu'à {{ city.name }} pour {{ city.price }}$
+                            </button>
+                        </p>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

@@ -10,7 +10,7 @@
                     <div class="col">
                         <div class="list-group">
                             {% for city in cities %}
-                                <a href="#"
+                                <a href="{{ path('city', {'id': city.0.id, 'slug': city.0.name|slugify }) }}"
                                    class="list-group-item list-group-item-action {% if city.0 == app.user.city %}active{% endif %}">
                                     {{ city.0.name }} : {{ city.somme }} joueurs.
                                     <span class="float-right badge badge-{% if city.0 == app.user.city %}light{% else %}primary{% endif %}">
@@ -28,7 +28,6 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block stylesheets %}
