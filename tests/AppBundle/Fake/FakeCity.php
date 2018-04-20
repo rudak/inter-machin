@@ -4,7 +4,7 @@ namespace Tests\AppBundle\Fake;
 
 use AppBundle\Entity\City;
 
-class FakeCity
+class FakeCity implements FakeObjectsInterface
 {
     private static $city;
 

@@ -5,7 +5,7 @@ namespace Tests\AppBundle\Fake;
 use AppBundle\Utils\AppConfig;
 use UserBundle\Entity\User;
 
-class FakeUser
+class FakeUser implements FakeObjectsInterface
 {
     private static $user;
 
