@@ -3,19 +3,18 @@
 namespace Tests\AppBundle\Services\Action\City;
 
 use AppBundle\Services\Action\City\CityHandler;
-use PHPUnit\Framework\TestCase;
+
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Tests\AppBundle\CityHelper;
-use Tests\AppBundle\Services\UserHelper;
-use UserBundle\Entity\User;
+use Tests\AppBundle\Fake\FakeCity;
+use Tests\AppBundle\Fake\FakeUser;
 
 class CityHandlerTest extends KernelTestCase
 {
     public function testMove()
     {
-        $user     = UserHelper::getFakeUser(false, true, 1500);
-        $richCity = CityHelper::getFakeCity('richCity', 99999, true);
-        $poorCity = CityHelper::getFakeCity('poorCity', 900, true);
+        $user     = FakeUser::getObject(false, true, 1500);
+        $richCity = FakeCity::getObject('richCity', 99999, true);
+        $poorCity = FakeCity::getObject('poorCity', 900, true);
 
         $kernel = static::createKernel();
         $kernel->boot();

@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\AppBundle;
+namespace Tests\AppBundle\Fake;
 
 use AppBundle\Entity\City;
 
-class CityHelper
+class FakeCity
 {
     private static $city;
 
-    public static function getFakeCity($name = 'fakeCity', $price = 666, $forceNew = false)
+    public static function getObject($name = 'fakeCity', $price = 666, $forceNew = false)
     {
         if (null === self::$city || true === $forceNew) {
             self::$city = new City();
