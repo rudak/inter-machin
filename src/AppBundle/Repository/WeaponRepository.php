@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use UserBundle\Entity\User;
+
 /**
  * WeaponRepository
  *
@@ -10,4 +12,21 @@ namespace AppBundle\Repository;
  */
 class WeaponRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function getWeaponByLevel(User $user)
+    {
+        $qb = $this->createQueryBuilder('w')
+                   ->where('w.lvl < :level')
+                   ->setParameters([
+                       'level' => $user->getCompetences()->getLevel(),
+                   ])
+                   ->orderBy('w.lvl', 'ASC')
+                   ->addOrderBy('w.price', 'DESC')
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
 }

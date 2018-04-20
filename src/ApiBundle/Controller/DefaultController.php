@@ -11,7 +11,8 @@ class DefaultController extends Controller
     public function bankDataAction()
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a ce contenu !');
-        return new JsonResponse($this->get(DataGrabber::class)->getAccountData($this->getUser()), 200);
+        $data = $this->get(DataGrabber::class)->getAccountData($this->getUser());
+        return new JsonResponse($data, 200);
     }
 
     public function bankUsersAccountsAction()

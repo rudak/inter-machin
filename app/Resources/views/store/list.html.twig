@@ -40,13 +40,16 @@
                                                class="btn btn-secondary btn-block">
                                                 Voir {{ weapon.name }}
                                             </a>
-                                            <form action="{{ path('store_weapon_buy',{id:weapon.id}) }}" method="post"
-                                                  style="margin-top: 3px;">
-                                                <input type="hidden" name="_csrf_token"
-                                                       value="{{ csrf_token('weapon_buy') }}">
-                                                <input type="submit" value="Acheter {{ weapon.price }} $"
-                                                       class="btn btn-primary btn-block">
-                                            </form>
+                                            {% if app.user.competences.level >= weapon.lvl %}
+                                                <form action="{{ path('store_weapon_buy',{id:weapon.id}) }}"
+                                                      method="post"
+                                                      style="margin-top: 3px;">
+                                                    <input type="hidden" name="_csrf_token"
+                                                           value="{{ csrf_token('weapon_buy') }}">
+                                                    <input type="submit" value="Acheter {{ weapon.price }} $"
+                                                           class="btn btn-primary btn-block">
+                                                </form>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
