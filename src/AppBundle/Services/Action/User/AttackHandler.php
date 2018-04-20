@@ -2,8 +2,10 @@
 
 namespace AppBundle\Services\Action\User;
 
+use AppBundle\Entity\Item;
 use AppBundle\Services\Action\ActionMaster;
 use AppBundle\Utils\AppConfig;
+use AppBundle\Utils\User\UserItems;
 use AppBundle\Utils\User\UserWeapon;
 use UserBundle\Entity\User;
 
@@ -35,7 +37,7 @@ class AttackHandler extends ActionMaster
         }
         if ($attacker->getAction() < AppConfig::ACTION_POINT_FOR_ATTACK) {
             $this->session->getFlashBag()->add('warning', sprintf(
-                "Vous ne pouvez pas attaquer %s, vous n'avez que %dPA/%d!",
+                "Vous ne pouvez pas attaquer %s, vous n'avez que %dPA sur %d!",
                 $victim->getUsername(),
                 $attacker->getAction(),
                 AppConfig::ACTION_POINT_FOR_ATTACK
@@ -61,6 +63,7 @@ class AttackHandler extends ActionMaster
      */
     private function attackHim(User $victim, User $attacker)
     {
+        $userItems = UserItems::getActiveItemsNames($attacker);
         $damage    = $this->getDamages($victim, $attacker);
         $skillGain = rand(1, 4);
         $victim->getCompetences()->removeLifePoints($damage);
@@ -74,7 +77,7 @@ class AttackHandler extends ActionMaster
         $this->session->getFlashBag()->add('success', sprintf(
             "Vous bastonnez %s avec %s et vous lui enlevez %s de vie ! Vous gagnez %s d'habileté.",
             $victim->getUsername(),
-            $this->getItemsNames($attacker),
+            $userItems,
             $this->getPointsText($damage),
             $this->getPointsText($skillGain)
         ))
@@ -100,11 +103,6 @@ class AttackHandler extends ActionMaster
         ;
     }
 
-    private function getItemsNames(User $attacker)
-    {
-        #todo: renvoyer le nom des items actifs pour dire avec quoi on a tabassé la victime
-        return 'foo bar';
-    }
 
     private function getDamages(User $victim, User $attacker)
     {
