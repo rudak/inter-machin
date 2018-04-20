@@ -11,6 +11,12 @@ class UserLevel
 
     public static function getLevelUpPrice(User $user)
     {
-        return pow($user->getCompetences()->getLevel(),2) * self::LEVEL_UP_COEF;
+        return pow(self::getLvl($user), 2) * self::LEVEL_UP_COEF;
     }
+
+    public static function getLvl(User $user)
+    {
+        return $user->getCompetences()->getLevel();
+    }
+
 }

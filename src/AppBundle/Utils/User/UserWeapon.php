@@ -27,7 +27,7 @@ class UserWeapon
         }
         if (self::getActivatedItemsNumber($user) == self::getAllowedItemsNumber($user)) {
             return [
-                self::ERROR_KEY => sprintf('Vous avez atteint le nombre d\'armes activées maximum pour le niveau %d.', $user->getCompetences()->getLevel()),
+                self::ERROR_KEY => sprintf('Vous avez atteint le nombre d\'armes activées maximum pour le niveau %d.', UserLevel::getLvl($user)),
             ];
         }
         return [
@@ -54,7 +54,7 @@ class UserWeapon
      */
     public static function getAllowedItemsNumber(User $user)
     {
-        $level = $user->getCompetences()->getLevel();
+        $level = UserLevel::getLvl($user);
         if ($level == 1) {
             return 1;
         } elseif ($level >= 5 && $level < 10) {

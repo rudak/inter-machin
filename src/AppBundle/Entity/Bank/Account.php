@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Bank;
 
 use AppBundle\Entity\Bank\Loan;
+use AppBundle\Utils\User\UserLevel;
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
 
@@ -69,7 +70,7 @@ class Account
         $this->user   = $user;
         $this->amount = $user->getMoney();
         $this->date   = new \DateTime('NOW');
-        $this->level  = $user->getCompetences()->getLevel();
+        $this->level  = UserLevel::getLvl($user);
         $total        = 0;
         if (!$user->getLoans()) {
             $this->setLoan($total);

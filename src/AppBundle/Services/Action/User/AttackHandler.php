@@ -6,6 +6,7 @@ use AppBundle\Entity\Item;
 use AppBundle\Services\Action\ActionMaster;
 use AppBundle\Utils\AppConfig;
 use AppBundle\Utils\User\UserItems;
+use AppBundle\Utils\User\UserLevel;
 use AppBundle\Utils\User\UserWeapon;
 use UserBundle\Entity\User;
 
@@ -21,18 +22,18 @@ class AttackHandler extends ActionMaster
         $this->attackHim($victim, $attacker);
         $this->em->persist($victim);
         $this->em->persist($attacker);
-        //$this->em->flush();
+        $this->em->flush();
     }
 
     private function userCanAttack(User $victim, User $attacker)
     {
-        #TODO: checker la meme ville
+
+        if ($victim->getCity() != $attacker->getCity()) {
+            $this->session->getFlashBag()->add('warning', sprintf("Vous ne pouvez pas attaquer %s, il est dans %s !", $victim->getUsername(), $victim->getCity()->getName()));
+            return false;
+        }
         if (!$victim->getAlive()) {
-            $this->session->getFlashBag()->add('warning', sprintf(
-                "Vous ne pouvez pas attaquer %s, il est déja mort !",
-                $victim->getUsername()
-            ))
-            ;
+            $this->session->getFlashBag()->add('warning', sprintf("Vous ne pouvez pas attaquer %s, il est déja mort !", $victim->getUsername()));
             return false;
         }
         if ($attacker->getAction() < AppConfig::ACTION_POINT_FOR_ATTACK) {
@@ -45,12 +46,8 @@ class AttackHandler extends ActionMaster
             ;
             return false;
         }
-        if ($attacker->getCompetences()->getLevel() > $victim->getCompetences()->getLevel()) {
-            $this->session->getFlashBag()->add('warning', sprintf(
-                "Vous ne pouvez pas attaquer %s, votre niveau est trop élevé !",
-                $victim->getUsername()
-            ))
-            ;
+        if (UserLevel::getLvl($attacker) > UserLevel::getLvl($victim)) {
+            $this->session->getFlashBag()->add('warning', sprintf("Vous ne pouvez pas attaquer %s, votre niveau est trop élevé !", $victim->getUsername()));
             return false;
         }
         return true;
@@ -70,6 +67,7 @@ class AttackHandler extends ActionMaster
         $victim->getCompetences()->removeSkillPoints($skillGain);
         $attacker->getCompetences()->addSkillPoints($skillGain);
         $attacker->removeActionPoint(AppConfig::ACTION_POINT_FOR_ATTACK);
+        UserItems::updateItemsUses($attacker, $this->em);
         if (!$victim->getAlive()) {
             $this->victimIsDead($victim, $attacker, $skillGain);
             return;
@@ -111,7 +109,7 @@ class AttackHandler extends ActionMaster
         $damageMax           = $this->getDamageMax($attackerItemsPoints, $attacker);
         $defenseMax          = $this->getVictimsDefensePoints($victimItemsPoints, $victim);
         $damage              = $damageMax - $defenseMax;
-        return $damage < $attacker->getCompetences()->getLevel() ? $attacker->getCompetences()->getLevel() : $damage;
+        return $damage < UserLevel::getLvl($attacker) ? UserLevel::getLvl($attacker) : $damage;
     }
 
     private function getDamageMax($itemsPoints, User $attacker)

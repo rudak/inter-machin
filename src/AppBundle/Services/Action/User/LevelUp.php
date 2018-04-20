@@ -30,7 +30,7 @@ class LevelUp extends ActionMaster
     {
         $levelUpPrice = UserLevel::getLevelUpPrice($user);
         $user->removeMoney($levelUpPrice);
-        $level    = $user->getCompetences()->getLevel();
+        $level    = UserLevel::getLvl($user);
         $newLevel = $level + 1;
         $user->getCompetences()->setLevel($newLevel);
         $this->session->getFlashBag()->add('success', sprintf("Vous montez au niveau %d pour %d$ !", $newLevel, $levelUpPrice));

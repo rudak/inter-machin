@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Item;
+use AppBundle\Utils\User\UserLevel;
 use AppBundle\Utils\User\UserWeapon;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +66,7 @@ class StoreController extends Controller
             return $this->redirectToRoute('store_list');
         }
 
-        if ($weapon->getLvl() > $user->getCompetences()->getLevel()) {
+        if ($weapon->getLvl() > UserLevel::getLvl($user)) {
             $this->addFlash('danger', sprintf("Pour acheter '%s' vous devez etre au niveau %d ou plus.", $weapon->getName(), $weapon->getLvl()));
             return $this->redirectToRoute('store_list');
         }

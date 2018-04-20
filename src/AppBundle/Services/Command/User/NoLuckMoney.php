@@ -4,6 +4,7 @@ namespace AppBundle\Services\Command\User;
 
 use AppBundle\Services\Command\CronCommandInterface;
 use AppBundle\Services\Command\CronEmCommand;
+use AppBundle\Utils\User\UserLevel;
 use UserBundle\Entity\User;
 use AppBundle\Utils\AppConfig;
 
@@ -32,7 +33,7 @@ class NoLuckMoney extends CronEmCommand implements CronCommandInterface
 
     private function getAmount(User $user)
     {
-        return rand(1, 5) * $user->getCompetences()->getLevel();
+        return rand(1, 5) * UserLevel::getLvl($user);
     }
 
 

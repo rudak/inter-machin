@@ -8,6 +8,7 @@ use AppBundle\Utils\AppConfig;
 use AppBundle\Utils\Bank\FriendlyVisit;
 use AppBundle\Utils\Bank\ReminderHandler;
 use AppBundle\Utils\Notification\NotificationCreator;
+use AppBundle\Utils\User\UserLevel;
 
 class Banker extends CronEmCommand
 {
@@ -21,7 +22,7 @@ class Banker extends CronEmCommand
             }
             $loan->setStatus(Loan::STATUS_VALID);
             $loan->setExpiration(new \DateTime('+5 days'));
-            $percentage  = mt_rand(1, $loan->getUser()->getCompetences()->getLevel() * 2);
+            $percentage  = mt_rand(1, UserLevel::getLvl($loan->getUser()) * 2);
             $percentage  = $percentage > AppConfig::LOAN_MAX_PERCENTAGE ? AppConfig::LOAN_MAX_PERCENTAGE : $percentage;
             $tax         = round($percentage * $loan->getAmount() / 100);
             $taxedAmount = $loan->getAmount() - $tax;

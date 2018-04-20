@@ -5,6 +5,7 @@ namespace AppBundle\Services\Action\User;
 use AppBundle\Entity\Action\Steal;
 use AppBundle\Services\Action\ActionMaster;
 use AppBundle\Utils\AppConfig;
+use AppBundle\Utils\User\UserLevel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use UserBundle\Entity\User;
@@ -92,7 +93,7 @@ class StealHandler extends ActionMaster
 
     private function maxCanSteal(User $victim)
     {
-        $theoreticalMax = AppConfig::MAX_STEAL_BASE_VALUE * $victim->getCompetences()->getLevel();
+        $theoreticalMax = AppConfig::MAX_STEAL_BASE_VALUE * UserLevel::getLvl($victim);
         return $theoreticalMax > $victim->getMoney() ? $victim->getMoney() : $theoreticalMax;
     }
 }
