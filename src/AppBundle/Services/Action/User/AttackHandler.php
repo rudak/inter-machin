@@ -67,8 +67,7 @@ class AttackHandler extends ActionMaster
         $victim->getCompetences()->removeSkillPoints($skillGain);
         $attacker->getCompetences()->addSkillPoints($skillGain);
         $attacker->removeActionPoint(AppConfig::ACTION_POINT_FOR_ATTACK);
-        #TODO: signaler qu'on perd une arme
-        UserItems::updateItemsUses($attacker);
+        $this->updateAttackerItems($attacker);
         if (!$victim->getAlive()) {
             $this->victimIsDead($victim, $attacker, $skillGain);
             return;
@@ -81,6 +80,24 @@ class AttackHandler extends ActionMaster
             $this->getPointsText($skillGain)
         ))
         ;
+    }
+
+    /**
+     * On va mettre a jour les utilisations des items (limitées) et on signale si on perd un objet.
+     * @param User $attacker
+     */
+    private function updateAttackerItems(User $attacker)
+    {
+        $removedItems = UserItems::updateItemsUses($attacker);
+        foreach ($removedItems as $item) {
+            /** @var $item Item */
+            $this->session->getFlashBag()->add('warning', sprintf(
+                    "Vous perdez l'objet '%s' car il a déja servi %d fois !",
+                    $item->getWeapon()->getName(),
+                    $item->getUsages())
+            )
+            ;
+        }
     }
 
     private function victimIsDead(User $victim, User $attacker, $skillGain)

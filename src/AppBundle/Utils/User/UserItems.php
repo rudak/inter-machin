@@ -29,6 +29,7 @@ class UserItems
             /** @var $item Item */
             $item->setUsages($item->getUsages() + 1);
             if ($item->getUsages() >= $item->getWeapon()->getUses()) {
+                yield $item;
                 $user->removeItem($item);
             }
         }
