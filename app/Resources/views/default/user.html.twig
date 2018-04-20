@@ -17,21 +17,29 @@
                     </div>
                     <div class="col">
                         <h4>Actions</h4>
-                        <ul>
-                            <li>
-                                <form action="{{ path('action_steal',{id:user.id}) }}" method="post">
-                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('action_steal') }}">
-                                    <button class="btn btn-danger">Essayer de voler {{ user.username }}</button>
-                                </form>
-                            </li>
-                            <li>
-                                {#todo: l'user est il dans la meme ville#}
-                                <form action="{{ path('action_attack',{id:user.id}) }}" method="post">
-                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('action_attack') }}">
-                                    <button class="btn btn-danger">Attaquer {{ user.username }}</button>
-                                </form>
-                            </li>
-                        </ul>
+                        {% if app.user.city == user.city %}
+                            <ul>
+                                <li>
+                                    <form action="{{ path('action_steal',{id:user.id}) }}" method="post">
+                                        <input type="hidden" name="_csrf_token"
+                                               value="{{ csrf_token('action_steal') }}">
+                                        <button class="btn btn-danger">Essayer de voler {{ user.username }}</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    {#todo: l'user est il dans la meme ville#}
+                                    <form action="{{ path('action_attack',{id:user.id}) }}" method="post">
+                                        <input type="hidden" name="_csrf_token"
+                                               value="{{ csrf_token('action_attack') }}">
+                                        <button class="btn btn-danger">Attaquer {{ user.username }}</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <p class="lead">
+                                Aucune action possible, vous n'etes pas dans la meme ville que {{ user.username }}...
+                            </p>
+                        {% endif %}
                     </div>
                     <div class="col">
                     </div>
