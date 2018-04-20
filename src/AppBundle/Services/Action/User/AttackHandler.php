@@ -67,7 +67,8 @@ class AttackHandler extends ActionMaster
         $victim->getCompetences()->removeSkillPoints($skillGain);
         $attacker->getCompetences()->addSkillPoints($skillGain);
         $attacker->removeActionPoint(AppConfig::ACTION_POINT_FOR_ATTACK);
-        UserItems::updateItemsUses($attacker, $this->em);
+        #TODO: signaler qu'on perd une arme
+        UserItems::updateItemsUses($attacker);
         if (!$victim->getAlive()) {
             $this->victimIsDead($victim, $attacker, $skillGain);
             return;

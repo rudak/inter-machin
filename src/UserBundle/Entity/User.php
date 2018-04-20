@@ -39,7 +39,7 @@ class User extends BaseUser
     private $money;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item",mappedBy="user",cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item",mappedBy="user",cascade={"persist"}, orphanRemoval=true)
      */
     private $items;
 

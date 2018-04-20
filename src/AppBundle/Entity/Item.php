@@ -24,7 +24,7 @@ class Item
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="items",cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="items")
      */
     private $user;
 

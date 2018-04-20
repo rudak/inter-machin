@@ -3,7 +3,6 @@
 namespace AppBundle\Utils\User;
 
 use AppBundle\Entity\Item;
-use Doctrine\ORM\EntityManager;
 use UserBundle\Entity\User;
 
 class UserItems
@@ -24,15 +23,13 @@ class UserItems
         return count($names) ? implode(' et ', $names) : 'vos mains';
     }
 
-    public static function updateItemsUses(User $user, EntityManager $em)
+    public static function updateItemsUses(User $user)
     {
-//        Todo: Revoir la neccessité de passer $em pour virer le $item
         foreach (self::getActiveItems($user) as $item) {
             /** @var $item Item */
             $item->setUsages($item->getUsages() + 1);
             if ($item->getUsages() >= $item->getWeapon()->getUses()) {
                 $user->removeItem($item);
-                $em->remove($item);
             }
         }
     }
