@@ -12,3 +12,8 @@ user:
 myProfile:
     path: /my-profile
     defaults: { _controller: AppBundle:Default:myProfile}
+
+user_levelup:
+    path: /level-up
+    defaults: { _controller: AppBundle:Default:levelUp}
+    methods: [POST]

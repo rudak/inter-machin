@@ -10,7 +10,7 @@
                 </p>
                 {% if city != app.user.city %}
                     <form action="{{ path('city_move') }}" method="post">
-                        <input type="hidden" name="token" value="{{ csrf_token('cityMove') }}"/>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('cityMove') }}"/>
                         <input type="hidden" name="cityID" value="{{ city.id }}">
                         <p>
                             <button type="submit" class="btn btn-primary">

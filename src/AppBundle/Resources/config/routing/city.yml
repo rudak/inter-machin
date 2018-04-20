@@ -1,0 +1,12 @@
+cities:
+    path: /list
+    defaults: { _controller: AppBundle:Default:cities}
+
+city:
+    path: /{id}/{slug}
+    defaults: { _controller: AppBundle:Default:city}
+
+city_move:
+    path: /move
+    defaults: { _controller: AppBundle:Default:cityMove}
+    methods: [POST]

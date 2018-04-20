@@ -6,6 +6,7 @@ use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\City;
 use AppBundle\Entity\Item;
 use AppBundle\Services\Action\City\CityHandler;
+use AppBundle\Services\Action\User\LevelUp;
 use AppBundle\Services\Game\Dice;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityNotFoundException;
@@ -72,6 +73,18 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function levelUpAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        $submittedToken = $request->request->get('_csrf_token');
+        if (!$this->isCsrfTokenValid('levelUp', $submittedToken)) {
+            $this->addFlash('danger', 'Jeton CSRF invalide pour le level up, attention...');
+            return $this->redirectToRoute('myProfile');
+        }
+        $this->get(LevelUp::class)->execute($this->getUser());
+        return $this->redirectToRoute('myProfile');
+    }
+
     public function testAction()
     {
 //        $agi1 = 0;
@@ -132,7 +145,7 @@ class DefaultController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
 
-        $submittedToken = $request->request->get('token');
+        $submittedToken = $request->request->get('_csrf_token');
         if (!$this->isCsrfTokenValid('cityMove', $submittedToken)) {
             $this->addFlash('danger', 'Jeton CSRF invalide, attention...');
             return $this->redirectToRoute('cities');

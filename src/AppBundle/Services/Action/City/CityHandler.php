@@ -14,7 +14,7 @@ class CityHandler extends ActionMaster
         if (!$this->userCanMove($user, $city)) {
             return false;
         }
-        $this->session->getFlashBag()->add('success', sprintf("Vous etres arrivé à %s, le voyage vous a couté %d$ !", $city->getName(), $city->getPrice()));
+        $this->session->getFlashBag()->add('success', sprintf("Vous êtes arrivé à %s, le voyage vous a couté %d$ !", $city->getName(), $city->getPrice()));
         $user->setCity($city);
         $user->removeMoney($city->getPrice());
         $this->setCityMoveAction($user);
@@ -25,7 +25,7 @@ class CityHandler extends ActionMaster
     private function userCanMove(User $user, City $city)
     {
         if ($user->getMoney() < $city->getPrice()) {
-            $this->session->getFlashBag()->add('warning', sprintf("Vous être trop pauvre, le voyage coute %d$ !", $city->getPrice()));
+            $this->session->getFlashBag()->add('warning', sprintf("Vous êtes trop pauvre ! Le voyage coute %d$ !", $city->getPrice()));
             return false;
         }
         return true;
