@@ -19,7 +19,7 @@ class CityHandler extends ActionMaster
         $user->removeMoney($city->getPrice());
         $this->setCityMoveAction($user);
         $this->em->persist($user);
-        return;
+        return true;
     }
 
     private function userCanMove(User $user, City $city)

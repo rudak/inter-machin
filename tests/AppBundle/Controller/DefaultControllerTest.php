@@ -16,7 +16,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $urls   = [
-            '/store/list', '/ranking', '/cities', '/bank/', '/game/', '/user/my-profile', '/store/weapon/157',
+            '/store/list', '/ranking', '/city/list', '/bank/', '/game/', '/user/my-profile', '/store/weapon/157',
             '/game/dice/1', '/game/one-ten/10',
         ];
         foreach ($urls as $url) {
@@ -79,7 +79,7 @@ class DefaultControllerTest extends WebTestCase
     public function testVilles()
     {
         $client  = $this->createAuthorizedClient();
-        $crawler = $client->request('GET', '/cities');
+        $crawler = $client->request('GET', '/city/list');
         $this->assertGreaterThan(
             0,
             $crawler->filter('html:contains("Les villes")')->count()
