@@ -27,7 +27,6 @@
                                     </form>
                                 </li>
                                 <li>
-                                    {#todo: l'user est il dans la meme ville#}
                                     <form action="{{ path('action_attack',{id:user.id}) }}" method="post">
                                         <input type="hidden" name="_csrf_token"
                                                value="{{ csrf_token('action_attack') }}">
@@ -37,7 +36,7 @@
                             </ul>
                         {% else %}
                             <p class="lead">
-                                Aucune action possible, vous n'etes pas dans la meme ville que {{ user.username }}...
+                                Aucune action possible, vous n'etes pas dans {{ user.city.name }}...
                             </p>
                         {% endif %}
                     </div>
