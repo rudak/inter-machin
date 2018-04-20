@@ -15,7 +15,23 @@
                     <hr>
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-action">Argent : {{ user.money }}$</li>
-                        <li class="list-group-item list-group-item-action">Niveau : {{ user.competences.level }}</li>
+                        <li class="list-group-item list-group-item-action">
+                            <div class="row">
+                                <div class="col">
+                                    Niveau : {{ user.competences.level }}
+                                </div>
+                                <div class="col">
+                                    <form action="{{ path('user_levelup') }}" method="post">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('levelUp') }}">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            Monter de niveau
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                        </li>
                         <li class="list-group-item list-group-item-action">Vie : {{ user.competences.life }}</li>
                         <li class="list-group-item list-group-item-action">Ville : <a
                                     href="{{ path('user_list') }}">{{ user.city.name }}</a></li>

@@ -18,9 +18,9 @@ class StoreController extends Controller
      */
     public function listAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder à cette page !');
         $em      = $this->getDoctrine()->getManager();
-        $weapons = $em->getRepository('AppBundle:Weapon')->findAll();
+        $weapons = $em->getRepository('AppBundle:Weapon')->getWeaponByLevel($this->getUser());
 
         return $this->render('store/list.html.twig', [
             'weapons'    => $weapons,
@@ -35,7 +35,7 @@ class StoreController extends Controller
      */
     public function weaponAction($id)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder à cette page !');
         $em     = $this->getDoctrine()->getManager();
         $weapon = $em->getRepository('AppBundle:Weapon')->find($id);
 

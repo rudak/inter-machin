@@ -18,9 +18,9 @@ ranking:
     path: /ranking
     defaults: { _controller: AppBundle:Default:ranking}
 
-cities:
-    path: /cities
-    defaults: { _controller: AppBundle:Default:cities}
+app_city:
+    resource: "@AppBundle/Resources/config/routing/city.yml"
+    prefix:   /city
 
 app_bank:
     resource: "@AppBundle/Resources/config/routing/bank.yml"

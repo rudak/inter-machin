@@ -22,7 +22,7 @@ class RenderController extends Controller
             $dateFrom = new \DateTime('-1 week');
             $actions  = $this->get(ActionHandler::class)->getActions($this->getUser(), $dateFrom);
             $html     = $this->get(HtmlFormater::class)->getHtmlForActions($this->getUser(), $actions);
-            $actionLogs->set($html)->expiresAfter(30);
+            $actionLogs->set($html)->expiresAfter(15);
             $cache->save($actionLogs);
         }
         $html = $actionLogs->get();

@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new ApiBundle\ApiBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
