@@ -21,7 +21,7 @@ class AttackHandler extends ActionMaster
         $this->attackHim($victim, $attacker);
         $this->em->persist($victim);
         $this->em->persist($attacker);
-        $this->em->flush();
+        //$this->em->flush();
     }
 
     private function userCanAttack(User $victim, User $attacker)
