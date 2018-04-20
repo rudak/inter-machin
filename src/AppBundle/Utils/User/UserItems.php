@@ -35,6 +35,11 @@ class UserItems
         }
     }
 
+    public static function getActiveItemsObjects(User $user)
+    {
+        return self::getActiveItems($user);
+    }
+
     private static function getActiveItems(User $user)
     {
         foreach ($user->getItems() as $item) {

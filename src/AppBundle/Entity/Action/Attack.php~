@@ -1,0 +1,75 @@
+<?php
+
+namespace AppBundle\Entity\Action;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Attack
+ *
+ * @ORM\Table(name="action_attack")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Action\AttackRepository")
+ */
+class Attack
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \stdClass
+     *
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     */
+    private $attacker;
+
+    /**
+     * @var \stdClass
+     *
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     */
+    private $victim;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="Killed", type="boolean", nullable=true)
+     */
+    private $killed;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="damages", type="smallint", nullable=true)
+     */
+    private $damages;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="skill", type="smallint", nullable=true)
+     */
+    private $skill;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @var \stdClass
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Weapon")
+     */
+    private $weapons;
+
+
+}
+

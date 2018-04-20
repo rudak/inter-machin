@@ -2,6 +2,7 @@
 
 namespace AppBundle\Utils\Action;
 
+use AppBundle\Entity\Action\Attack;
 use AppBundle\Entity\Action\CityMove;
 use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
@@ -71,6 +72,9 @@ class HtmlFormater
         if ($action instanceof Steal) {
             return $this->getStealPattern($action);
         }
+        if ($action instanceof Attack) {
+            return $this->getAttackPattern($action);
+        }
     }
 
     /**
@@ -84,5 +88,18 @@ class HtmlFormater
             return 'render/action/patterns/steal-victim.html.twig';
         }
         return 'render/action/patterns/steal-burglar.html.twig';
+    }
+
+    /**
+     * Cas particulier : on peut etre le voleur ou le volé
+     * @param Steal $action
+     * @return string
+     */
+    private function getAttackPattern(Attack $action)
+    {
+        if ($action->getVictim() == $this->user) {
+            return 'render/action/patterns/attack-victim.html.twig';
+        }
+        return 'render/action/patterns/attack.html.twig';
     }
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Utils\Action;
 
 use AppBundle\Entity\Action\ActionInterface;
+use AppBundle\Entity\Action\Attack;
 use AppBundle\Entity\Action\CityMove;
 use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
@@ -37,6 +38,7 @@ class ActionHandler extends UtilsMaster
             Game::class,
             Purchase::class,
             Steal::class,
+            Attack::class,
         ];
     }
 

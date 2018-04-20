@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services\Action\User;
 
+use AppBundle\Entity\Action\Attack;
 use AppBundle\Entity\Item;
 use AppBundle\Services\Action\ActionMaster;
 use AppBundle\Utils\AppConfig;
@@ -12,7 +13,10 @@ use UserBundle\Entity\User;
 
 class AttackHandler extends ActionMaster
 {
-
+    /**
+     * @var Attack
+     */
+    private $actionAttack;
 
     public function execute(User $victim, User $attacker)
     {
@@ -22,6 +26,7 @@ class AttackHandler extends ActionMaster
         $this->attackHim($victim, $attacker);
         $this->em->persist($victim);
         $this->em->persist($attacker);
+        $this->em->persist($this->actionAttack);
         $this->em->flush();
     }
 
@@ -67,6 +72,7 @@ class AttackHandler extends ActionMaster
         $victim->getCompetences()->removeSkillPoints($skillGain);
         $attacker->getCompetences()->addSkillPoints($skillGain);
         $attacker->removeActionPoint(AppConfig::ACTION_POINT_FOR_ATTACK);
+        $this->setActionAttack($attacker, $victim, $damage, $skillGain);
         $this->updateAttackerItems($attacker);
         if (!$victim->getAlive()) {
             $this->victimIsDead($victim, $attacker, $skillGain);
@@ -110,6 +116,10 @@ class AttackHandler extends ActionMaster
         $attacker->getCompetences()->addSkillPoints($skillGain); // 2eme ajout
         $skillGain *= 2;
 
+        $this->actionAttack->setKilled(true);
+        $this->actionAttack->setSkill($skillGain);
+        $this->actionAttack->setAmount($gainMoney);
+
         $this->session->getFlashBag()->add('success', sprintf(
             "Vous tuez %s et vous lui prenez %d$ !!!! Vous gagnez %s d'habileté !",
             $victim->getUsername(),
@@ -118,7 +128,6 @@ class AttackHandler extends ActionMaster
         ))
         ;
     }
-
 
     private function getDamages(User $victim, User $attacker)
     {
@@ -141,4 +150,8 @@ class AttackHandler extends ActionMaster
         return ($itemsPoints[UserWeapon::DEFENSE_POINTS] + $victim->getCompetences()->getDefense()) / 2;
     }
 
+    private function setActionAttack(User $attacker, User $victim, $damages, $skill, $killed = false)
+    {
+        $this->actionAttack = new Attack($attacker, $victim, $damages, $skill, $killed);
+    }
 }

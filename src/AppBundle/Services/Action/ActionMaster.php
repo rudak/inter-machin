@@ -34,6 +34,7 @@ abstract class ActionMaster
      */
     protected function getPointsText($amount)
     {
+        #TODO: foutre ca autre part
         return sprintf("%d %s", $amount, ($amount > 1 ? 'points' : 'point'));
     }
 }
