@@ -59,6 +59,11 @@ class UserItems
         }
     }
 
+    /**
+     * Renvoie un tableau d'items avec deux indexes, ACTIVE ou INACTIVE
+     * @param User $user
+     * @return array
+     */
     public static function getSortedItems(User $user)
     {
         $activeItems   = [];
