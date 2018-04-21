@@ -23,6 +23,11 @@ class UserItems
         return count($names) ? implode(' et ', $names) : 'vos mains';
     }
 
+    /**
+     * Vire les items qui ont assez servi
+     * @param User $user
+     * @return \Generator
+     */
     public static function updateItemsUses(User $user)
     {
         foreach (self::getActiveItems($user) as $item) {
@@ -35,12 +40,12 @@ class UserItems
         }
     }
 
-    public static function getActiveItemsObjects(User $user)
-    {
-        return self::getActiveItems($user);
-    }
-
-    private static function getActiveItems(User $user)
+    /**
+     * Renvoie un generator contenant les itemps actifs
+     * @param User $user
+     * @return \Generator
+     */
+    public static function getActiveItems(User $user)
     {
         foreach ($user->getItems() as $item) {
             /** @var $item Item */
@@ -50,6 +55,4 @@ class UserItems
             yield $item;
         }
     }
-
-
 }

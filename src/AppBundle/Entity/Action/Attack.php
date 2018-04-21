@@ -98,7 +98,7 @@ class Attack implements ActionInterface
         $this->killed   = $killed;
         $this->date     = new \DateTime('NOW');
         $this->amount   = 0;
-        foreach (UserItems::getActiveItemsObjects($attacker) as $item) {
+        foreach (UserItems::getActiveItems($attacker) as $item) {
             /** @var $item Item */
             $this->weapons->add($item->getWeapon());
         }
