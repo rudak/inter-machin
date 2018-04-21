@@ -7,6 +7,9 @@ use UserBundle\Entity\User;
 
 class UserItems
 {
+    const ACTIVE   = 'active';
+    const INACTIVE = 'inactive';
+
     /**
      * Renvoie une chaine avec le nom des armes
      *
@@ -54,5 +57,23 @@ class UserItems
             }
             yield $item;
         }
+    }
+
+    public static function getSortedItems(User $user)
+    {
+        $activeItems   = [];
+        $inactiveItems = [];
+        foreach ($user->getItems() as $item) {
+            /** @var $item Item */
+            if ($item->getActive()) {
+                $activeItems[] = $item;
+                continue;
+            }
+            $inactiveItems[] = $item;
+        }
+        return [
+            self::ACTIVE   => $activeItems,
+            self::INACTIVE => $inactiveItems,
+        ];
     }
 }

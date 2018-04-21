@@ -8,6 +8,7 @@ use AppBundle\Entity\Item;
 use AppBundle\Services\Action\City\CityHandler;
 use AppBundle\Services\Action\User\LevelUp;
 use AppBundle\Services\Game\Dice;
+use AppBundle\Utils\User\UserItems;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -70,7 +71,8 @@ class DefaultController extends Controller
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
 
         return $this->render('default/my-profile.html.twig', [
-            'user' => $this->getUser(),
+            'user'  => $this->getUser(),
+            'items' => UserItems::getSortedItems($this->getUser()),
         ]);
     }
 
