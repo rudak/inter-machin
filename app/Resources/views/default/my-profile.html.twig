@@ -10,31 +10,53 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="card card-body bg-light">
-                    <h3>Utilisateur {{ user.username }}</h3>
-                    <hr>
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-action">Argent : {{ user.money }}$</li>
-                        <li class="list-group-item list-group-item-action">
-                            <div class="row">
-                                <div class="col">
-                                    Niveau : {{ user.competences.level }}
+                <div class="card">
+                    <div class="card-body bg-light">
+                        <h3>Utilisateur {{ user.username }}</h3>
+                        <hr>
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-action">
+
+                                <div class="row">
+                                    <div class="col">
+                                        Argent : {{ user.money }}$
+                                    </div>
+                                    <div class="col">
+                                        PA : {{ user.action }}
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <form action="{{ path('user_levelup') }}" method="post">
-                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('levelUp') }}">
-                                        <button type="submit" class="btn btn-sm btn-primary">
-                                            Monter de niveau
-                                        </button>
-                                    </form>
+                            </li>
+                            <li class="list-group-item list-group-item-action">
+                                <div class="row">
+                                    <div class="col">Niveau : {{ user.competences.level }}</div>
+                                    <div class="col">Vie : {{ user.competences.life }}</div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action">Vie : {{ user.competences.life }}</li>
-                        <li class="list-group-item list-group-item-action">Ville : <a
-                                    href="{{ path('user_list') }}">{{ user.city.name }}</a></li>
-                        <li class="list-group-item list-group-item-action">Points d'action : {{ user.action }}</li>
-                    </ul>
+                            </li>
+                            <li class="list-group-item list-group-item-action">Ville :
+                                <a href="{{ path('user_list') }}">{{ user.city.name }}</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h5 class="card-title">Changement de niveau</h5>
+                        {% if app.user.money > levelUpPrice %}
+                            <form action="{{ path('user_levelup') }}" method="post">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('levelUp') }}">
+                                <button type="submit" class="btn btn-primary">
+                                    Monter de niveau pour {{ levelUpPrice }}$
+                                </button>
+                            </form>
+                        {% else %}
+                            <p class="card-text">
+                                Il vous manque
+                                {{ levelUpPrice - app.user.money }}$
+                                pour pouvoir monter.
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="col">
