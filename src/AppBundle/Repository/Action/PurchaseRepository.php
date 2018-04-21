@@ -41,6 +41,9 @@ class PurchaseRepository extends \Doctrine\ORM\EntityRepository implements Actio
     public function getByUser(User $user, \DateTime $date)
     {
         $qb = $this->createQueryBuilder('p')
+                   ->addSelect('u,w')
+                   ->leftJoin('p.user', 'u')
+                   ->leftJoin('p.weapon', 'w')
                    ->where('p.user = :user')
                    ->andWhere('p.date > :date')
                    ->setParameters([

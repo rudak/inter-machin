@@ -29,6 +29,8 @@ class GameRepository extends \Doctrine\ORM\EntityRepository implements ActionRep
     public function getByUser(User $user, \DateTime $date)
     {
         $qb = $this->createQueryBuilder('g')
+                   ->addSelect('u')
+                   ->leftJoin('g.user', 'u')
                    ->where('g.user = :user')
                    ->andWhere('g.date > :date')
                    ->setParameters([

@@ -15,6 +15,10 @@ class AttackRepository extends \Doctrine\ORM\EntityRepository implements ActionR
     public function getByUser(User $user, \DateTime $date)
     {
         $qb = $this->createQueryBuilder('a')
+                   ->addSelect('w,att,v')
+                   ->leftJoin('a.weapons', 'w')
+                   ->leftJoin('a.attacker', 'att')
+                   ->leftJoin('a.victim', 'v')
                    ->where('a.attacker = :user OR a.victim = :user')
                    ->andWhere('a.date >= :date')
                    ->setParameters([

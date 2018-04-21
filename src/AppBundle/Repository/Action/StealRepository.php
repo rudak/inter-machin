@@ -15,6 +15,9 @@ class StealRepository extends \Doctrine\ORM\EntityRepository implements ActionRe
     public function getByUser(User $user, \DateTime $date)
     {
         $qb = $this->createQueryBuilder('s')
+                   ->addSelect('b,v')
+                   ->leftJoin('s.victim', 'v')
+                   ->leftJoin('s.burglar', 'b')
                    ->where('s.burglar = :user OR s.victim = :user')
                    ->andWhere('s.date > :date')
                    ->setParameters([

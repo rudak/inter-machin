@@ -15,6 +15,8 @@ class CityMoveRepository extends \Doctrine\ORM\EntityRepository implements Actio
     public function getByUser(User $user, \DateTime $date)
     {
         $qb = $this->createQueryBuilder('c')
+                   ->addSelect('city')
+                   ->leftJoin('c.city', 'city')
                    ->where('c.user = :user')
                    ->andWhere('c.date > :date')
                    ->setParameters([
