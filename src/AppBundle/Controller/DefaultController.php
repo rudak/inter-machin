@@ -54,6 +54,7 @@ class DefaultController extends Controller
 
     public function userAction($id)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em   = $this->getDoctrine()->getManager();
         $user = $em->getRepository('UserBundle:User')->find($id);
         if ($user == $this->getUser()) {

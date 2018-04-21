@@ -1,5 +1,33 @@
 {% extends 'render/action/patterns/main-pattern.html.twig' %}
 
 {% block line %}
-    t'es l'attaquant...
+    Tu attaques
+    <a href="{{ path('user', {'id': action.victim.id, 'username': action.victim.username|slugify}) }}">
+        {{ action.victim.username }}
+    </a>
+    {% if action.weapons|length %}
+        avec
+        {% for weapon in action.weapons %}
+            <a href="{{ path('store_weapon', {'id': weapon.id}) }}">
+                {{ weapon.name }}
+            </a>
+
+            {%- if not loop.last -%}
+                ,
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        a mains nues
+    {% endif %}
+    et tu lui enlèves
+    {{ action.damages }} points de vie.
+    {% if action.killed %}
+        <strong>Il es mort !</strong>
+    {% endif %}
+    tu gagnes {{ action.skill }} points d'habileté
+    {%- if action.amount %}
+        et {{ action.amount }}$ !!
+    {%- else -%}
+        .
+    {% endif %}
 {% endblock %}

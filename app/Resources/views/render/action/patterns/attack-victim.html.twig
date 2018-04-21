@@ -1,5 +1,29 @@
 {% extends 'render/action/patterns/main-pattern.html.twig' %}
 
 {% block line %}
-    t'es une victime
+    <a href="{{ path('user', {'id': action.attacker.id, 'username': action.attacker.username|slugify}) }}">
+        {{ action.attacker.username }}
+    </a>
+    t'attaque
+    {% if action.damages > 0 %}
+        et t'enlève {{ action.damages }} points de vie.
+    {% else %}
+        mais ne te fait aucun dégats.
+    {% endif %}
+    {% if action.killed %}
+        Tu es mort !
+    {% else %}
+        T'es encore la mais
+    {% endif %}
+    tu perds
+    {% if action.amount %}
+        {{ action.amount }}$
+    {% endif %}
+    {% if action.amount and action.skill %}
+        et
+    {% endif %}
+    {% if action.skill %}
+        {{ action.skill }} points d'habileté
+    {% endif %}
+    .
 {% endblock %}
