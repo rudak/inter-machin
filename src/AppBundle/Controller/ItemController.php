@@ -55,9 +55,7 @@ class ItemController extends Controller
         $em->persist($item);
         $em->flush();
 
-        return $this->render(':default:my-profile.html.twig', [
-            'user' => $this->getUser(),
-        ]);
+        return $this->redirectToRoute('myProfile');
     }
 
     /**
