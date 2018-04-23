@@ -27,6 +27,12 @@ class DefaultController extends Controller
         return new JsonResponse($this->get(DataGrabber::class)->getGameOneTenData(), 200);
     }
 
+    public function gameDicesDataAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a ce contenu !');
+        return new JsonResponse($this->get(DataGrabber::class)->getGameDicesData(), 200);
+    }
+
     public function purchaseDataAction()
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous devez etre authentifié pour accéder a ce contenu !');

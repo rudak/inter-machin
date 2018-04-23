@@ -16,6 +16,10 @@ game_oneTenData:
     path: /game/one-ten-data.json
     defaults: { _controller: ApiBundle:Default:game_oneTenData }
 
+game_DicesData:
+    path: /game/dices.json
+    defaults: { _controller: ApiBundle:Default:gameDicesData }
+
 # purchase_data
 purchase_data:
     path: /store/purchase-data.json

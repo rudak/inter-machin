@@ -6,6 +6,7 @@ use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\Weapon;
+use AppBundle\Services\Game\Dice;
 use AppBundle\Services\Game\OneTen;
 use AppBundle\Utils\User\UserLevel;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,6 +46,7 @@ class DataGrabber
         $accounts = $this->em->getRepository(Account::class)->getAccountsForAdminGraph($from);
         $out      = [];
         foreach ($accounts as $account) {
+            /** @var $account Account */
             $username         = $account->getUser()->getUsername();
             $out[$username][] = [
                 'date'  => (int)$account->getDate()->format('U'),
@@ -93,6 +95,7 @@ class DataGrabber
         $accounts = $this->em->getRepository(Account::class)->getAccountsForAdminGraph($from);
         $out      = [];
         foreach ($accounts as $account) {
+            /** @var $account Account */
             $out[$account->getUser()->getUsername()][] = [
                 'date'  => (int)$account->getDate()->format('U'),
                 'level' => $account->getLevel(),
@@ -105,5 +108,10 @@ class DataGrabber
     public function getGameOneTenData()
     {
         return $this->em->getRepository(Game::class)->getGameInfos(OneTen::GAME_NAME);
+    }
+
+    public function getGameDicesData()
+    {
+        return $this->em->getRepository(Game::class)->getGameInfos(Dice::GAME_NAME);
     }
 }
