@@ -38,4 +38,10 @@ class DefaultController extends Controller
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous devez etre authentifié pour accéder a ce contenu !');
         return new JsonResponse($this->get(DataGrabber::class)->getUsersMoneyData(), 200);
     }
+
+    public function userLevelsAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Vous devez etre authentifié pour accéder a ce contenu !');
+        return new JsonResponse($this->get(DataGrabber::class)->getLevelsData(), 200);
+    }
 }

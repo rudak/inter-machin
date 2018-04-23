@@ -7,6 +7,7 @@ var chartMoney = new CanvasJS.Chart("chartContainerUsersMoney", {
         text: "Distribution de l'argent en jeu"
     },
     animationEnabled: true,
+    height: 400,
     data: [{
         type: "pie",
         yValueFormatString: "#,##0 $",
@@ -14,6 +15,7 @@ var chartMoney = new CanvasJS.Chart("chartContainerUsersMoney", {
         dataPoints: dataPoints
     }]
 });
+
 function addDataMoney(data) {
     for (var i in data) {
         dataPoints.push({
@@ -23,6 +25,7 @@ function addDataMoney(data) {
     }
     chartMoney.render();
 }
+
 /**
  *      CHART ACHATS ARMES
  **/
@@ -32,11 +35,13 @@ var chartPurchases = new CanvasJS.Chart("chartContainerPurchases", {
         text: "Nombre d'achat par armes"
     },
     animationEnabled: true,
+    height: 400,
     data: [{
         type: "column",
         dataPoints: dataPointsPurchases
     }]
 });
+
 function addDataPurchases(data) {
     for (var i in data) {
         dataPointsPurchases.push({
@@ -46,6 +51,7 @@ function addDataPurchases(data) {
     }
     chartPurchases.render();
 }
+
 /**
  *      CHART USERS ACCOUNTS
  **/
@@ -58,8 +64,21 @@ var chartAccounts = new CanvasJS.Chart("chartContainerAccounts", {
         shared: true
     },
     animationEnabled: true,
+    height: 400,
     data: dataUsersAccounts
 });
+
+function getUserAccounts(userData) {
+    var userAccount = [];
+    for (var i in userData) {
+        userAccount.push({
+            x: new Date(userData[i]['date'] * 1000),
+            y: userData[i]['money']
+        })
+    }
+    return userAccount;
+}
+
 function addDataAccounts(data) {
     $.each(data, function (username, userData) {
         dataUsersAccounts.push({
@@ -74,17 +93,46 @@ function addDataAccounts(data) {
     });
     chartAccounts.render();
 }
+/**
+ *      CHART LEVELS ACCOUNTS
+ **/
+var dataLevelsAccounts = [];
+var chartLevels = new CanvasJS.Chart("chartContainerLevels", {
+    title: {
+        text: "Evolution des levels"
+    },
+    toolTip: {
+        shared: true
+    },
+    animationEnabled: true,
+    height: 400,
+    data: dataLevelsAccounts
+});
 
-function getUserAccounts(userData) {
-    var userAccount = [];
-    for (var i in userData) {
-        userAccount.push({
-            x: new Date(userData[i]['date'] * 1000),
-            y: userData[i]['money']
+function addLevelsAccounts(dataLevels) {
+
+    $.each(dataLevels, function (username, data) {
+
+        var userLevel = [];
+        for (var i in data) {
+            userLevel.push({
+                x: new Date(data[i]['date'] * 1000),
+                y: data[i]['level']
+            })
+        }
+        console.log(userLevel);
+        dataLevelsAccounts.push({
+            type: "spline",
+            name: username,
+            showInLegend: true,
+            markerSize: 2,
+            yValueFormatString: "Niveau ###",
+            dataPoints: userLevel
         })
-    }
-    return userAccount;
+    })
+    chartLevels.render();
 }
+
 /**
  *      AJAX LAUNCHES
  **/
@@ -92,7 +140,8 @@ window.onload = function () {
     requests = [
         {route: 'purchase_data', callback: addDataPurchases},
         {route: 'users_money_data', callback: addDataMoney},
-        {route: 'bank_users_accounts', callback: addDataAccounts}
+        {route: 'bank_users_accounts', callback: addDataAccounts},
+        {route: 'users_level_data', callback: addLevelsAccounts}
     ];
     for (var i in requests) {
         $.ajax({

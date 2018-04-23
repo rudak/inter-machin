@@ -7,6 +7,7 @@ use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\Weapon;
 use AppBundle\Services\Game\OneTen;
+use AppBundle\Utils\User\UserLevel;
 use Doctrine\ORM\EntityManagerInterface;
 use UserBundle\Entity\User;
 
@@ -40,7 +41,8 @@ class DataGrabber
 
     public function getAccountsData()
     {
-        $accounts = $this->em->getRepository(Account::class)->findAll();
+        $from     = new \DateTime('-2 week');
+        $accounts = $this->em->getRepository(Account::class)->getAccountsForAdminGraph($from);
         $out      = [];
         foreach ($accounts as $account) {
             $username         = $account->getUser()->getUsername();
@@ -52,8 +54,6 @@ class DataGrabber
         return $out;
 
     }
-
-
 
     public function getUsersMoneyData()
     {
@@ -82,6 +82,25 @@ class DataGrabber
         }
         return $out;
     }
+
+    /**
+     * Renvoie le tableau des niveaux de chaque joueurs
+     * @return array
+     */
+    public function getLevelsData()
+    {
+        $from     = new \DateTime('-2 week');
+        $accounts = $this->em->getRepository(Account::class)->getAccountsForAdminGraph($from);
+        $out      = [];
+        foreach ($accounts as $account) {
+            $out[$account->getUser()->getUsername()][] = [
+                'date'  => (int)$account->getDate()->format('U'),
+                'level' => $account->getLevel(),
+            ];
+        }
+        return $out;
+    }
+
 
     public function getGameOneTenData()
     {
