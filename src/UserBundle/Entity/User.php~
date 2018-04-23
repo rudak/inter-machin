@@ -2,7 +2,12 @@
 
 namespace UserBundle\Entity;
 
+use AppBundle\Entity\Bank\Loan;
+use AppBundle\Entity\City;
 use AppBundle\Entity\Competences;
+use AppBundle\Entity\Item;
+use AppBundle\Utils\AppConfig;
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,12 +36,17 @@ class User extends BaseUser
     private $alive;
 
     /**
-     * @ORM\Column(name="money", type="smallint")
+     * @ORM\Column(name="money", type="integer")
      */
     private $money;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item",mappedBy="user")
+     * @ORM\Column(name="saving", type="integer",nullable=true)
+     */
+    private $saving;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item",mappedBy="user",cascade={"persist"}, orphanRemoval=true)
      */
     private $items;
 
@@ -52,13 +62,27 @@ class User extends BaseUser
      */
     private $loans;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City",inversedBy="users")
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(name="action_point", type="smallint")
+     */
+    private $action;
+
     public function __construct()
     {
         parent::__construct();
         $this->alive       = true;
         $this->money       = 20;
         $this->competences = new Competences();
+        $this->action      = AppConfig::USER_DEFAULT_ACTION_POINT;
+        $this->saving      = 0;
+        $this->items       = new ArrayCollection();
     }
+
 
     /**
      * Set alive
@@ -81,7 +105,18 @@ class User extends BaseUser
      */
     public function getAlive()
     {
-        return $this->alive;
+        return $this->competences->getLife() > 0;
+    }
+
+
+    public function kill()
+    {
+        $this->setAlive(false);
+        $this->addMoney($this->saving);
+        $this->saving = null;
+        foreach ($this->getItems() as $item) {
+            $this->getItems()->removeElement($item);
+        }
     }
 
     /**
@@ -122,6 +157,29 @@ class User extends BaseUser
     }
 
     /**
+     * @return mixed
+     */
+    public function getSaving()
+    {
+        return $this->saving;
+    }
+
+    /**
+     * @param mixed $saving
+     */
+    public function setSaving($saving)
+    {
+        $this->saving = $saving;
+    }
+
+
+    public function addSaving($amount)
+    {
+        $this->saving += $amount;
+    }
+
+
+    /**
      * Set competences
      *
      * @param Competences $competences
@@ -146,6 +204,110 @@ class User extends BaseUser
     }
 
     /**
+     * Set dateOfBirth
+     *
+     * @param \DateTime $dateOfBirth
+     *
+     * @return User
+     */
+    public function setDateOfBirth($dateOfBirth)
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * Get dateOfBirth
+     *
+     * @return \DateTime
+     */
+    public function getDateOfBirth()
+    {
+        return $this->dateOfBirth;
+    }
+
+    /**
+     * Add loan
+     *
+     * @param Loan $loan
+     *
+     * @return User
+     */
+    public function addLoan(Loan $loan)
+    {
+        $this->loans[] = $loan;
+
+        return $this;
+    }
+
+    /**
+     * Remove loan
+     *
+     * @param Loan $loan
+     */
+    public function removeLoan(Loan $loan)
+    {
+        $this->loans->removeElement($loan);
+    }
+
+    /**
+     * Get loans
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLoans()
+    {
+        return $this->loans;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * @param mixed $action
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
+
+    public function addActionPoint($number)
+    {
+        $this->action += $number;
+        $this->action = $this->action > AppConfig::USER_MAX_ACTION_POINT ? AppConfig::USER_MAX_ACTION_POINT : $this->action;
+        return $this->action;
+    }
+
+    public function removeActionPoint($number)
+    {
+        $this->action -= $number;
+        $this->action = $this->action < 0 ? 0 : $this->action;
+        return $this->action;
+    }
+
+    /**
      * Add item
      *
      * @param \AppBundle\Entity\Item $item
@@ -154,7 +316,7 @@ class User extends BaseUser
      */
     public function addItem(\AppBundle\Entity\Item $item)
     {
-        $this->items[] = $item;
+        $this->items->add($item);
 
         return $this;
     }
@@ -177,29 +339,5 @@ class User extends BaseUser
     public function getItems()
     {
         return $this->items;
-    }
-
-    /**
-     * Set dateOfBirth
-     *
-     * @param \DateTime $dateOfBirth
-     *
-     * @return User
-     */
-    public function setDateOfBirth($dateOfBirth)
-    {
-        $this->dateOfBirth = $dateOfBirth;
-
-        return $this;
-    }
-
-    /**
-     * Get dateOfBirth
-     *
-     * @return \DateTime
-     */
-    public function getDateOfBirth()
-    {
-        return $this->dateOfBirth;
     }
 }

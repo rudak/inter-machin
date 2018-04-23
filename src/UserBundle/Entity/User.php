@@ -5,6 +5,7 @@ namespace UserBundle\Entity;
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\City;
 use AppBundle\Entity\Competences;
+use AppBundle\Entity\Item;
 use AppBundle\Utils\AppConfig;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -79,7 +80,9 @@ class User extends BaseUser
         $this->competences = new Competences();
         $this->action      = AppConfig::USER_DEFAULT_ACTION_POINT;
         $this->saving      = 0;
+        $this->items       = new ArrayCollection();
     }
+
 
     /**
      * Set alive
@@ -91,6 +94,7 @@ class User extends BaseUser
     public function setAlive($alive)
     {
         $this->alive = $alive;
+        $this->competences->setLevel(1);
 
         return $this;
     }
@@ -109,6 +113,11 @@ class User extends BaseUser
     public function kill()
     {
         $this->setAlive(false);
+        $this->addMoney($this->saving);
+        $this->saving = null;
+        foreach ($this->getItems() as $item) {
+            $this->getItems()->removeElement($item);
+        }
     }
 
     /**
@@ -193,40 +202,6 @@ class User extends BaseUser
     public function getCompetences()
     {
         return $this->competences;
-    }
-
-    /**
-     * Add item
-     *
-     * @param \AppBundle\Entity\Item $item
-     *
-     * @return User
-     */
-    public function addItem(\AppBundle\Entity\Item $item)
-    {
-        $this->items[] = $item;
-
-        return $this;
-    }
-
-    /**
-     * Remove item
-     *
-     * @param \AppBundle\Entity\Item $item
-     */
-    public function removeItem(\AppBundle\Entity\Item $item)
-    {
-        $this->items->removeElement($item);
-    }
-
-    /**
-     * Get items
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getItems()
-    {
-        return $this->items;
     }
 
     /**
@@ -331,5 +306,39 @@ class User extends BaseUser
         $this->action -= $number;
         $this->action = $this->action < 0 ? 0 : $this->action;
         return $this->action;
+    }
+
+    /**
+     * Add item
+     *
+     * @param \AppBundle\Entity\Item $item
+     *
+     * @return User
+     */
+    public function addItem(\AppBundle\Entity\Item $item)
+    {
+        $this->items->add($item);
+
+        return $this;
+    }
+
+    /**
+     * Remove item
+     *
+     * @param \AppBundle\Entity\Item $item
+     */
+    public function removeItem(\AppBundle\Entity\Item $item)
+    {
+        $this->items->removeElement($item);
+    }
+
+    /**
+     * Get items
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }

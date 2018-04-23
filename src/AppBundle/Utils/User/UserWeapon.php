@@ -90,6 +90,9 @@ class UserWeapon extends UtilsMaster
      */
     private function getActivatedItemsNumber(User $user)
     {
+        if (null == $user->getItems()) {
+            return 0;
+        }
         $number = 0;
         foreach ($user->getItems() as $userItem) {
             /** @var $userItem Item */
