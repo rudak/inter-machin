@@ -11,7 +11,7 @@ class ItemController extends Controller
 {
 
     /**
-     * L'utilisateur prend un objet dans son sac, pret a etre utilisé
+     * L'utilisateur active un objet se trouvant dans son sac
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -25,12 +25,10 @@ class ItemController extends Controller
             $this->addFlash('danger', 'Cet objet n\'est plus disponible.');
             return $this->redirectToRoute('homepage');
         }
-        if (true !== $result = UserWeapon::activateItem($this->getUser(), $item)) {
-            $this->addFlash('danger', $result[UserWeapon::ERROR_KEY]);
-            return $this->redirectToRoute('myProfile');
-        }
+
+        $this->get(UserWeapon::class)->activateItem($this->getUser(), $item);
+
         $em->flush();
-        $this->addFlash('success', sprintf("Vous venez de vous equiper avec %s.", $item->getWeapon()->getName()));
         return $this->redirectToRoute('myProfile');
     }
 

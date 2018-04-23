@@ -31,7 +31,7 @@ function render() {
         data: [{
             type: "area",
             name: "Money",
-            markerSize: 5,
+            markerSize: 2,
             showInLegend: true,
             xValueFormatString: "DD/MM/YY",
             yValueFormatString: "#$",
@@ -40,7 +40,7 @@ function render() {
         }, {
             type: "area",
             name: "Emprunt",
-            markerSize: 5,
+            markerSize: 2,
             showInLegend: true,
             yValueFormatString: "#$",
             dataPoints: dataLoan
@@ -48,6 +48,7 @@ function render() {
             {
                 type: "line",
                 name: "Niveau",
+                markerSize: 2,
                 axisYType: "secondary",
                 showInLegend: true,
                 dataPoints: dataLevel

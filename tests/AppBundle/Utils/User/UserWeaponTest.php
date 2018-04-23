@@ -2,8 +2,7 @@
 
 namespace Tests\AppBundle\Utils\User;
 
-use AppBundle\Entity\Item;
-use AppBundle\Utils\User\UserItems;
+use AppBundle\Utils\User\UserWeapon;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Tests\AppBundle\Fake\FakeItem;
 use Tests\AppBundle\Fake\FakeUser;
@@ -13,7 +12,12 @@ class UserWeaponTest extends KernelTestCase
 
     function testActivateItem()
     {
+        $user = FakeUser::getObject(false, true, 1500);
 
+//        $user->addItem(FakeItem::getObject(true, true));
+
+        $result = UserWeapon::activateItem($user, FakeItem::getObject(false, true));
+        dump($result);
     }
 
     /**
