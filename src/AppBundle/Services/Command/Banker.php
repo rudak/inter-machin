@@ -70,7 +70,7 @@ class Banker extends CronEmCommand
     {
         $users = $this->em->getRepository(User::class)->getUsersWithSavedMoney();
         foreach ($users as $user) {
-//            if (rand(1, 100) < 98) continue;
+            if (rand(1, 100) < 98) continue;
             Interests::execute($user, $this->em);
         }
         $this->em->flush();
