@@ -33,7 +33,7 @@ class DataGrabber
             $out[] = [
                 'date'  => (int)$account->getDate()->format('U'),
                 'money' => $account->getAmount(),
-                'loan'  => $account->getLoan(),
+                'loan'  => $account->getLoan() ? $account->getLoan() : null,
                 'level' => $account->getLevel(),
             ];
         }

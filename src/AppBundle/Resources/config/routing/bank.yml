@@ -17,3 +17,7 @@ bank_loan_refund:
 bank_loan_cancel:
     path: /loan/cancel/{id}
     defaults: { _controller: AppBundle:Bank:cancel }
+
+bank_saving:
+    path: /saving
+    defaults: { _controller: AppBundle:Bank:saving }

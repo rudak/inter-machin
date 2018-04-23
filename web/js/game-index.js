@@ -32,7 +32,7 @@ var DicesData = [];
 var DicesChart = new CanvasJS.Chart("chartDices", {
     animationEnabled: true,
     title: {
-        text: "Stats du OneTen",
+        text: "Stats du Dices",
         horizontalAlign: "center"
     },
     data: [{

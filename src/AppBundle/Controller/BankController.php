@@ -5,8 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\Bank\Refund;
+use AppBundle\Entity\Bank\Saving;
 use AppBundle\Form\Bank\LoanRefundType;
 use AppBundle\Form\Bank\LoanType;
+use AppBundle\Form\Bank\SavingType;
 use AppBundle\Services\Bank\BankHandler;
 use AppBundle\Utils\Bank\LoansHanlder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -146,5 +148,34 @@ class BankController extends Controller
 
         $this->addFlash('success', sprintf("Annulation de ce pret de %d$.", $loan->getAmount()));
         return $this->redirectToRoute('bank_index');
+    }
+
+    public function savingAction(Request $request)
+    {
+        $saving = new Saving($this->getUser());
+        $form   = $this->getSavingForm($saving);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $this->getUser()->removeMoney($saving->getAmount());
+            $this->getUser()->addSaving($saving->getAmount());
+            $em->persist($saving);
+            $em->flush();
+
+            $this->addFlash('success', sprintf("Vous déposez %d$ sur votre compte d'épargne. Le banquier fera peut etre un geste...", $saving->getAmount()));
+
+            return $this->redirectToRoute('bank_index');
+        }
+        return $this->render(':bank:saving.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    private function getSavingForm(Saving $saving)
+    {
+        return $this->createForm(SavingType::class, $saving, [
+            'action' => $this->generateUrl('bank_saving'),
+            'method' => 'POST',
+        ]);
     }
 }

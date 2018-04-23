@@ -2,6 +2,7 @@
 
 namespace UserBundle\Entity;
 
+use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\City;
 use AppBundle\Entity\Competences;
 use AppBundle\Utils\AppConfig;
@@ -39,6 +40,11 @@ class User extends BaseUser
     private $money;
 
     /**
+     * @ORM\Column(name="saving", type="integer",nullable=true)
+     */
+    private $saving;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item",mappedBy="user",cascade={"persist"}, orphanRemoval=true)
      */
     private $items;
@@ -72,6 +78,7 @@ class User extends BaseUser
         $this->money       = 20;
         $this->competences = new Competences();
         $this->action      = AppConfig::USER_DEFAULT_ACTION_POINT;
+        $this->saving      = 0;
     }
 
     /**
@@ -140,6 +147,29 @@ class User extends BaseUser
             $this->money = 0;
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSaving()
+    {
+        return $this->saving;
+    }
+
+    /**
+     * @param mixed $saving
+     */
+    public function setSaving($saving)
+    {
+        $this->saving = $saving;
+    }
+
+
+    public function addSaving($amount)
+    {
+        $this->saving += $amount;
+    }
+
 
     /**
      * Set competences
@@ -226,11 +256,11 @@ class User extends BaseUser
     /**
      * Add loan
      *
-     * @param \AppBundle\Entity\Bank\Loan $loan
+     * @param Loan $loan
      *
      * @return User
      */
-    public function addLoan(\AppBundle\Entity\Bank\Loan $loan)
+    public function addLoan(Loan $loan)
     {
         $this->loans[] = $loan;
 
@@ -240,9 +270,9 @@ class User extends BaseUser
     /**
      * Remove loan
      *
-     * @param \AppBundle\Entity\Bank\Loan $loan
+     * @param Loan $loan
      */
-    public function removeLoan(\AppBundle\Entity\Bank\Loan $loan)
+    public function removeLoan(Loan $loan)
     {
         $this->loans->removeElement($loan);
     }

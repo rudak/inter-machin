@@ -31,7 +31,7 @@ function render() {
         data: [{
             type: "area",
             name: "Money",
-            markerSize: 5,
+            markerSize: 2,
             showInLegend: true,
             xValueFormatString: "DD/MM/YY",
             yValueFormatString: "#$",
@@ -40,18 +40,18 @@ function render() {
         }, {
             type: "area",
             name: "Emprunt",
-            markerSize: 5,
+            markerSize: 2,
             showInLegend: true,
             yValueFormatString: "#$",
             dataPoints: dataLoan
-        },
-            {
-                type: "line",
-                name: "Niveau",
-                axisYType: "secondary",
-                showInLegend: true,
-                dataPoints: dataLevel
-            }
+        }, {
+            type: "line",
+            name: "Niveau",
+            markerSize: 2,
+            axisYType: "secondary",
+            showInLegend: true,
+            dataPoints: dataLevel
+        }
         ]
     };
     $("#chartContainer").CanvasJSChart(options);
@@ -66,6 +66,7 @@ function render() {
     }
 
 }
+
 function addData(data) {
     for (var i = 0; i < data.length; i++) {
         var date = new Date(data[i]['date'] * 1000);
@@ -84,6 +85,7 @@ function addData(data) {
     }
     render();
 }
+
 window.onload = function () {
     $.ajax({
         dataType: "json",
