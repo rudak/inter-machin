@@ -1,6 +1,7 @@
 <?php
 
 namespace UserBundle\Repository;
+
 use AppBundle\Entity\City;
 use UserBundle\Entity\User;
 
@@ -43,6 +44,16 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
                    ->setParameters([
                        'city' => $city,
                    ])
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
+
+    public function getUsersWithSavedMoney()
+    {
+        $qb = $this->createQueryBuilder('u')
+                   ->where('u.alive = 1')
+                   ->andWhere('u.saving > 0')
                    ->getQuery()
         ;
         return $qb->execute();

@@ -1,18 +1,24 @@
 <?php
 
-namespace AppBundle\Entity\Bank;
+namespace AppBundle\Entity\Action;
 
+use AppBundle\Entity\Action\ActionInterface;
+use AppBundle\Repository\Action\ActionRepositoryInterface;
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
 
 /**
  * Saving
  *
- * @ORM\Table(name="bank_saving")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SavingRepository")
+ * @ORM\Table(name="action_saving")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Action\SavingRepository")
  */
-class Saving
+class Saving implements ActionInterface
 {
+    const ACTION_NAME = 'saving';
+    const TYPE_BANKER = 'banker';
+    const TYPE_USER   = 'user';
+
     /**
      * @var int
      *
@@ -44,14 +50,22 @@ class Saving
     private $user;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string")
+     */
+    private $type;
+
+    /**
      * Saving constructor.
      * @param \DateTime $date
      * @param User      $user
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $type = self::TYPE_USER)
     {
         $this->date = new \DateTime('NOW');
         $this->user = $user;
+        $this->type = $type;
     }
 
 
@@ -135,5 +149,10 @@ class Saving
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function getActionName()
+    {
+        return self::ACTION_NAME;
     }
 }

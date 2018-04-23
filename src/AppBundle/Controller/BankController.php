@@ -2,10 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Bank\Account;
+use AppBundle\Entity\Action\Saving;
 use AppBundle\Entity\Bank\Loan;
-use AppBundle\Entity\Bank\Refund;
-use AppBundle\Entity\Bank\Saving;
 use AppBundle\Form\Bank\LoanRefundType;
 use AppBundle\Form\Bank\LoanType;
 use AppBundle\Form\Bank\SavingType;

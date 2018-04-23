@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Bank;
 
+use AppBundle\Entity\Action\Saving;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,7 +35,7 @@ class SavingType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Bank\Saving',
+            'data_class' => Saving::class,
         ]);
     }
 
