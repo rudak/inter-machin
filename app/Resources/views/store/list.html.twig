@@ -72,34 +72,29 @@
                     </div>
                     <div class="col">
                         <h3>Vente</h3>
-                        {% if app.user %}
-                            <p class="lead">Vous pouvez vendre vos objets :</p>
-
-                            <ul class="list-group">
-                                {% for item in user_items %}
-                                    <li class="list-group-item list-group-item-action">
-                                        {% if item.weapon.image is not null %}
-                                            <img src="{{ item.weapon.image.webpath|imagine_filter('shop_thumb') }}"
-                                                 alt="{{ item.weapon.image.name }}" class="img-fluid">
-                                        {% endif %}
-                                        {{ item.weapon.name }}
-                                        <form class="float-right" action="{{ path('store_weapon_sell',{id:item.id}) }}"
-                                              method="post">
-                                            <input type="hidden" name="_csrf_token"
-                                                   value="{{ csrf_token('item_sell') }}">
-                                            <button class="btn btn-primary">
-                                                Vendre
-                                                <span class="badge badge-light">
+                        <p class="lead">Vous pouvez vendre vos objets :</p>
+                        <ul class="list-group">
+                            {% for item in user_items %}
+                                <li class="list-group-item list-group-item-action">
+                                    {% if item.weapon.image is not null %}
+                                        <img src="{{ item.weapon.image.webpath|imagine_filter('shop_thumb') }}"
+                                             alt="{{ item.weapon.image.name }}" class="img-fluid">
+                                    {% endif %}
+                                    {{ item.weapon.name }}
+                                    <form class="float-right" action="{{ path('store_weapon_sell',{id:item.id}) }}"
+                                          method="post">
+                                        <input type="hidden" name="_csrf_token"
+                                               value="{{ csrf_token('item_sell') }}">
+                                        <button class="btn btn-primary">
+                                            Vendre
+                                            <span class="badge badge-light">
                                                 {{ item.price }}$
                                             </span>
-                                            </button>
-                                        </form>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            non connecté
-                        {% endif %}
+                                        </button>
+                                    </form>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>

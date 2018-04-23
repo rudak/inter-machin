@@ -88,8 +88,8 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-
-            return $this->redirectToRoute('admin_user_edit', ['id' => $user->getId()]);
+            $this->addFlash('success', sprintf('%s a bien été modifié', $user->getUsername()));
+            return $this->redirectToRoute('admin_user_index');
         }
 
         return $this->render('user/edit.html.twig', [

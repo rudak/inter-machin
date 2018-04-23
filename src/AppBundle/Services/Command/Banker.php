@@ -2,13 +2,16 @@
 
 namespace AppBundle\Services\Command;
 
+use AppBundle\Entity\Action\Saving;
 use AppBundle\Entity\Bank\Loan;
 use AppBundle\Entity\Notification;
 use AppBundle\Utils\AppConfig;
 use AppBundle\Utils\Bank\FriendlyVisit;
+use AppBundle\Utils\Bank\Interests;
 use AppBundle\Utils\Bank\ReminderHandler;
 use AppBundle\Utils\Notification\NotificationCreator;
 use AppBundle\Utils\User\UserLevel;
+use UserBundle\Entity\User;
 
 class Banker extends CronEmCommand
 {
@@ -59,6 +62,16 @@ class Banker extends CronEmCommand
         $loans = $this->em->getRepository(Loan::class)->findBy(['status' => Loan::STATUS_LATE]);
         foreach ($loans as $loan) {
             FriendlyVisit::visit($loan, $this->em);
+        }
+        $this->em->flush();
+    }
+
+    public function savingInterests()
+    {
+        $users = $this->em->getRepository(User::class)->getUsersWithSavedMoney();
+        foreach ($users as $user) {
+            if (rand(1, 100) < 98) continue;
+            Interests::execute($user, $this->em);
         }
         $this->em->flush();
     }

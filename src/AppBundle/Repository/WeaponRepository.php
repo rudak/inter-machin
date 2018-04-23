@@ -20,7 +20,7 @@ class WeaponRepository extends \Doctrine\ORM\EntityRepository
     public function getWeaponByLevel(User $user)
     {
         $qb = $this->createQueryBuilder('w')
-                   ->where('w.lvl < :level')
+                   ->where('w.lvl <= :level')
                    ->setParameters([
                        'level' => UserLevel::getLvl($user),
                    ])

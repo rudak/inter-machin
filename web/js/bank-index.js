@@ -53,6 +53,7 @@ function render() {
                 showInLegend: true,
                 dataPoints: dataLevel
             }
+
         ]
     };
     $("#chartContainer").CanvasJSChart(options);
@@ -67,6 +68,7 @@ function render() {
     }
 
 }
+
 function addData(data) {
     for (var i = 0; i < data.length; i++) {
         var date = new Date(data[i]['date'] * 1000);
@@ -85,6 +87,7 @@ function addData(data) {
     }
     render();
 }
+
 window.onload = function () {
     $.ajax({
         dataType: "json",

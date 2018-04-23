@@ -24,4 +24,21 @@ class AccountRepository extends \Doctrine\ORM\EntityRepository
         ;
         return $qb->execute();
     }
+
+    public function getAccountsForAdminGraph(\DateTime $date)
+    {
+        $qb = $this->createQueryBuilder('a')
+                   ->addSelect('u')
+                   ->where('u.enabled = 1')
+                   ->andWhere('a.date > :date')
+                   ->setParameters([
+                       'date' => $date,
+                   ])
+                   ->leftJoin('a.user', 'u')
+                   ->orderBy('a.id', 'DESC')
+                   ->getQuery()
+        ;
+        return $qb->execute();
+    }
+
 }

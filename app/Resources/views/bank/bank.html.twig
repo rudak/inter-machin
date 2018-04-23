@@ -14,8 +14,13 @@
                         <h3>Actions</h3>
                         <hr>
                         <p>
-                            <a href="{{ path('bank_request') }}" class="btn btn-primary">
+                            <a href="{{ path('bank_request') }}" class="btn btn-primary btn-block">
                                 Demander un pret
+                            </a>
+                        </p>
+                        <p>
+                            <a href="{{ path('bank_saving') }}" class="btn btn-primary btn-block">
+                                Placer de l'argent
                             </a>
                         </p>
                     </div>
@@ -51,24 +56,31 @@
                         {% else %}
                             <p>Pas de comptes a rendre , pour l'instant.</p>
                         {% endif %}
-
                     </div>
                     <div class="col">
                         <h3>Historique</h3>
                         <hr>
-                        <ul>
+                        <table class="table table-sm">
+
+                            <tbody>
                             {% for loan in inactiveLoans %}
-                                <li>
+                                <tr class="">
+                                    <td>{{ loan.date|date('d/m') }}</td>
                                     {% if loan.status == 'refused' %}
-                                        {{ loan.date|date('d/m/Y') }} Demande de {{ loan.amount }}$ refusée par le banquier.
+                                        <td>Demande de {{ loan.amount }}$</td>
+                                        <td class="table-danger text-center">Refusée par le banquier</td>
                                     {% elseif loan.status == 'closed' %}
-                                        {{ loan.date|date('d/m/Y') }} Emprunt de {{ loan.amount }}$ : remboursé.
+                                        <td>Emprunt de {{ loan.amount }}$</td>
+                                        <td class="text-center">Remboursé</td>
                                     {% elseif loan.status == 'canceled' %}
-                                        {{ loan.date|date('d/m/Y') }} Emprunt de {{ loan.amount }}$ : annulé.
+                                        <td>Emprunt de {{ loan.amount }}$</td>
+                                        <td class="text-center">Annulé</td>
                                     {% endif %}
-                                </li>
+                                </tr>
                             {% endfor %}
-                        </ul>
+                            </tbody>
+
+                        </table>
                     </div>
                 </div>
             </div>
