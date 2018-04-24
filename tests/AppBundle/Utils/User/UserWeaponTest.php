@@ -2,13 +2,46 @@
 
 namespace Tests\AppBundle\Utils\User;
 
+use AppBundle\Entity\Item;
 use AppBundle\Utils\User\UserWeapon;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Tests\AppBundle\Fake\FakeItem;
 use Tests\AppBundle\Fake\FakeUser;
+use Tests\AppBundle\Fake\FakeWeapon;
 
 class UserWeaponTest extends KernelTestCase
 {
+
+    function testIsPossessedItem()
+    {
+        $user    = FakeUser::getObject(false, true, 1500, true);
+        $weapon  = FakeWeapon::getObject(true);
+        $weapon2 = FakeWeapon::getObject(true);
+        // on cree et ajoute un item
+        $item = new Item();
+        $item->setWeapon($weapon)->setActive(true)->setPrice(10)->setUsages(1);
+        $user->addItem($item);
+        // on teste si l'user la possede bien
+        $this->assertEquals(true, UserWeapon::isWeaponAlreadyPossessed($user, $weapon), 'Cette arme devrait déja etre possédée.');
+        // si il en possede une autre pas ajoutée encore
+        $this->assertEquals(false, UserWeapon::isWeaponAlreadyPossessed($user, $weapon2), 'Cette arme ne devrait pas déja etre possédée.');
+        // on l'ajoute
+        $item2 = new Item();
+        $item2->setWeapon($weapon2)->setActive(true)->setPrice(10)->setUsages(1);
+        $user->addItem($item2);
+        // cette fois il devrait l'avoir
+        $this->assertEquals(true, UserWeapon::isWeaponAlreadyPossessed($user, $weapon2), 'Cette arme devrait déja etre possédée.');
+    }
+
+    function testIfUserLooseItemsWhenHeDie()
+    {
+        $user = FakeUser::getObject(false, true, 1500, true);
+        $this->assertEquals(0, $user->getItems()->count(), 'Il ne doit pas avoir d\'armes');
+        $user->addItem(FakeItem::getObject());
+        $this->assertEquals(1, $user->getItems()->count(), 'Il devrait avoir 1 item');
+        $user->kill();
+        $this->assertEquals(0, $user->getItems()->count(), 'Il ne doit pas avoir d\'armes apres sa mort');
+    }
 
     function testActivateItem()
     {
@@ -47,6 +80,7 @@ class UserWeaponTest extends KernelTestCase
         $this->assertEquals(true, $userWeapon->activateItem($user, $item5), 'vous devriez pouvoir ajouter cet Item');
         $this->assertEquals(false, $userWeapon->activateItem($user, $item6), 'vous ne devriez pas pouvoir ajouter cet Item');
     }
+
 
     /**
      * @return \Symfony\Component\DependencyInjection\ContainerInterface

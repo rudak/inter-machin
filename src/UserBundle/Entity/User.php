@@ -311,23 +311,26 @@ class User extends BaseUser
     /**
      * Add item
      *
-     * @param \AppBundle\Entity\Item $item
+     * @param Item $item
      *
      * @return User
      */
-    public function addItem(\AppBundle\Entity\Item $item)
+    public function addItem(Item $item)
     {
+        if ($this->items->contains($item)) {
+            return;
+        }
         $this->items->add($item);
-
+        $item->setUser($this);
         return $this;
     }
 
     /**
      * Remove item
      *
-     * @param \AppBundle\Entity\Item $item
+     * @param Item $item
      */
-    public function removeItem(\AppBundle\Entity\Item $item)
+    public function removeItem(Item $item)
     {
         $this->items->removeElement($item);
     }

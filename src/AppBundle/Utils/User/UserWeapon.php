@@ -75,7 +75,7 @@ class UserWeapon extends UtilsMaster
     {
         foreach ($user->getItems() as $item) {
             /** @var $item Item */
-            if ($item->getWeapon()->getId() == $weapon->getId()) {
+            if ($item->getWeapon() == $weapon) {
                 return true;
             }
         }
