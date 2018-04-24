@@ -2,9 +2,9 @@
 
 {% block line %}
     {% if action.status %}
-        Vous misez {{ action.amount }}$ et vous gagnez {{ action.gain }}$ a une partie de {{ action.game }} !
+        Vous misez {{ action.amount }}$ et <strong>vous gagnez {{ action.gain }}$</strong> à une partie de {{ action.game }} !
     {% else %}
-        Vous perdez {{ action.amount }}$ a une partie de {{ action.game }}.
+        Vous perdez {{ action.amount }}$ à une partie de {{ action.game }}.
     {% endif %}
 {% endblock %}
 

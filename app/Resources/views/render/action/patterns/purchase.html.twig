@@ -1,4 +1,4 @@
 {%  extends 'render/action/patterns/main-pattern.html.twig' %}
 {% block line %}
-    vous achetez '{{ action.weapon.name }}' pour {{ action.weapon.price }}$.
+    vous achetez <a href="{{ path('store_weapon',{id:action.weapon.id}) }}">{{ action.weapon.name }}</a> pour {{ action.weapon.price }}$.
 {% endblock %}
