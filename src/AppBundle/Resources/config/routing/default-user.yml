@@ -17,3 +17,7 @@ user_levelup:
     path: /level-up
     defaults: { _controller: AppBundle:Default:levelUp}
     methods: [POST]
+
+dead_land:
+    path: /dead-land
+    defaults: { _controller: AppBundle:Default:dead}

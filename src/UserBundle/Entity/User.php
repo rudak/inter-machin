@@ -106,7 +106,7 @@ class User extends BaseUser
      */
     public function getAlive()
     {
-        return $this->competences->getLife() > 0;
+        return $this->getAlive();
     }
 
 

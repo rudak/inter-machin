@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\City;
 use AppBundle\Entity\Item;
+use AppBundle\Security\AliveVoter;
 use AppBundle\Services\Action\City\CityHandler;
 use AppBundle\Services\Action\User\LevelUp;
 use AppBundle\Services\Game\Dice;
@@ -21,6 +22,8 @@ class DefaultController extends Controller
 
     public function indexAction(Request $request)
     {
+        // https://coderwall.com/p/w0yyag/redirect-authenticated-user-on-anonymous-pages-in-symfony
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         return $this->render('default/index.html.twig', []);
     }
 
@@ -167,5 +170,10 @@ class DefaultController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('cities');
+    }
+
+    public function deadAction()
+    {
+        return $this->render(':default:dead-land.html.twig');
     }
 }
