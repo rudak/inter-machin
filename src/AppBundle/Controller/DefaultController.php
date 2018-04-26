@@ -26,7 +26,6 @@ class DefaultController extends Controller
 
     public function listActionsAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em = $this->getDoctrine()->getManager();
         return $this->render(':default:listLogs.html.twig', [
             'logs' => [],
@@ -39,7 +38,6 @@ class DefaultController extends Controller
      */
     public function usersAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
         $users = $em->getRepository(User::class)->getUsersByCity($this->getUser()->getCity());
         return $this->render('default/users.html.twig', [
@@ -50,13 +48,11 @@ class DefaultController extends Controller
 
     public function gameAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         return $this->render(':default:game.html.twig');
     }
 
     public function userAction($id)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em   = $this->getDoctrine()->getManager();
         $user = $em->getRepository('UserBundle:User')->find($id);
         if ($user == $this->getUser()) {
@@ -69,8 +65,6 @@ class DefaultController extends Controller
 
     public function myProfileAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-
         return $this->render('default/my-profile.html.twig', [
             'user'         => $this->getUser(),
             'items'        => UserItems::getSortedItems($this->getUser()),
@@ -80,7 +74,6 @@ class DefaultController extends Controller
 
     public function levelUpAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $submittedToken = $request->request->get('_csrf_token');
         if (!$this->isCsrfTokenValid('levelUp', $submittedToken)) {
             $this->addFlash('danger', 'Jeton CSRF invalide pour le level up, attention...');
@@ -117,7 +110,6 @@ class DefaultController extends Controller
 
     public function rankingAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
         $users = $em->getRepository('UserBundle:User')->getBestUsers();
 
@@ -128,7 +120,6 @@ class DefaultController extends Controller
 
     public function citiesAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em     = $this->getDoctrine()->getManager();
         $cities = $em->getRepository('AppBundle:City')->getCities();
         return $this->render(':default:cities.html.twig', [
@@ -148,8 +139,6 @@ class DefaultController extends Controller
 
     public function cityMoveAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-
         $submittedToken = $request->request->get('_csrf_token');
         if (!$this->isCsrfTokenValid('cityMove', $submittedToken)) {
             $this->addFlash('danger', 'Jeton CSRF invalide, attention...');

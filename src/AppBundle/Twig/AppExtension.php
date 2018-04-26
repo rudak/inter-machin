@@ -16,7 +16,7 @@ class AppExtension extends \Twig_Extension
     public function getTests()
     {
         return [
-            'instanceof' =>  new \Twig_Function_Method($this, 'instance')
+            new \Twig_SimpleFunction('instanceof', [$this, 'instance']),
         ];
     }
 

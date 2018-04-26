@@ -24,13 +24,8 @@ class Interests
      */
     private static function getInterestAmount(User $user)
     {
-        $interest = round($user->getSaving() / 100);
-        $interest = $interest > AppConfig::BANKER_MAX_INTERESTS
-            ? AppConfig::BANKER_MAX_INTERESTS
-            : $interest < AppConfig::BANKER_MIN_INTERESTS
-                ? AppConfig::BANKER_MIN_INTERESTS
-                : $interest;
-        return $interest;
+        $amount = round($user->getSaving() / 100);
+        return $amount >= AppConfig::BANKER_MIN_INTERESTS ? $amount : AppConfig::BANKER_MIN_INTERESTS;
     }
 
     private static function addAction(User $user, $amount)

@@ -11,8 +11,6 @@ class ActionController extends Controller
 {
     public function stealAction($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-
         $em = $this->getDoctrine()->getManager();
 
         $submittedToken = $request->request->get('_csrf_token');
@@ -37,7 +35,6 @@ class ActionController extends Controller
 
     public function attackAction($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em = $this->getDoctrine()->getManager();
 
         if (!$victim = $em->getRepository('UserBundle:User')->find($id)) {
