@@ -40,3 +40,11 @@ services:
         class: UserBundle\Services\PasswordEncoder
         arguments: ['@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface']
         public: true
+
+    app.tokens.action_listener:
+        class: AppBundle\EventListener\RedirectDeadUserListener
+        arguments:
+            - "@security.token_storage"
+            - "@router"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

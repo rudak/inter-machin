@@ -8,6 +8,7 @@ use AppBundle\Entity\Item;
 use AppBundle\Services\Action\City\CityHandler;
 use AppBundle\Services\Action\User\LevelUp;
 use AppBundle\Services\Game\Dice;
+use AppBundle\Services\User\RiseAgain;
 use AppBundle\Utils\User\UserItems;
 use AppBundle\Utils\User\UserLevel;
 use Cocur\Slugify\Slugify;
@@ -65,6 +66,7 @@ class DefaultController extends Controller
 
     public function myProfileAction()
     {
+        dump($this->getUser()->getAlive());
         return $this->render('default/my-profile.html.twig', [
             'user'         => $this->getUser(),
             'items'        => UserItems::getSortedItems($this->getUser()),
@@ -157,4 +159,25 @@ class DefaultController extends Controller
 
         return $this->redirectToRoute('cities');
     }
+
+    public function deadLandAction()
+    {
+        $user = $this->getUser();
+        return $this->render('default/dead-land.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    public function riseAgainAction(Request $request)
+    {
+        $submittedToken = $request->request->get('_csrf_token');
+
+        if (!$this->isCsrfTokenValid('rise_again', $submittedToken)) {
+            $this->addFlash('danger', 'Vous ne pouvez pas revenir à la vie, token incorrect.');
+            return $this->redirectToRoute('homepage');
+        }
+        $this->get(RiseAgain::class)->execute($this->getUser());
+        return $this->redirectToRoute('homepage');
+    }
+
 }

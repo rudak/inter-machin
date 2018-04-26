@@ -94,8 +94,6 @@ class User extends BaseUser
     public function setAlive($alive)
     {
         $this->alive = $alive;
-        $this->competences->setLevel(1);
-
         return $this;
     }
 
@@ -106,15 +104,15 @@ class User extends BaseUser
      */
     public function getAlive()
     {
-        return $this->competences->getLife() > 0;
+        return $this->alive;
     }
 
 
     public function kill()
     {
+        $this->getCompetences()->setLevel(1);
+        $this->getCompetences()->setLife(0);
         $this->setAlive(false);
-        $this->addMoney($this->saving);
-        $this->saving = null;
         foreach ($this->getItems() as $item) {
             $this->getItems()->removeElement($item);
         }
