@@ -1,0 +1,19 @@
+# dojo_index
+dojo_index:
+    path: /
+    defaults: { _controller: AppBundle:Dojo:dojoIndex}
+
+# dojo_add_attack
+dojo_add_attack:
+    path: /dojo/add/attack
+    defaults: { _controller: AppBundle:Dojo:dojoAddAttack}
+
+# dojo_add_defense
+dojo_add_defense:
+    path: /dojo/add/defense
+    defaults: { _controller: AppBundle:Dojo:dojoAddDefense}
+
+# dojo_add_skill
+dojo_add_skill:
+    path: /dojo/add/skill
+    defaults: { _controller: AppBundle:Dojo:dojoAddSkill}
