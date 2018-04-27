@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services\Data;
 
+use AppBundle\Entity\Action\Alive;
 use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Bank\Account;
@@ -26,18 +27,27 @@ class DataGrabber
 
     public function getAccountData(User $user)
     {
-        $accounts = $this->em->getRepository(Account::class)->getAccountsForUser($user);
-        $out      = [];
-        foreach ($accounts as $account) {
+        $accountsData = [];
+        foreach ($this->em->getRepository(Account::class)->getAccountsForUser($user) as $account) {
             /** @var $account Account */
-            $out[] = [
+            $accountsData[] = [
                 'date'  => (int)$account->getDate()->format('U'),
                 'money' => $account->getAmount(),
                 'loan'  => $account->getLoan() ? $account->getLoan() : null,
                 'level' => $account->getLevel(),
             ];
         }
-        return $out;
+        $deadData = [];
+        foreach ($this->em->getRepository(Alive::class)->getDeathForUser($user) as $death) {
+            /** @var Alive $death */
+            $deadData[] = [
+                'date' => (int)$death->getDate()->format('U'),
+            ];
+        }
+        return [
+            'accountsData' => $accountsData,
+            'deadData'     => $deadData,
+        ];
     }
 
     public function getAccountsData()
