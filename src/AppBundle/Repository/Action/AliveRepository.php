@@ -16,7 +16,6 @@ class AliveRepository extends \Doctrine\ORM\EntityRepository implements ActionRe
     public function getDeathForUser(User $user)
     {
         $qb = $this->createQueryBuilder('a')
-                   ->where('a.state = 0')
                    ->andWhere('a.user = :user')
                    ->setParameters([
                        'user' => $user,

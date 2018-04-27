@@ -41,7 +41,8 @@ class DataGrabber
         foreach ($this->em->getRepository(Alive::class)->getDeathForUser($user) as $death) {
             /** @var Alive $death */
             $deadData[] = [
-                'date' => (int)$death->getDate()->format('U'),
+                'date'  => (int)$death->getDate()->format('U'),
+                'state' => $death->getState(),
             ];
         }
         return [

@@ -59,7 +59,6 @@ function render() {
                 showInLegend: true,
                 dataPoints: dataLevel
             }
-
         ]
     };
     $("#chartContainer").CanvasJSChart(options);
@@ -72,7 +71,6 @@ function render() {
         }
         e.chart.render();
     }
-
 }
 
 function addData(data) {
@@ -96,12 +94,11 @@ function addData(data) {
     for (var j = 0; j < deathData.length; j++) {
         dataDead.push({
             value: new Date(deathData[j]['date'] * 1000),
-            color: "#000",
-            label: "✞",
-            labelFontColor: "#F00"
+            color: deathData[j]['state'] == 0 ? "#000" : "#FF00FF",
+            label: deathData[j]['state'] == 0 ? "Mort" : "Vie",
+            labelFontColor: "#000"
         });
     }
-
     render();
 }
 
