@@ -54,6 +54,10 @@ app_dojo:
     resource: "@AppBundle/Resources/config/routing/dojo.yml"
     prefix:   /dojo
 
+app_trading:
+    resource: "@AppBundle/Resources/config/routing/trading.yml"
+    prefix:   /trading
+
 app_admin:
     resource: "@AppBundle/Resources/config/routing/admin.yml"
     prefix:   /admin

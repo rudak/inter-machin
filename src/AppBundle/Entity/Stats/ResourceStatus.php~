@@ -1,0 +1,47 @@
+<?php
+
+namespace AppBundle\Entity\Stats;
+
+use AppBundle\Entity\Trade\Resource;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ResourceStatus
+ *
+ * @ORM\Table(name="stats_resource_status")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Stats\ResourceStatusRepository")
+ */
+class ResourceStatus
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var Resource
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Trade\Resource")
+     */
+    private $resource;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="value", type="integer")
+     */
+    private $value;
+
+}
+
