@@ -3,17 +3,21 @@
 namespace AppBundle\Services\Dojo;
 
 use AppBundle\Utils\AppConfig;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use UserBundle\Entity\User;
 
-class CompetencesMaster
+abstract class CompetencesMaster
 {
+    const ATTACK = 'attack';
+    const DEFENSE = 'defense';
+    const SKILL = 'skill';
+
     protected $em;
 
     protected $session;
 
-    public function __construct(EntityManager $em, SessionInterface $session)
+    public function __construct(EntityManagerInterface $em, SessionInterface $session)
     {
         $this->em      = $em;
         $this->session = $session;
