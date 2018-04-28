@@ -17,7 +17,6 @@ class BankController extends Controller
 
     public function indexAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em    = $this->getDoctrine()->getManager();
         $loans = $em->getRepository(Loan::class)->findAllLoansByUser($this->getUser());
         return $this->render(':bank:bank.html.twig', [
@@ -28,8 +27,6 @@ class BankController extends Controller
 
     public function newLoanAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-
         if (!$this->get(BankHandler::class)->maxLoansReached($this->getUser())) {
             return $this->redirectToRoute('bank_index');
         }
@@ -75,7 +72,6 @@ class BankController extends Controller
 
     public function refundAction(Request $request, $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
         $em   = $this->getDoctrine()->getManager();
         $loan = $em->getRepository('AppBundle:Bank\Loan')->find($id);
         if (!$loan) {
@@ -120,8 +116,6 @@ class BankController extends Controller
 
     public function cancelAction(Request $request, $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-
         $submittedToken = $request->request->get('_csrf_token');
         if (!$this->isCsrfTokenValid('cancel_loan', $submittedToken)) {
             $this->addFlash('danger', 'Erreur du token');

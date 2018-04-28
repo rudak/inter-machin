@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends main_layout %}
 
 {% block body %}
     <div class="container">
@@ -6,12 +6,19 @@
             <div class="col">
                 <h1>Dead Land</h1>
                 <p class="lead">
-                    Vous etes morts => lol !
+                    Vous etes mort ... LOL !
                 </p>
+                <p>
+                    Vous avez {{ user.money }}$ sur votre compte et {{ user.saving|default(0) }}$ sur votre plan
+                    d'épargne.
+                </p>
+                <form action="{{ path('rise_again') }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('rise_again') }}">
+                    <div>
+                        <button class="btn btn-primary btn-lg">Revenir à la vie</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block stylesheets %}
 {% endblock %}

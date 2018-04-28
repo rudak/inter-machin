@@ -28,7 +28,7 @@ class DefaultControllerTest extends WebTestCase
 
     public function testIndex()
     {
-        $client  = static::createClient();
+        $client  = $this->createAuthorizedClient();
         $crawler = $client->request('GET', '/');
         $this->assertGreaterThan(
             0,

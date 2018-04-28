@@ -2,10 +2,12 @@
 
 namespace AppBundle\Utils\Action;
 
+use AppBundle\Entity\Action\Alive;
 use AppBundle\Entity\Action\Attack;
 use AppBundle\Entity\Action\CityMove;
 use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
+use AppBundle\Entity\Action\Saving;
 use AppBundle\Entity\Action\Steal;
 use Symfony\Component\Templating\EngineInterface;
 use UserBundle\Entity\User;
@@ -74,6 +76,12 @@ class HtmlFormater
         }
         if ($action instanceof Attack) {
             return $this->getAttackPattern($action);
+        }
+        if ($action instanceof Alive) {
+            return 'render/action/patterns/alive.html.twig';
+        }
+        if ($action instanceof Saving) {
+            return 'render/action/patterns/saving.html.twig';
         }
     }
 

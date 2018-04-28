@@ -1,0 +1,10 @@
+{% extends 'render/action/patterns/main-pattern.html.twig' %}
+
+{% block line %}
+    {% if action.type == 'user' %}
+        Vous placez {{ action.amount }}$ sur votre compte épargne.
+    {% else %}
+        Le banquier vous offre {{ action.amount }}$ d'interets sur votre compte épargne.
+    {% endif %}
+{% endblock %}
+

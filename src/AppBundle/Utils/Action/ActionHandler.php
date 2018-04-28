@@ -3,10 +3,12 @@
 namespace AppBundle\Utils\Action;
 
 use AppBundle\Entity\Action\ActionInterface;
+use AppBundle\Entity\Action\Alive;
 use AppBundle\Entity\Action\Attack;
 use AppBundle\Entity\Action\CityMove;
 use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
+use AppBundle\Entity\Action\Saving;
 use AppBundle\Entity\Action\Steal;
 use AppBundle\Utils\UtilsMaster;
 use UserBundle\Entity\User;
@@ -39,6 +41,8 @@ class ActionHandler extends UtilsMaster
             Purchase::class,
             Steal::class,
             Attack::class,
+            Alive::class,
+            Saving::class,
         ];
     }
 

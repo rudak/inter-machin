@@ -20,4 +20,9 @@ user_levelup:
 
 dead_land:
     path: /dead-land
-    defaults: { _controller: AppBundle:Default:dead}
+    defaults: { _controller: AppBundle:Default:deadLand}
+
+rise_again:
+    path: /rise_again
+    defaults: { _controller: AppBundle:Default:riseAgain }
+    methods: [POST]

@@ -1,0 +1,10 @@
+{% extends 'render/action/patterns/main-pattern.html.twig' %}
+
+{% block line %}
+    {% if action.state %}
+        <strong>Vous revenez à la vie.</strong>
+    {% else %}
+        <strong>Vous mourrez !</strong>
+    {% endif %}
+{% endblock %}
+

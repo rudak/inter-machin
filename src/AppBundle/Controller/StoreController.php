@@ -19,7 +19,6 @@ class StoreController extends Controller
      */
     public function listAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder à cette page !');
         $em      = $this->getDoctrine()->getManager();
         $weapons = $em->getRepository('AppBundle:Weapon')->getWeaponByLevel($this->getUser());
 
@@ -36,7 +35,6 @@ class StoreController extends Controller
      */
     public function weaponAction($id)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder à cette page !');
         $em     = $this->getDoctrine()->getManager();
         $weapon = $em->getRepository('AppBundle:Weapon')->find($id);
 
@@ -47,8 +45,6 @@ class StoreController extends Controller
 
     public function buyAction(Request $request, $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-
         /** @var $user User */
         $user = $this->getUser();
 
@@ -108,8 +104,6 @@ class StoreController extends Controller
 
     public function sellAction(Request $request, $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous devez etre authentifié pour accéder a cette page !');
-
         $user = $this->getUser();
         /** @var $user User */
 
