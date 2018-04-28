@@ -7,6 +7,7 @@ var chartMoney = new CanvasJS.Chart("chartContainerUsersMoney", {
         text: "Distribution de l'argent en jeu"
     },
     animationEnabled: true,
+    animationDuration: 300,
     height: 400,
     data: [{
         type: "pie",
@@ -35,6 +36,7 @@ var chartPurchases = new CanvasJS.Chart("chartContainerPurchases", {
         text: "Nombre d'achat par armes"
     },
     animationEnabled: true,
+    animationDuration: 500,
     height: 400,
     data: [{
         type: "column",
@@ -64,6 +66,8 @@ var chartAccounts = new CanvasJS.Chart("chartContainerAccounts", {
         shared: true
     },
     animationEnabled: true,
+    animationDuration: 300,
+    zoomEnabled: true,
     height: 400,
     data: dataUsersAccounts
 });
@@ -93,6 +97,7 @@ function addDataAccounts(data) {
     });
     chartAccounts.render();
 }
+
 /**
  *      CHART LEVELS ACCOUNTS
  **/
@@ -105,6 +110,8 @@ var chartLevels = new CanvasJS.Chart("chartContainerLevels", {
         shared: true
     },
     animationEnabled: true,
+    animationDuration: 300,
+    zoomEnabled: true,
     height: 400,
     data: dataLevelsAccounts
 });
@@ -120,12 +127,11 @@ function addLevelsAccounts(dataLevels) {
                 y: data[i]['level']
             })
         }
-        console.log(userLevel);
         dataLevelsAccounts.push({
-            type: "spline",
+            type: "line",
             name: username,
             showInLegend: true,
-            markerSize: 2,
+            markerSize: 0,
             yValueFormatString: "Niveau ###",
             dataPoints: userLevel
         })

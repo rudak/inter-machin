@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Dojo</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <a href="{{ path('dojo_add_attack') }}" class="btn btn-lg btn-outline-success">
+                Apprendre à se battre ({{ priceAttack }}$)
+            </a>
+        </div>
+        <div class="col text-center">
+            <a href="{{ path('dojo_add_defense') }}" class="btn btn-lg btn-outline-success">
+                Apprendre à se défendre ({{ priceDefense }}$)
+            </a>
+        </div>
+        <div class="col text-center">
+            <a href="{{ path('dojo_add_skill') }}" class="btn btn-lg btn-outline-success">
+                Apprendre à se faufiler ({{ priceSkill }}$)
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -27,35 +27,48 @@
                     <div class="col">
                         <h3>Situation en cours</h3>
                         <hr>
-                        {% if activeLoans|length %}
-                            <ul>
-                                {% for loan in activeLoans %}
-                                    <li>
-                                        {% if loan.status == 'request' %}
-                                            {{ loan.amount }}$
-                                            en attente de validation du banquier.
-                                            <br>
-                                            <form action="{{ path('bank_loan_cancel', {'id': loan.id}) }}"
-                                                  method="post">
-                                                <input type="hidden" name="_csrf_token"
-                                                       value="{{ csrf_token('cancel_loan') }}">
-                                                <input type="submit" value="Annuler" class="btn btn-sm btn-danger">
-                                            </form>
-                                        {% elseif loan.status == 'validated' %}
-                                            {{ loan.restToPay }}$
-                                            a rembourser avant le
-                                            {{ loan.expiration|date('d/m/Y \\à H:i') }}
-                                            <br>
-                                            <a href="{{ path('bank_loan_refund',{id:loan.id}) }}"
-                                               class="btn btn-sm btn-primary">Rembourser</a>
-                                        {% endif %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                {% if activeLoans|length %}
+                                    Liste des prets
+                                    <ul class="list-group list-group-flush">
+                                        {% for loan in activeLoans %}
+                                            <li class="list-group-item">
+                                                {% if loan.status == 'request' %}
+                                                    {{ loan.amount }}$
+                                                    en attente de validation du banquier.
+                                                    <br>
+                                                    <form action="{{ path('bank_loan_cancel', {'id': loan.id}) }}"
+                                                          method="post">
+                                                        <input type="hidden" name="_csrf_token"
+                                                               value="{{ csrf_token('cancel_loan') }}">
+                                                        <input type="submit" value="Annuler" class="btn btn-sm btn-danger">
+                                                    </form>
+                                                {% elseif loan.status == 'validated' %}
+                                                    {{ loan.restToPay }}$
+                                                    a rembourser avant le
+                                                    {{ loan.expiration|date('d/m/Y \\à H:i') }}
+                                                    <br>
+                                                    <a href="{{ path('bank_loan_refund',{id:loan.id}) }}"
+                                                       class="btn btn-sm btn-primary">Rembourser</a>
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
 
-                        {% else %}
-                            <p>Pas de comptes a rendre , pour l'instant.</p>
-                        {% endif %}
+                                {% else %}
+                                    <p>Pas de comptes a rendre , pour l'instant.</p>
+                                {% endif %}
+                            </li>
+                            <li class="list-group-item">
+                                {% if bankSaving is not null %}
+                                    Vous avez {{ bankSaving }}$ de placé
+                                    {% else %}
+                                    Vous n'avez encore rien placé
+                                {% endif %}
+                            </li>
+                        </ul>
+
                     </div>
                     <div class="col">
                         <h3>Historique</h3>

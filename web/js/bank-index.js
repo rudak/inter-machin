@@ -1,12 +1,18 @@
 var dataMoney = [];
 var dataLoan = [];
 var dataLevel = [];
+var dataDead = [];
 
 function render() {
 
     var options = {
         animationEnabled: true,
+        animationDuration: 300,
+        zoomEnabled: true,
         theme: "light2",
+        axisX: {
+            stripLines: dataDead
+        },
         axisY: {
             title: "Argent",
             valueFormatString: "#0",
@@ -53,7 +59,6 @@ function render() {
                 showInLegend: true,
                 dataPoints: dataLevel
             }
-
         ]
     };
     $("#chartContainer").CanvasJSChart(options);
@@ -66,23 +71,32 @@ function render() {
         }
         e.chart.render();
     }
-
 }
 
 function addData(data) {
-    for (var i = 0; i < data.length; i++) {
-        var date = new Date(data[i]['date'] * 1000);
+    var accountsData = data['accountsData'];
+    for (var i = 0; i < accountsData.length; i++) {
+        var date = new Date(accountsData[i]['date'] * 1000);
         dataMoney.push({
             x: date,
-            y: data[i]['money']
+            y: accountsData[i]['money']
         });
         dataLoan.push({
             x: date,
-            y: data[i]['loan']
+            y: accountsData[i]['loan']
         });
         dataLevel.push({
             x: date,
-            y: data[i]['level']
+            y: accountsData[i]['level']
+        });
+    }
+    var deathData = data['deadData'];
+    for (var j = 0; j < deathData.length; j++) {
+        dataDead.push({
+            value: new Date(deathData[j]['date'] * 1000),
+            color: deathData[j]['state'] == 0 ? "#000" : "#FF00FF",
+            label: deathData[j]['state'] == 0 ? "Mort" : "Vie",
+            labelFontColor: "#000"
         });
     }
     render();

@@ -66,7 +66,6 @@ class DefaultController extends Controller
 
     public function myProfileAction()
     {
-        dump($this->getUser()->getAlive());
         return $this->render('default/my-profile.html.twig', [
             'user'         => $this->getUser(),
             'items'        => UserItems::getSortedItems($this->getUser()),
