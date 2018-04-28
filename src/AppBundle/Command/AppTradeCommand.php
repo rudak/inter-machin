@@ -17,7 +17,7 @@ class AppTradeCommand extends ContainerAwareCommand
     {
         $this
             ->setName('app:trade')
-            ->setDescription('tout ce qui concerne le trading par cron')
+            ->setDescription('Tout ce qui concerne le trading par cron')
         ;
     }
 
