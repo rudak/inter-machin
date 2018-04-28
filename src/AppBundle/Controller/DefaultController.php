@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\City;
 use AppBundle\Entity\Item;
+use AppBundle\Entity\Trade\Resource;
 use AppBundle\Services\Action\City\CityHandler;
 use AppBundle\Services\Action\User\LevelUp;
 use AppBundle\Services\Game\Dice;
@@ -144,5 +145,12 @@ class DefaultController extends Controller
         }
         $this->get(RiseAgain::class)->execute($this->getUser());
         return $this->redirectToRoute('homepage');
+    }
+
+    public function tradingAction()
+    {
+        $em        = $this->getDoctrine()->getManager();
+        $resources = $em->getRepository(Resource::class)->findAll();
+        return $this->render(':default:resources.html.twig', ['resources' => $resources]);
     }
 }

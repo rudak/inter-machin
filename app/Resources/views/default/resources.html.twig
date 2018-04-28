@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Trading</h1>
+                <p class="lead">
+                    Achetez bas, vendez haut, devenez Jérôme Kerviel !
+                </p>
+                <div class="row">
+                    <div class="col">
+                        <div class="resources">
+                            <table class="table">
+                                <theader>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Quantité</th>
+                                        <th>Valeur</th>
+                                        <th></th>
+                                    </tr>
+                                </theader>
+                                <tbody>
+                                {% for resource in resources %}
+                                    <tr>
+                                        <td>{{ resource.name }}</td>
+                                        <td>{{ resource.quantity }}</td>
+                                        <td>{{ resource.value }}</td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
