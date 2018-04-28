@@ -4,7 +4,6 @@
         <div class="col">
             <ul>
                 <li><a href="{{ path('homepage') }}">Accueil</a></li>
-                {#<li><a href="{{ path('user_list') }}">Joueurs de votre ville</a></li>#}
                 <li><a href="{{ path('store_list') }}">Magasin</a></li>
                 <li><a href="{{ path('ranking') }}">Classement</a></li>
                 <li><a href="{{ path('cities') }}">Les villes</a></li>
@@ -37,7 +36,8 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col text-center">Ville : <a
-                                        href="{{ path('user_list') }}">{{ app.user.city.name }}</a></div>
+                                        href="{{ path('city',{id:app.user.city.id,slug:app.user.city.name|slugify}) }}">{{ app.user.city.name }}</a>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col text-center">

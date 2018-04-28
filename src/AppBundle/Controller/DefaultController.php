@@ -33,20 +33,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * Lister les users qu'il y a dans la ville
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function usersAction()
-    {
-        $em    = $this->getDoctrine()->getManager();
-        $users = $em->getRepository(User::class)->getUsersByCity($this->getUser()->getCity());
-        return $this->render('default/users.html.twig', [
-            'users' => $users,
-            'city'  => $this->getUser()->getCity(),
-        ]);
-    }
-
     public function gameAction()
     {
         return $this->render(':default:game.html.twig');
