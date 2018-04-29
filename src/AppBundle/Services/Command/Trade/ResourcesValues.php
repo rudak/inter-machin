@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services\Command\Trade;
 
+use AppBundle\Entity\Stats\ResourceStatus;
 use AppBundle\Entity\Trade\Resource;
 use AppBundle\Services\Command\CronEmCommand;
 use AppBundle\Utils\Trade\ResourceHelper;
@@ -19,6 +20,7 @@ class ResourcesValues extends CronEmCommand
             if (rand(0, 100) <= $resource->getCoef()) continue;
             $this->updateResource($resource);
             $this->em->persist($resource);
+//            $this->em->persist(new ResourceStatus($resource));
         }
         $this->em->flush();
     }

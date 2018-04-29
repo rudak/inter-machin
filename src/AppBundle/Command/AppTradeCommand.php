@@ -21,7 +21,7 @@ class AppTradeCommand extends ContainerAwareCommand
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         if (
             Timer::isTimeToRun('5 * * * *') ||

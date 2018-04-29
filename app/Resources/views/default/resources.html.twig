@@ -48,9 +48,15 @@
                         </div>
                     </div>
                     <div class="col">
+                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.canvasjs.min.js') }}"></script>
+    <script src="{{ asset('js/resources.js') }}"></script>
 {% endblock %}

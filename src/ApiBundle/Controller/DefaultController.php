@@ -34,6 +34,11 @@ class DefaultController extends Controller
         return new JsonResponse($this->get(DataGrabber::class)->getpurchaseData(), 200);
     }
 
+    public function resourceEvolutionAction()
+    {
+        return new JsonResponse($this->get(DataGrabber::class)->getResourceEvolutionData(), 200);
+    }
+
     public function userMoneyDataAction()
     {
         return new JsonResponse($this->get(DataGrabber::class)->getUsersMoneyData(), 200);
