@@ -135,7 +135,7 @@ class DataGrabber
             /** @var $resource ResourceStatus */
             $out[$resource->getResource()->getName()][] = [
                 'date'  => (int)$resource->getDate()->format('U') * 1000,
-                'value' => $resource->getValue() * 100 / $resource->getResource()->getDefault(),
+                'value' => round($resource->getValue() * 100 / $resource->getResource()->getDefault()),
             ];
         }
         return $out;
