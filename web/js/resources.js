@@ -25,7 +25,7 @@ function addData(data) {
     var lines = [];
     for (var name in data) {
         lines.push({
-            type: "line",
+            type: "spline",
             // axisYType: "secondary",
             name: name,
             showInLegend: true,

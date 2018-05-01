@@ -10,7 +10,8 @@ use AppBundle\Utils\Trade\ResourceHelper;
 class ResourcesValues extends CronEmCommand
 {
 
-    const RESET_PERCENTAGE = 15;
+    const AMOUNT_PERCENTAGE = 20;
+    const RESET_PERCENTAGE  = 15;
 
     public function updateThemAll()
     {
@@ -30,17 +31,21 @@ class ResourcesValues extends CronEmCommand
             $this->setDefaultValue($resource);
             return;
         }
-        $amount = rand(1, $resource->getCoef());
-        if (rand(0, 1)) {
-            ResourceHelper::addToValue($resource, $amount);
-            return;
-        }
-        ResourceHelper::removeToValue($resource, $amount);
+        $amount = $this->getAmount($resource);
+
+        ResourceHelper::addToValue($resource, $amount);
+        return;
     }
 
     private function setDefaultValue(Resource $resource)
     {
         $resource->setValue($resource->getDefault());
+    }
+
+    private function getAmount(Resource $ressource)
+    {
+        $max = round(self::AMOUNT_PERCENTAGE * $ressource->getDefault() / 100);
+        return rand(-$max, $max);
     }
 
 }
