@@ -18,6 +18,18 @@
                             </button>
                         </p>
                     </form>
+                {% else %}
+                    {% for user in app.user.city.users %}
+                        <a href="{{ path('user',{id:user.id,username:user.username}) }}"
+                           class="list-group-item list-group-item-action {% if user == app.user %}active{% endif %}">
+                            {{ user.username }} [LVL {{ user.competences.level }}]
+                            {% if user.alive %}
+                                en vie depuis {{ duration(user.dateOfBirth) }} jours
+                            {% else %}
+                                <span class="badge badge-pill badge-danger">mort.</span>
+                            {% endif %}
+                        </a>
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>

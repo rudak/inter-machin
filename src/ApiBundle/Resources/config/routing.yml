@@ -30,3 +30,7 @@ users_level_data:
     path: /users/level-data.json
     defaults: { _controller: ApiBundle:Default:userLevels }
 
+resource_evolution_data:
+    path: /resource/evolution.json
+    defaults: { _controller: ApiBundle:Default:resourceEvolution }
+

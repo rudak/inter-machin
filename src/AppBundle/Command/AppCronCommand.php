@@ -23,7 +23,7 @@ class AppCronCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $commandNames = [
-            'app:luck', 'app:no-luck', 'app:bank', 'app:bank:accounts', 'app:city', 'app:action-point',
+            'app:luck', 'app:no-luck', 'app:bank', 'app:bank:accounts', 'app:city', 'app:action-point', 'app:trade',
         ];
 
         foreach ($commandNames as $commandName) {

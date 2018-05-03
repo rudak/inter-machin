@@ -16,7 +16,6 @@
                         <hr>
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-action">
-
                                 <div class="row">
                                     <div class="col">
                                         Argent : {{ user.money }}$
@@ -33,9 +32,8 @@
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action">Ville :
-                                <a href="{{ path('user_list') }}">{{ user.city.name }}</a>
+                                <a href="{{ path('city', {id: user.city.id, slug: user.city.name|slugify}) }}">{{ user.city.name }}</a>
                             </li>
-
                         </ul>
                     </div>
                 </div>

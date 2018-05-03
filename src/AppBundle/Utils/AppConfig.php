@@ -17,4 +17,5 @@ class AppConfig
     const ACTION_POINTS_FOR_STEAL      = 2;
     const ACTION_POINT_FOR_ATTACK      = 8;
     const MAX_LIFE_POINTS_PER_ATTACK   = 100;
+    const COEF_BUY_COMPETENCES   = 100;
 }

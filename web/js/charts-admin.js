@@ -128,7 +128,7 @@ function addLevelsAccounts(dataLevels) {
             })
         }
         dataLevelsAccounts.push({
-            type: "line",
+            type: "stepLine",
             name: username,
             showInLegend: true,
             markerSize: 0,

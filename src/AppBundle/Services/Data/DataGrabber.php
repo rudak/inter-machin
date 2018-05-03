@@ -6,6 +6,7 @@ use AppBundle\Entity\Action\Alive;
 use AppBundle\Entity\Action\Game;
 use AppBundle\Entity\Action\Purchase;
 use AppBundle\Entity\Bank\Account;
+use AppBundle\Entity\Stats\ResourceStatus;
 use AppBundle\Entity\Weapon;
 use AppBundle\Services\Game\Dice;
 use AppBundle\Services\Game\OneTen;
@@ -124,5 +125,19 @@ class DataGrabber
     public function getGameDicesData()
     {
         return $this->em->getRepository(Game::class)->getGameInfos(Dice::GAME_NAME);
+    }
+
+    public function getResourceEvolutionData()
+    {
+        $resources = $this->em->getRepository(ResourceStatus::class)->getResourcesEvolution();
+        $out       = [];
+        foreach ($resources as $resource) {
+            /** @var $resource ResourceStatus */
+            $out[$resource->getResource()->getName()][] = [
+                'date'  => (int)$resource->getDate()->format('U') * 1000,
+                'value' => round($resource->getValue() * 100 / $resource->getResource()->getDefault()),
+            ];
+        }
+        return $out;
     }
 }

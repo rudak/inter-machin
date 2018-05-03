@@ -4,13 +4,14 @@
         <div class="col">
             <ul>
                 <li><a href="{{ path('homepage') }}">Accueil</a></li>
-                {#<li><a href="{{ path('user_list') }}">Joueurs de votre ville</a></li>#}
                 <li><a href="{{ path('store_list') }}">Magasin</a></li>
                 <li><a href="{{ path('ranking') }}">Classement</a></li>
                 <li><a href="{{ path('cities') }}">Les villes</a></li>
+                <li><a href="{{ path('trading') }}">Trading</a></li>
                 <li><a href="{{ path('bank_index') }}">Banque</a></li>
                 <li><a href="{{ path('game_index') }}">Gameland</a></li>
                 <li><a href="{{ path('church_index') }}">Église</a></li>
+                <li><a href="{{ path('dojo_index') }}">Dojo</a></li>
             </ul>
         </div>
         <div class="col">
@@ -36,7 +37,8 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col text-center">Ville : <a
-                                        href="{{ path('user_list') }}">{{ app.user.city.name }}</a></div>
+                                        href="{{ path('city',{id:app.user.city.id,slug:app.user.city.name|slugify}) }}">{{ app.user.city.name }}</a>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col text-center">

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Trading</h1>
+                <p class="lead">
+                    Achetez bas, vendez haut, devenez Jérôme Kerviel !
+                </p>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="resources">
+                            <table class="table">
+                                <theader>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Quantité</th>
+                                        <th>Valeur</th>
+                                        <th>Evolution</th>
+                                    </tr>
+                                </theader>
+                                <tbody>
+                                {% for resource in resources %}
+                                    {% set evolution = (100*resource.value/resource.default)|round(1, 'floor') %}
+
+                                    <tr class="
+                                    {% if evolution < 100 %}
+                                    table-success
+                                    {% elseif evolution == 100 %}
+                                    table-primary
+                                    {% elseif evolution >= 100 and evolution < 130 %}
+                                    table-warning
+                                    {% else %}
+                                    table-danger
+                                    {% endif %}">
+                                        <td>{{ resource.name }}</td>
+                                        <td>{{ resource.quantity }}</td>
+                                        <td>{{ resource.value }}</td>
+                                        <td>
+                                            {{ evolution }}%
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.canvasjs.min.js') }}"></script>
+    <script src="{{ asset('js/resources.js') }}"></script>
+{% endblock %}

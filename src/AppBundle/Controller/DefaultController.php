@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Bank\Account;
 use AppBundle\Entity\City;
 use AppBundle\Entity\Item;
+use AppBundle\Entity\Trade\Resource;
 use AppBundle\Services\Action\City\CityHandler;
 use AppBundle\Services\Action\User\LevelUp;
 use AppBundle\Services\Game\Dice;
@@ -30,20 +31,6 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         return $this->render(':default:listLogs.html.twig', [
             'logs' => [],
-        ]);
-    }
-
-    /**
-     * Lister les users qu'il y a dans la ville
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function usersAction()
-    {
-        $em    = $this->getDoctrine()->getManager();
-        $users = $em->getRepository(User::class)->getUsersByCity($this->getUser()->getCity());
-        return $this->render('default/users.html.twig', [
-            'users' => $users,
-            'city'  => $this->getUser()->getCity(),
         ]);
     }
 
@@ -86,26 +73,7 @@ class DefaultController extends Controller
 
     public function testAction()
     {
-//        $agi1 = 0;
-//        $agi2 = 0;
-//
-//        $chanceVoleur = 10 * 2.9901 / log10($agi1 + 12);
-//        $chanceVoler  = 5 * 2.9901 / log10($agi2 + 12);
-//
-//        $chanceBase = ($chanceVoler / $chanceVoleur) * 100;
-//
-//        $p = rand(0, 99);
-//
-//        if ($p < $chanceBase) {
-//            echo 'Je vole';
-//        }
-//        dump($chanceBase);
-//        die;
-
-        $dices = $this->get(Dice    ::class)->execute($this->getUser(), 100);
-        dump($dices);
-        die;
-
+        die('test page');
         return $this->render(':default:test.html.twig');
     }
 
@@ -179,4 +147,10 @@ class DefaultController extends Controller
         return $this->redirectToRoute('homepage');
     }
 
+    public function tradingAction()
+    {
+        $em        = $this->getDoctrine()->getManager();
+        $resources = $em->getRepository(Resource::class)->findAll();
+        return $this->render(':default:resources.html.twig', ['resources' => $resources]);
+    }
 }

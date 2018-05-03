@@ -42,7 +42,8 @@
                                                           method="post">
                                                         <input type="hidden" name="_csrf_token"
                                                                value="{{ csrf_token('cancel_loan') }}">
-                                                        <input type="submit" value="Annuler" class="btn btn-sm btn-danger">
+                                                        <input type="submit" value="Annuler"
+                                                               class="btn btn-sm btn-danger">
                                                     </form>
                                                 {% elseif loan.status == 'validated' %}
                                                     {{ loan.restToPay }}$
@@ -62,19 +63,17 @@
                             </li>
                             <li class="list-group-item">
                                 {% if bankSaving is not null %}
-                                    Vous avez {{ bankSaving }}$ de placé
-                                    {% else %}
-                                    Vous n'avez encore rien placé
+                                    Vous avez {{ bankSaving }}$ sur votre épargne.
+                                {% else %}
+                                    Vous n'avez encore rien sur votre épargne.
                                 {% endif %}
                             </li>
                         </ul>
-
                     </div>
                     <div class="col">
                         <h3>Historique</h3>
                         <hr>
                         <table class="table table-sm">
-
                             <tbody>
                             {% for loan in inactiveLoans %}
                                 <tr class="">
@@ -92,7 +91,6 @@
                                 </tr>
                             {% endfor %}
                             </tbody>
-
                         </table>
                     </div>
                 </div>

@@ -45,9 +45,18 @@ app_default_weapon:
 app_game:
     resource: "@AppBundle/Resources/config/routing/game.yml"
     prefix:   /game
+
 app_church:
     resource: "@AppBundle/Resources/config/routing/church.yml"
     prefix:   /church
+
+app_dojo:
+    resource: "@AppBundle/Resources/config/routing/dojo.yml"
+    prefix:   /dojo
+
+app_trading:
+    resource: "@AppBundle/Resources/config/routing/trading.yml"
+    prefix:   /trading
 
 app_admin:
     resource: "@AppBundle/Resources/config/routing/admin.yml"
