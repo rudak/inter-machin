@@ -294,8 +294,10 @@ class User extends BaseUser
 
     public function addActionPoint($number)
     {
+        if ($this->action >= AppConfig::USER_MAX_ACTION_POINT) {
+            return;
+        }
         $this->action += $number;
-        $this->action = $this->action > AppConfig::USER_MAX_ACTION_POINT ? AppConfig::USER_MAX_ACTION_POINT : $this->action;
         return $this->action;
     }
 

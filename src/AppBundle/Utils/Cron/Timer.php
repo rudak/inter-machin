@@ -35,7 +35,8 @@ class Timer
     {
         list($minute, $hour, $dayOfMonth, $month, $dayOfWeek) = explode(' ', $cronTime);
 
-        return self::checkMinute($minute, $now) &&
+        return
+            self::checkMinute($minute, $now) &&
             self::checkHour($hour, $now) &&
             self::checkDayOfMonth($dayOfMonth, $now) &&
             self::checkMonth($month, $now) &&
@@ -44,42 +45,27 @@ class Timer
 
     private static function checkMinute($minute, $now)
     {
-        if ($minute == '*' || $minute == $now->format(self::FORMAT_MINUTE)) {
-            return true;
-        }
-        return false;
+        return ($minute == '*' || $minute == $now->format(self::FORMAT_MINUTE));
     }
 
     private static function checkHour($hour, $now)
     {
-        if ($hour == '*' || $hour == $now->format(self::FORMAT_HOUR)) {
-            return true;
-        }
-        return false;
+        return ($hour == '*' || $hour == $now->format(self::FORMAT_HOUR));
     }
 
     private static function checkDayOfMonth($dayOfMonth, $now)
     {
-        if ($dayOfMonth == '*' || $dayOfMonth == $now->format(self::FORMAT_DAY_OF_MONTH)) {
-            return true;
-        }
-        return false;
+        return ($dayOfMonth == '*' || $dayOfMonth == $now->format(self::FORMAT_DAY_OF_MONTH));
     }
 
     private static function checkMonth($month, $now)
     {
-        if ($month == '*' || $month == $now->format(self::FORMAT_MONTH)) {
-            return true;
-        }
-        return false;
+        return ($month == '*' || $month == $now->format(self::FORMAT_MONTH));
     }
 
     private static function checkDayOfWeek($dayOfWeek, $now)
     {
-        if ($dayOfWeek == '*' || $dayOfWeek == $now->format(self::FORMAT_DAY_OF_WEEK)) {
-            return true;
-        }
-        return false;
+        return ($dayOfWeek == '*' || $dayOfWeek == $now->format(self::FORMAT_DAY_OF_WEEK));
     }
 
 }
