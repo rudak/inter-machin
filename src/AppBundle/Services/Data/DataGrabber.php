@@ -129,7 +129,8 @@ class DataGrabber
 
     public function getResourceEvolutionData()
     {
-        $resources = $this->em->getRepository(ResourceStatus::class)->getResourcesEvolution();
+        $from      = new \DateTime('-1 day');
+        $resources = $this->em->getRepository(ResourceStatus::class)->getResourcesEvolution($from);
         $out       = [];
         foreach ($resources as $resource) {
             /** @var $resource ResourceStatus */

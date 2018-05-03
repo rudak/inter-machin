@@ -11,11 +11,15 @@ namespace AppBundle\Repository\Stats;
 class ResourceStatusRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getResourcesEvolution()
+    public function getResourcesEvolution(\DateTime $fromDate)
     {
         $qb = $this->createQueryBuilder('s')
                    ->addSelect('r')
                    ->leftJoin('s.resource', 'r')
+                   ->where('s.date > :date')
+                   ->setParameters([
+                       'date' => $fromDate,
+                   ])
                    ->orderBy('s.date', 'DESC')
                    ->getQuery()
         ;
