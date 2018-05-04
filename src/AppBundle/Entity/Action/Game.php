@@ -54,14 +54,14 @@ class Game implements ActionInterface
     /**
      * @var int
      *
-     * @ORM\Column(name="gain", type="smallint", nullable=true)
+     * @ORM\Column(name="gain", type="integer", nullable=true)
      */
     private $gain;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="amount", type="smallint", nullable=true)
+     * @ORM\Column(name="amount", type="integer", nullable=true)
      */
     private $amount;
 

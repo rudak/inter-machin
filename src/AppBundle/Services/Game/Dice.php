@@ -12,17 +12,19 @@ use UserBundle\Entity\User;
 
 class Dice extends GameMaster
 {
-    const GAME_NAME               = 'Dice';
-    const PA_COST                 = 8;
-    const NB_DICES                = 5;
+    const GAME_NAME = 'Dice';
+    const PA_COST   = 8;
+    const NB_DICES  = 5;
 
-    const GAIN_COEF_FOR_PAIR      = 2;
-    const GAIN_COEF_FOR_TWO_PAIRS = 3;
-    const GAIN_COEF_FOR_BRELAN    = 4;
-    const GAIN_COEF_FOR_SQUARE    = 6;
-    const GAIN_COEF_FOR_QUINT     = 8;
-    const GAIN_COEF_FOR_FULL      = 11;
-    const GAIN_COEF_FOR_SUIT      = 15;
+    const GAIN_COEF_FOR_PAIR             = 2;
+    const GAIN_COEF_FOR_TWO_PAIRS        = 3;
+    const GAIN_COEF_FOR_BRELAN           = 4;
+    const GAIN_COEF_FOR_SQUARE           = 6;
+    const GAIN_COEF_FOR_QUINT            = 8;
+    const GAIN_COEF_FOR_FULL             = 11;
+    const GAIN_COEF_FOR_SUIT             = 15;
+    const GAIN_COEF_MIN_FOR_STEAL_BANKER = 20;
+    const GAIN_COEF_MAX_FOR_STEAL_BANKER = 30;
 
     private $pair = [];
 
@@ -43,6 +45,13 @@ class Dice extends GameMaster
         if (mt_rand(0, 10) == 3) {
             $this->session->getFlashBag()->add('warning', $this->getLooseReason());
             $this->recordGameAction($user, null, $amount, false);
+            return;
+        }
+        if (mt_rand(0, 100) == 3) {
+            $gain = $amount * rand(self::GAIN_COEF_MIN_FOR_STEAL_BANKER, self::GAIN_COEF_MAX_FOR_STEAL_BANKER);
+            $this->session->getFlashBag()->add('success', sprintf("Vous profitez d'un moment d'inattention pour voler %d$ au banquier ! Good job ! ^^", $gain));
+            $user->addMoney($gain);
+            $this->recordGameAction($user, $gain, $amount, true);
             return;
         }
 
